@@ -1,0 +1,30 @@
+
+# using 'docker-compose up' restarts the docker service
+# using 'docker-compose down' stopping everything that was happeing
+
+# docker-php-ext-install mysqli
+
+version: '3' # Docker Version
+services:
+  www:
+    image: php:apache # pulls apache image for php
+    volumes:
+      - "./:/var/www/html" # sync project dir with container web dir
+    ports:
+      - 8080:80
+      - 8443:443 # for future ssl traffic
+  db:
+    image: mysql:latest # pulls the latest image of mysql from docker
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - "./db:/docker-entrypoint-initdb.d" #sync persistent sql files with container
+  phpmyadmin:
+    image: phpmyadmin
+    ports:
+      - 8001:80
+    environment:
+      - PMA_HOST=db
