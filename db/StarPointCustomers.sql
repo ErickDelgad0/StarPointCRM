@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Sep 24, 2023 at 09:44 PM
+-- Generation Time: Sep 27, 2023 at 03:14 PM
 -- Server version: 8.1.0
 -- PHP Version: 8.2.10
 
@@ -42,6 +42,19 @@ INSERT INTO `Customer` (`id`, `firstname`, `lastname`, `DOB`) VALUES
 (1, 'Erick', 'Delgado', '2001-08-12'),
 (2, 'Madison', 'Becker', '2001-11-25');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Users`
+--
+
+CREATE TABLE `Users` (
+  `userId` int NOT NULL,
+  `userName` varchar(30) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `email` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -53,6 +66,12 @@ ALTER TABLE `Customer`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `Users`
+--
+ALTER TABLE `Users`
+  ADD PRIMARY KEY (`userId`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -61,6 +80,12 @@ ALTER TABLE `Customer`
 --
 ALTER TABLE `Customer`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `Users`
+--
+ALTER TABLE `Users`
+  MODIFY `userId` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

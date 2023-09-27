@@ -41,6 +41,9 @@ function DisplayCustomerTable() {
 
     $tableHTML .= "</table>";
 
+    // Close DB connection
+    mysqli_close($db_connect);
+
     return $tableHTML;
 }
 
