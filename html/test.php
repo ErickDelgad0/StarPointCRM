@@ -1,6 +1,6 @@
 <!-- localhost:8080/html/dashboard.php -->
 
-<?php include '../php/CustomerFunctions.php'; ?>
+<?php include '../php/functions.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">

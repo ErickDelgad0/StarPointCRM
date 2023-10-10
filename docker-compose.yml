@@ -2,7 +2,7 @@
 # using 'docker-compose up' restarts the docker service
 # using 'docker-compose down' stopping everything that was happeing
 
-# docker-php-ext-install mysqli
+# docker-php-ext-install pdo pdo_mysql mysqli
 
 version: '3' # Docker Version
 services:
