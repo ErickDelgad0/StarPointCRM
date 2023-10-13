@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +32,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="CRM.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="CRM.php">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -43,7 +44,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="CRM.html">
+                <a class="nav-link" href="CRM.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -62,7 +63,7 @@
 
             <!-- Nav Item - Ambetter -->
             <li class="nav-item">
-                <a class="nav-link" href="ambetter.html">
+                <a class="nav-link" href="ambetter.php">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Ambetter</span></a>
             </li>
@@ -90,6 +91,7 @@
 
             <!-- Main Content -->
             <div id="content">
+
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand topbar mb-4 static-top">
                 </nav>
