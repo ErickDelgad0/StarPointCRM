@@ -1,121 +1,120 @@
 <?php
 include '../php/functions.php';
 
-
 // Connect to MySQL database
 $pdo = pdo_connect_mysql();
+
+$default_records_per_page = 20;
+
+// Bulk action handler
+if (isset($_GET['bulk_action'])) {
+	// Get the IDs of the selected records
+	$ids = isset($_GET['record']) && is_array($_GET['record']) ? array_filter($_GET['record'], 'is_numeric') : null;
+	// Make sure we have IDs
+	if ($ids) {
+		// Delete records
+		if ($_GET['bulk_action'] == 'delete') {
+			// Delete from the database
+			$stmt = $pdo->prepare('DELETE FROM Customers WHERE id IN (' . implode(',', array_fill(0, count($ids), '?')) . ')');
+			$stmt->execute($ids);
+		}
+		// Export records to CSV file
+		if ($_GET['bulk_action'] == 'export') {
+			// Prepare the SQL statement, we basically want to select all the records where the ID is in the POST values
+			$stmt = $pdo->prepare('SELECT * FROM Customers WHERE id IN (' . implode(',', array_fill(0, count($ids), '?')) . ')');
+			$stmt->execute($ids);
+			$records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			// Download the CSV file - we force this by sending a HTTP header with header()
+			header('Content-Type: text/csv; charset=utf-8');
+			header('Content-Disposition: attachment; filename=Customers.csv');
+			$output = fopen('php://output', 'w');
+			fputcsv($output, ['id','first_name','last_name','email','phone','title','created']);
+			foreach ($records as $record) {
+				fputcsv($output, $record);
+			}
+			fclose($output);
+			exit;
+		}
+		// Edit records
+		if ($_GET['bulk_action'] == 'edit') {
+			// Redirect to the bulk-update.php page, with all the IDs specified in the URL parameters
+			header('Location: bulk-update.php?ids=' . implode(',', $ids));
+			exit;
+		}
+	}
+}
 // Get the page via GET request (URL param: page), if non exists default the page to 1
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 // Number of records to show on each page
-$records_per_page = 5;
-
-// Prepare the SQL statement and get records from our Customer table, LIMIT will determine the page
-$stmt = $pdo->prepare('SELECT * FROM Customers ORDER BY id LIMIT :current_page, :record_per_page');
-$stmt->bindValue(':current_page', ($page-1)*$records_per_page, PDO::PARAM_INT);
-$stmt->bindValue(':record_per_page', $records_per_page, PDO::PARAM_INT);
+$records_per_page = isset($_GET['records_per_page']) && (is_numeric($_GET['records_per_page']) || $_GET['records_per_page'] == 'all') ? $_GET['records_per_page'] : $default_records_per_page;
+// Column list
+$columns = ['id', 'first_name', 'last_name', 'email', 'phone', 'title', 'created'];
+// Order by which column if specified (default to id)
+$order_by = isset($_GET['order_by']) && in_array($_GET['order_by'], $columns) ? $_GET['order_by'] : 'id';
+// Sort by ascending or descending if specified (default to ASC)
+$order_sort = isset($_GET['order_sort']) && $_GET['order_sort'] == 'DESC' ? 'DESC' : 'ASC';
+// Filter params
+$from_date = isset($_GET['from_date']) ? $_GET['from_date'] : '';
+$to_date = isset($_GET['to_date']) ? $_GET['to_date'] : '';
+// Where SQL condition
+$where_sql = '';
+// Add search to SQL query (if search term exists)
+if (isset($_GET['search']) && !empty($_GET['search'])) {
+	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  ' first_name LIKE :search_query OR last_name LIKE :search_query OR email LIKE :search_query OR phone LIKE :search_query OR title LIKE :search_query OR created LIKE :search_query ';
+}
+// Add from and/or to date filter to SQL query (if set); It will only work if the "created" column exists in your database! Rename the column below if you want to use a different DATETIME column
+if (!empty($from_date) && !empty($to_date)) {
+	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  ' created BETWEEN :from_date AND :to_date ';
+} else if (!empty($from_date)) {
+	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  ' created >= :from_date ';
+} else if (!empty($to_date)) {
+	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  ' created <= :to_date ';
+}
+// Limit SQL
+$limit_sql = '';
+if ($records_per_page != 'all') {
+	$limit_sql = ' LIMIT :current_page, :record_per_page ';
+}
+// SQL statement to get all Customers with search query
+$stmt = $pdo->prepare('SELECT * FROM Customers ' . $where_sql . ' ORDER BY ' . $order_by . ' ' . $order_sort . $limit_sql);
+// Bind the search query param to the SQL query
+if (isset($_GET['search']) && !empty($_GET['search'])) {	
+	$stmt->bindValue(':search_query', '%' . $_GET['search'] . '%');
+}
+// Bind the page and records per page params to the SQL query
+if ($records_per_page != 'all') {
+	$stmt->bindValue(':current_page', ($page-1)*(int)$records_per_page, PDO::PARAM_INT);
+	$stmt->bindValue(':record_per_page', (int)$records_per_page, PDO::PARAM_INT);
+}
+// Bind the from and to date params to the SQL query
+if (!empty($from_date)) {
+	$stmt->bindValue(':from_date', date('Y-m-d H:i:s', strtotime($from_date)));
+}
+if (!empty($to_date)) {
+	$stmt->bindValue(':to_date', date('Y-m-d H:i:s', strtotime($to_date)));
+}
+// Execute the prepared statement and fetch the results
 $stmt->execute();
-
-// Fetch the records so we can display them in our template.
-$Customers = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Get the total number of Customers, this is so we can determine whether there should be a next and previous button
-$num_Customers = $pdo->query('SELECT COUNT(*) FROM Customers')->fetchColumn();
+// Fetch the records so we can populate them in our template below.
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Get the total number of Customers, so we can determine whether there should be a next and previous button
+$stmt = $pdo->prepare('SELECT COUNT(*) FROM Customers ' . $where_sql);
+// Bind the search query param to the SQL query
+if (isset($_GET['search']) && !empty($_GET['search'])) {	
+	$stmt->bindValue(':search_query', '%' . $_GET['search'] . '%');
+}
+// Bind the from and to date params to the SQL query
+if (!empty($from_date)) {
+	$stmt->bindValue(':from_date', date('Y-m-d H:i:s', strtotime($from_date)));
+}
+if (!empty($to_date)) {
+	$stmt->bindValue(':to_date', date('Y-m-d H:i:s', strtotime($to_date)));
+}
+$stmt->execute();
+// Total number of results
+$num_results = $stmt->fetchColumn();
 ?>
-
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="?">
-    <meta name="author" content="Erick Delgado">
-
-    <title>Star Point - Ambetter</title>
-
-    <!-- Custom fonts for this template -->
-    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-
-
-    <!-- Custom styles for this template -->
-    <link href="../css/CRM/sb-admin-2.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this page -->
-    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-    <link href="../css/ambetter.css" rel="stylesheet">
-</head>
-
-<body id="page-top">
-
-    <!-- Page Wrapper -->
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="CRM.php">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Star Point</div>
-            </a>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="CRM.php">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Data Tables
-            </div>
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Ambetter -->
-            <li class="nav-item">
-                <a class="nav-link" href="ambetter.php">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Ambetter</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.php">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        </ul>
-        <!-- End of Sidebar -->
+<?=CRM_header("Ambetter Contacts")?>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -131,10 +130,6 @@ $num_Customers = $pdo->query('SELECT COUNT(*) FROM Customers')->fetchColumn();
 
 
                 <!-- Begin Page Content -->
-
-                
-
-
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
@@ -143,44 +138,178 @@ $num_Customers = $pdo->query('SELECT COUNT(*) FROM Customers')->fetchColumn();
                             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                     class="fas fa-download fa-sm text-white-50"></i> Refresh All</a>
                     </div>
-                    <div class="content read">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Name</td>
-                                    <td>Email</td>
-                                    <td>Phone</td>
-                                    <td>Title</td>
-                                    <td>Created</td>
-                                    <td></td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($Customers as $Customer): ?>
-                                <tr>
-                                    <td><?=$Customer['id']?></td>
-                                    <td><?=$Customer['name']?></td>
-                                    <td><?=$Customer['email']?></td>
-                                    <td><?=$Customer['phone']?></td>
-                                    <td><?=$Customer['title']?></td>
-                                    <td><?=$Customer['created']?></td>
-                                    <td class="actions">
-                                        <a href="../php/update.php?id=<?=$Customer['id']?>" class="edit"><i class="fas fa-pen fa-xs"></i></a>
-                                        <a href="../php/delete.php?id=<?=$Customer['id']?>" class="trash"><i class="fas fa-trash fa-xs"></i></a>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                        <div class="pagination">
-                            <?php if ($page > 1): ?>
-                            <a href="ambetter.php?page=<?=$page-1?>"><i class="fas fa-angle-double-left fa-sm"></i></a>
-                            <?php endif; ?>
-                            <?php if ($page*$records_per_page < $num_Customers): ?>
-                            <a href="ambetter.php?page=<?=$page+1?>"><i class="fas fa-angle-double-right fa-sm"></i></a>
-                            <?php endif; ?>
-                        </div>
+
+                    <div class="style-content read">
+                        <form action="" method="get" class="crud-form">
+
+                            <div class="top">
+                                <div class="btns">
+                                    <a href="create.php" class="btn">Create Contact</a>
+                                </div>
+                                <div class="wrap">
+                                    <div class="filters">
+                                        <a href="#" class="toggle-filters-btn"><i class="fa-solid fa-sliders"></i></a>
+                                        <div class="dropdown">
+                                            <label for="from_date">From</label>
+                                            <input type="datetime-local" name="from_date" id="from_date" value="<?=isset($_GET['from_date']) ? htmlentities($_GET['from_date'], ENT_QUOTES) : ''?>">
+                                            <label for="to_date">To</label>
+                                            <input type="datetime-local" name="to_date" id="to_date" value="<?=isset($_GET['to_date']) ? htmlentities($_GET['to_date'], ENT_QUOTES) : ''?>">
+                                            <button type="submit" class="btn">Filter</button>
+                                        </div>
+                                    </div>
+                                    <div class="search">
+                                        <input type="text" name="search" placeholder="Search..." value="<?=isset($_GET['search']) ? htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td class="checkbox">
+                                                <input type="checkbox" class="select-all">
+                                            </td>
+                                            <td<?=$order_by=='id'?' class="active"':''?>>
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=id&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                    #
+                                                    <?php if ($order_by == 'id'): ?>
+                                                    <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
+                                                    <?php endif; ?>
+                                                </a>
+                                            </td>
+                                            <td<?=$order_by=='first_name'?' class="active"':''?>>
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=first_name&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                    First Name
+                                                    <?php if ($order_by == 'first_name'): ?>
+                                                    <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
+                                                    <?php endif; ?>
+                                                </a>
+                                            </td>			
+                                            <td<?=$order_by=='last_name'?' class="active"':''?>>
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=last_name&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                    Last Name
+                                                    <?php if ($order_by == 'last_name'): ?>
+                                                    <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
+                                                    <?php endif; ?>
+                                                </a>
+                                            </td>
+                                            <td<?=$order_by=='email'?' class="active"':''?>>
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=email&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                    Email
+                                                    <?php if ($order_by == 'email'): ?>
+                                                    <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
+                                                    <?php endif; ?>
+                                                </a>
+                                            </td>
+                                            <td<?=$order_by=='phone'?' class="active"':''?>>
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=phone&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                    Phone
+                                                    <?php if ($order_by == 'phone'): ?>
+                                                    <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
+                                                    <?php endif; ?>
+                                                </a>
+                                            </td>
+                                            <td<?=$order_by=='title'?' class="active"':''?>>
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=title&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                    Title
+                                                    <?php if ($order_by == 'title'): ?>
+                                                    <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
+                                                    <?php endif; ?>
+                                                </a>
+                                            </td>
+                                            <td<?=$order_by=='created'?' class="active"':''?>>
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=created&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                    Created
+                                                    <?php if ($order_by == 'created'): ?>
+                                                    <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
+                                                    <?php endif; ?>
+                                                </a>
+                                            </td>			
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php if (empty($results)): ?>
+                                        <tr>
+                                            <td colspan="10" style="text-align:center;">There are no records.</td>
+                                        </tr>
+                                        <?php endif; ?>
+                                        <?php foreach ($results as $result): ?>
+                                        <tr>
+                                            <td class="checkbox"><input type="checkbox" value="<?=$result['id']?>" name="record[]"></td>
+                                            <td class="id"><?=$result['id']?></td>
+                                            <td class="first_name"><?=htmlspecialchars($result['first_name'], ENT_QUOTES)?></td>
+                                            <td class="last_name"><?=htmlspecialchars($result['last_name'], ENT_QUOTES)?></td>
+                                            <td class="email"><?=htmlspecialchars($result['email'], ENT_QUOTES)?></td>
+                                            <td class="phone"><?=htmlspecialchars($result['phone'], ENT_QUOTES)?></td>
+                                            <td class="title"><?=htmlspecialchars($result['title'], ENT_QUOTES)?></td>
+                                            <td class="created"><?=date('Y-m-d H:i', strtotime($result['created']))?></td>
+                                            <td class="actions">
+                                                <a href="update.php?id=<?=$result['id']?>" class="edit"><i class="fa-solid fa-pen fa-xs"></i></a>
+                                                <a href="delete.php?id=<?=$result['id']?>" class="trash"><i class="fa-solid fa-xmark fa-xs"></i></a>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="bot">
+                                <div class="records-per-page">
+                                    <select name="bulk_action" class="bulk-action">
+                                        <option value="" disabled selected>Bulk Actions</option>
+                                        <option value="delete">Delete</option>
+                                        <option value="edit">Edit</option>
+                                        <option value="export">Export</option>
+                                    </select>
+                                    <a href="ambetter.php?page=1&records_per_page=5&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">5</a>
+                                    <a href="ambetter.php?page=1&records_per_page=10&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">10</a>
+                                    <a href="ambetter.php?page=1&records_per_page=20&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">20</a>
+                                    <a href="ambetter.php?page=1&records_per_page=50&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">50</a>
+                                    <a href="ambetter.php?page=1&records_per_page=100&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">100</a>
+                                    <a href="ambetter.php?page=1&records_per_page=all&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">all</a>
+                                </div>
+                                <div class="pagination">
+                                    <?php if ($records_per_page != 'all'): ?>
+                                    <?php if ($page > 1): ?>
+                                    <a href="ambetter.php?page=<?=$page-1?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>" class="prev">
+                                        <i class="fa-solid fa-angle-left"></i> Prev
+                                    </a>
+                                    <?php endif; ?>
+                                    <?php if ($page > 1): ?>
+                                    <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">1</a>
+                                    <?php endif; ?>
+                                    <?php if ($page > 2): ?>
+                                    <div class="dots">...</div>
+                                    <?php if ($page == ceil($num_results/$records_per_page) && ceil($num_results/$records_per_page) > 3): ?>
+                                    <a href="ambetter.php?page=<?=$page-2?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=$page-2?></a>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
+                                    <?php if ($page-1 > 1): ?>
+                                    <a href="ambetter.php?page=<?=$page-1?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=$page-1?></a>
+                                    <?php endif; ?>
+                                    <a href="ambetter.php?page=<?=$page?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>" class="selected"><?=$page?></a>
+                                    <?php if ($page+1 < ceil($num_results/$records_per_page)): ?>
+                                    <a href="ambetter.php?page=<?=$page+1?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=$page+1?></a>
+                                    <?php if ($page == 1 && $page+2 < ceil($num_results/$records_per_page)): ?>
+                                    <a href="ambetter.php?page=<?=$page+2?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=$page+2?></a>
+                                    <?php endif; ?>
+                                    <div class="dots">...</div>
+                                    <?php endif; ?>
+                                    <?php if ($page < ceil($num_results/$records_per_page)): ?>
+                                    <a href="ambetter.php?page=<?=ceil($num_results/$records_per_page)?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=ceil($num_results/$records_per_page)?></a>
+                                    <?php endif; ?>
+                                    <?php if ($records_per_page != 'all' && $page < ceil($num_results/$records_per_page)): ?>
+                                    <a href="ambetter.php?page=<?=$page+1?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>" class="next">
+                                        Next <i class="fa-solid fa-angle-right"></i>
+                                    </a>
+                                    <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </form>
                     </div>
 
                 
@@ -188,15 +317,7 @@ $num_Customers = $pdo->query('SELECT COUNT(*) FROM Customers')->fetchColumn();
             </div>
             <!-- End of Main Content -->
 
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Star Point 2023</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
+            <?=CRM_footer()?>
 
         </div>
         <!-- End of Content Wrapper -->
@@ -208,26 +329,6 @@ $num_Customers = $pdo->query('SELECT COUNT(*) FROM Customers')->fetchColumn();
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="../vendor/jquery/jquery.min.js"></script>
@@ -245,6 +346,9 @@ $num_Customers = $pdo->query('SELECT COUNT(*) FROM Customers')->fetchColumn();
 
     <!-- Page level custom scripts -->
     <script src="../js/demo/datatables-demo.js"></script>
+
+    <!-- Tables Script -->
+    <script src="../js/script.js"></script>
 
 </body>
 

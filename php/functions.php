@@ -75,31 +75,139 @@ function pdo_connect_mysql() {
 
 function CRM_header($title) {
 echo <<<EOT
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Star-Point-CRM</title>
 
-        <link href="../css/CRM.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
-    </head>
-    <body>
-    <nav class="navtop">
-        <div>
-            <h1>StarPoint-CRM</h1>
-            <a href="CRM.php"><i class="fas fa-home"></i>Home</a>
-            <a href="read.php"><i class="fas fa-address-book"></i>Contacts</a>
-        </div>
-    </nav>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>$title</title>
+    <meta name="author" content="Erick Delgado">
+
+    <!-- Custom fonts for this template -->
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../css/CRM/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+    <!-- DB Table Styling -->
+    <link href="../css/CRM/style.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="CRM.php">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Star Point</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="CRM.php">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Data Tables
+            </div>
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Nav Item - Ambetter -->
+            <li class="nav-item">
+                <a class="nav-link" href="ambetter.php">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Ambetter</span></a>
+            </li>
+
+            <!-- Nav Item - Agentcrm -->
+            <li class="nav-item">
+                <a class="nav-link" href="agentcrm.php">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Agent CRM</span></a>
+            </li>
+
+            <!-- Nav Item - Leads -->
+            <li class="nav-item">
+                <a class="nav-link" href="leads.php">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Leads</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
 EOT;
 }
 
 function CRM_footer() {
 echo <<<EOT
-    </body>
-</html>
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Star-Point 2023</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+EOT;
+}
+
+function js_torun(){
+echo <<<EOT
+    <!-- Bootstrap core JavaScript-->
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="../js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="../js/demo/datatables-demo.js"></script>
+
+    <!-- Tables Script -->
+    <script src="../js/script.js"></script>
 EOT;
 }
 ?>

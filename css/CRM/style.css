@@ -1,0 +1,523 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css);
+* {
+  box-sizing: border-box;
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 16px;
+}
+
+body {
+  background-color: #FFFFFF;
+  margin: 0;
+}
+
+.header {
+  background-color: #38424e;
+  height: 60px;
+  width: 100%;
+}
+.header .wrapper {
+  display: flex;
+  position: relative;
+  margin: 0 auto;
+  max-width: 980px;
+  width: 100%;
+  height: 100%;
+}
+.header .wrapper h1, .header .wrapper a, .header .wrapper label {
+  display: inline-flex;
+  align-items: center;
+}
+.header .wrapper h1 {
+  flex: 1;
+  font-size: 20px;
+  padding: 0;
+  margin: 0;
+  color: #ebeced;
+  font-weight: normal;
+}
+.header .wrapper label, .header .wrapper input[type=checkbox] {
+  display: none;
+}
+.header .wrapper label {
+  justify-content: center;
+  width: 60px;
+  border-left: 1px solid #2f3842;
+  cursor: pointer;
+}
+.header .wrapper label i {
+  color: #fff;
+}
+.header .wrapper label:hover i, .header .wrapper label:active i {
+  color: #ebeced;
+}
+.header .wrapper .menu {
+  display: flex;
+  align-items: center;
+}
+.header .wrapper .menu a {
+  padding: 0 15px;
+  text-decoration: none;
+  color: #c3c6ca;
+  font-weight: 500;
+  font-size: 16px;
+}
+.header .wrapper .menu a i {
+  font-size: 14px;
+  padding: 2px 8px 0 0;
+}
+.header .wrapper .menu a:hover {
+  color: #ebeced;
+}
+
+.content {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+.content .page-title {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eceff1;
+  margin-top: 25px;
+  padding-bottom: 25px;
+}
+.content .page-title i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #3dc4ad;
+  color: #FFFFFF;
+  padding: 20px;
+  margin-right: 20px;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+.content .page-title h2 {
+  margin: 0;
+  padding: 0 0 10px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #71767a;
+}
+.content .page-title p {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: #83888b;
+}
+
+.btn {
+  display: inline-block;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  text-decoration: none;
+  background-color: #3d82d1;
+  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.15);
+  font-weight: 500;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #FFFFFF;
+  padding: 10px 15px;
+  margin: 15px 0;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.btn:hover {
+  background-color: #4b5c72;
+}
+.btn.red {
+  background-color: #be3d3d;
+}
+.btn.red:hover {
+  background-color: #c74b4b;
+}
+.btn.green {
+  background-color: #38c573;
+}
+.btn.green:hover {
+  background-color: #2fae66;
+}
+
+.btns .btn {
+  margin-right: 5px;
+}
+
+.read .top {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+.read .top .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.read .top .wrap .filters {
+  position: relative;
+  padding-right: 5px;
+}
+.read .top .wrap .filters .toggle-filters-btn {
+  text-decoration: none;
+  color: #71767a;
+  padding: 10px 15px;
+  border-radius: 4px;
+}
+.read .top .wrap .filters .toggle-filters-btn:hover {
+  background-color: #ebeced;
+}
+.read .top .wrap .filters .dropdown {
+  display: none;
+  flex-flow: column;
+  position: absolute;
+  max-width: 200px;
+  width: 250px;
+  top: calc(100% + 20px);
+  left: 0;
+  z-index: 999;
+  background-color: #FFFFFF;
+  box-shadow: 0 0 7px 0 rgba(0, 0, 0, 0.15);
+  padding: 15px;
+}
+.read .top .wrap .filters .dropdown label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #71767a;
+  margin-bottom: 5px;
+}
+.read .top .wrap .filters .dropdown input, .read .top .wrap .filters .dropdown select {
+  font-size: 14px;
+  padding: 5px 7px;
+}
+.read .top .wrap .filters .dropdown button {
+  margin: 0;
+  padding: 7px;
+}
+.read .top .wrap .filters .dropdown.active {
+  display: flex;
+}
+.read .top .wrap .search input {
+  margin: 15px 0;
+}
+.read .bot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+.read .bot .records-per-page {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.read .bot .records-per-page a {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 14px;
+  background-color: #c2c5c9;
+  font-weight: 500;
+  color: #FFFFFF;
+  padding: 6px 10px;
+  margin: 15px 6px 15px 0;
+  border-radius: 4px;
+}
+.read .bot .records-per-page a:hover {
+  background-color: #b4b8bd;
+}
+.read .bot .records-per-page select {
+  margin: 0 15px 0 0;
+  padding: 0 7px;
+  height: 34px;
+}
+.read .bot .pagination {
+  display: flex;
+  justify-content: flex-end;
+}
+.read .bot .pagination a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 0 15px;
+  margin: 15px 0 15px 5px;
+  height: 34px;
+  border-radius: 4px;
+  color: #3074c2;
+}
+.read .bot .pagination a:hover {
+  background-color: #d0d2d5;
+}
+.read .bot .pagination a.selected {
+  background-color: #3d82d1;
+  color: #FFFFFF;
+}
+.read .bot .pagination a.prev {
+  padding: 0 10px;
+}
+.read .bot .pagination a.prev i {
+  margin-right: 7px;
+}
+.read .bot .pagination a.next {
+  padding: 0 10px;
+}
+.read .bot .pagination a.next i {
+  margin-left: 7px;
+}
+.read .bot .pagination div {
+  display: inline-block;
+  color: #777777;
+  font-weight: bold;
+  padding: 5px 10px;
+  margin: 15px 0 15px 5px;
+}
+.read .table {
+  width: 100%;
+  overflow-x: auto;
+}
+.read .table table {
+  width: 100%;
+  padding-top: 30px;
+  border-collapse: collapse;
+}
+.read .table table thead {
+  background-color: #fff;
+}
+.read .table table thead td {
+  border-bottom: 1px solid #d3dae0;
+  font-weight: 500;
+  color: #a5a7a9;
+  font-size: 14px;
+  padding: 12px;
+}
+.read .table table thead td a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  font-weight: inherit;
+  color: inherit;
+  font-size: inherit;
+}
+.read .table table thead td.active, .read .table table thead td:hover, .read .table table thead td:active {
+  border-bottom: 1px solid #767779;
+}
+.read .table table thead td.active a, .read .table table thead td:hover a, .read .table table thead td:active a {
+  color: #767779;
+}
+.read .table table thead td.checkbox {
+  text-align: center;
+}
+.read .table table thead td.checkbox input {
+  opacity: 0.5;
+}
+.read .table table thead td.checkbox input:checked {
+  opacity: 1;
+}
+.read .table table tbody tr td {
+  border-bottom: 1px solid #e5e9ed;
+  padding: 12px;
+}
+.read .table table tbody tr td:nth-child(1) {
+  color: #a5a7a9;
+}
+.read .table table tbody tr td.actions {
+  white-space: nowrap;
+  padding: 10px 0;
+  text-align: right;
+}
+.read .table table tbody tr td.actions .edit, .read .table table tbody tr td.actions .trash {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: #FFFFFF;
+  background-color: #c2c5c9;
+  border-radius: 4px;
+  width: 28px;
+  height: 28px;
+}
+.read .table table tbody tr td.actions .trash {
+  margin-right: 3px;
+}
+.read .table table tbody tr td.actions .trash:hover {
+  background-color: #be3d3d;
+}
+.read .table table tbody tr td.actions .edit {
+  margin-right: 3px;
+}
+.read .table table tbody tr td.actions .edit:hover {
+  background-color: #38c573;
+}
+.read .table table tbody tr td.checkbox {
+  text-align: center;
+}
+.read .table table tbody tr td.checkbox input {
+  opacity: 0.5;
+}
+.read .table table tbody tr td.checkbox input:checked {
+  opacity: 1;
+}
+.read .table table tbody tr:nth-child(odd) {
+  background-color: #fbfcfc;
+}
+.read .table table tbody tr:hover, .read .table table tbody tr:active, .read .table table tbody tr.selected {
+  background-color: #daedff;
+}
+.read .table table tbody tr:hover td, .read .table table tbody tr:active td, .read .table table tbody tr.selected td {
+  border-bottom: 1px solid #c1e1ff;
+}
+.read .table table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.delete .crud-form {
+  padding: 20px 0;
+}
+
+.crud-form input[type=text], .crud-form input[type=email], .crud-form input[type=password], .crud-form input[type=number], .crud-form input[type=tel], .crud-form input[type=date], .crud-form input[type=datetime-local], .crud-form input[type=file], .crud-form select, .crud-form textarea {
+  display: inline-block;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #d7dbdf;
+  border-radius: 4px;
+}
+.crud-form input[type=text]::-moz-placeholder, .crud-form input[type=email]::-moz-placeholder, .crud-form input[type=password]::-moz-placeholder, .crud-form input[type=number]::-moz-placeholder, .crud-form input[type=tel]::-moz-placeholder, .crud-form input[type=date]::-moz-placeholder, .crud-form input[type=datetime-local]::-moz-placeholder, .crud-form input[type=file]::-moz-placeholder, .crud-form select::-moz-placeholder, .crud-form textarea::-moz-placeholder {
+  color: #a8acaf;
+}
+.crud-form input[type=text]::placeholder, .crud-form input[type=email]::placeholder, .crud-form input[type=password]::placeholder, .crud-form input[type=number]::placeholder, .crud-form input[type=tel]::placeholder, .crud-form input[type=date]::placeholder, .crud-form input[type=datetime-local]::placeholder, .crud-form input[type=file]::placeholder, .crud-form select::placeholder, .crud-form textarea::placeholder {
+  color: #a8acaf;
+}
+.crud-form textarea {
+  resize: none;
+  height: 150px;
+}
+.crud-form input[type=checkbox], .crud-form input[type=radio] {
+  display: inline-block;
+  width: 20px;
+  margin: 0 10px 0 0;
+}
+.crud-form input[type=checkbox] + label, .crud-form input[type=radio] + label {
+  display: inline-block;
+  margin: 0 0 0 5px;
+}
+.crud-form .bulk-action {
+  color: #6f7375;
+}
+.crud-form .bulk-action option {
+  color: #000000;
+}
+.crud-form .bulk-action option:first-child {
+  color: #6f7375;
+}
+.crud-form .style-form-control {
+  display: inline-flex;
+  flex-flow: column;
+  flex-wrap: wrap;
+  width: calc(50% - 10px);
+  padding-bottom: 5px;
+}
+.crud-form .style-form-control label:nth-child(1) {
+  display: block;
+  padding: 0 0 10px 0;
+}
+.crud-form .style-form-control.full {
+  width: 100%;
+}
+.crud-form .search {
+  position: relative;
+}
+.crud-form .search i {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #c2c6ca;
+}
+.crud-form .search input {
+  width: 200px;
+  padding-right: 40px;
+}
+.crud-form .cols {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 800px;
+  width: 100%;
+  padding-top: 30px;
+}
+.crud-form .msg-error, .crud-form .msg-success {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 5px 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+.crud-form .msg-error {
+  color: #be3d3d;
+}
+.crud-form .msg-success {
+  color: #20a758;
+}
+.crud-form h2 {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 25px 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #71767a;
+}
+.crud-form h2:after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 2px;
+  background-color: #d3d7da;
+  margin-top: 15px;
+}
+
+@media screen and (max-width: 1000px) {
+  .header .wrapper {
+    width: 100%;
+  }
+  .header .wrapper h1 {
+    font-size: 18px;
+    padding: 10px;
+  }
+  .header .wrapper label {
+    display: inline-flex;
+  }
+  .header .wrapper .menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    flex-flow: column;
+    background-color: #2d353f;
+    justify-items: flex-start;
+    align-items: flex-start;
+  }
+  .header .wrapper input[type=checkbox]:checked ~ .menu {
+    display: flex;
+  }
+  .header .wrapper input[type=checkbox]:checked ~ .menu a {
+    width: 100%;
+    padding: 15px 17px;
+    border-bottom: 1px solid #272e36;
+  }
+  .crud-form .cols {
+    flex-flow: column;
+  }
+  .crud-form .cols .style-form-control {
+    width: 100%;
+  }
+}
