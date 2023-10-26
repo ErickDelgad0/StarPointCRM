@@ -1,5 +1,5 @@
 <?php
-include '../php/functions.php';
+include '../../php/functions.php';
 ?>
 
 <?=CRM_header('CRM Dashboard')?>

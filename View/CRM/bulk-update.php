@@ -1,5 +1,5 @@
 <?php
-include '../php/functions.php';
+include '../../php/functions.php';
 // Connect to MySQL database
 $pdo = pdo_connect_mysql();
 // Error message
@@ -64,7 +64,7 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
-<?=template_header('Bulk Update')?>
+<?=CRM_header('Bulk Update')?>
 
 <div class="content update">
 

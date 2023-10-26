@@ -1,5 +1,5 @@
 <?php
-include '../php/functions.php';
+include '../../php/functions.php';
 
 // Connect to MySQL database
 $pdo = pdo_connect_mysql();
@@ -114,6 +114,7 @@ $stmt->execute();
 // Total number of results
 $num_results = $stmt->fetchColumn();
 ?>
+
 <?=CRM_header("Ambetter Contacts")?>
 
         <!-- Content Wrapper -->

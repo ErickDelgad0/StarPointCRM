@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Sep 30, 2023 at 02:06 AM
+-- Generation Time: Oct 26, 2023 at 06:34 PM
 -- Server version: 8.1.0
 -- PHP Version: 8.2.10
 
@@ -53,6 +53,28 @@ INSERT INTO `Customers` (`id`, `first_name`, `last_name`, `email`, `phone`, `tit
 (9, 'Jakob', 'Biggs', 'jakobbiggs@example.com', '0125345786', 'Manager', '2023-09-11 16:48:00'),
 (10, 'John', 'Doe', 'johndoe@example.com', '0675213823', 'Manager', '2023-09-12 20:17:00');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Employee`
+--
+
+CREATE TABLE `Employee` (
+  `id` int NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `activation_code` varchar(50) NOT NULL DEFAULT '',
+  `rememberme` varchar(255) NOT NULL DEFAULT '',
+  `phone` varchar(100) NOT NULL,
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `registered` datetime NOT NULL,
+  `type` varchar(25) NOT NULL DEFAULT 'guest',
+  `last_seen` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -64,6 +86,12 @@ ALTER TABLE `Customers`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `Employee`
+--
+ALTER TABLE `Employee`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -71,7 +99,13 @@ ALTER TABLE `Customers`
 -- AUTO_INCREMENT for table `Customers`
 --
 ALTER TABLE `Customers`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `Employee`
+--
+ALTER TABLE `Employee`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
