@@ -267,13 +267,6 @@ select {
   word-wrap: normal;
 }
 
-button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
-  -webkit-appearance: button;
-}
-
 button:not(:disabled),
 [type="button"]:not(:disabled),
 [type="reset"]:not(:disabled),
@@ -330,7 +323,6 @@ progress {
 
 [type="search"] {
   outline-offset: -2px;
-  -webkit-appearance: none;
 }
 
 [type="search"]::-webkit-search-decoration {
@@ -3552,8 +3544,6 @@ input[type="button"].btn-block {
   display: block;
   min-height: 1.5rem;
   padding-left: 1.5rem;
-  -webkit-print-color-adjust: exact;
-  color-adjust: exact;
 }
 
 .custom-control-inline {
@@ -10858,24 +10848,6 @@ a:focus {
   .chart-pie {
     height: calc(20rem - 43px) !important;
   }
-}
-
-.bg-login-image {
-  background: url("https://source.unsplash.com/K4mSJ7kc0As/600x800");
-  background-position: center;
-  background-size: cover;
-}
-
-.bg-register-image {
-  background: url("https://source.unsplash.com/Mv9hjnEUHR4/600x800");
-  background-position: center;
-  background-size: cover;
-}
-
-.bg-password-image {
-  background: url("https://source.unsplash.com/oWTW-jNGl9I/600x800");
-  background-position: center;
-  background-size: cover;
 }
 
 form.user .custom-checkbox.small label {

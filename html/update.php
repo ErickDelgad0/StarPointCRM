@@ -95,9 +95,9 @@ if (isset($_POST['submit'], $_POST['first_name'], $_POST['last_name'], $_POST['e
                         <div class="style-form-control">
                             <label for="title">Title</label>
                             <select name="title" id="title" required>
-                                <option value="Employee"<?=$contact['title']=='Employee'?' selected':''?>>Employee</option>
-                                <option value="Assistant"<?=$contact['title']=='Assistant'?' selected':''?>>Assistant</option>
-                                <option value="Manager"<?=$contact['title']=='Manager'?' selected':''?>>Manager</option>
+                                <option value="default"<?=$contact['title']=='Employee'?' selected':''?>>Default</option>
+                                <option value="employee"<?=$contact['title']=='Assistant'?' selected':''?>>Employee</option>
+                                <option value="admin"<?=$contact['title']=='Manager'?' selected':''?>>Admin</option>
                             </select>
                         </div>
 

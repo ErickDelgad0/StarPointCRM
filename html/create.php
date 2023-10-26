@@ -65,9 +65,9 @@ if (isset($_POST['submit'], $_POST['first_name'], $_POST['last_name'], $_POST['e
                 <div class="style-form-control">
                     <label for="title">Title</label>
                     <select name="title" id="title" required>
-                        <option value="Employee">Employee</option>
-                        <option value="Assistant">Assistant</option>
-                        <option value="Manager">Manager</option>
+                        <option value="default">Default</option>
+                        <option value="employee">Employee</option>
+                        <option value="admin">Admin</option>
                     </select>
                 </div>
 

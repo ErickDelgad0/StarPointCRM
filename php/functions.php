@@ -2,6 +2,16 @@
 <!-- General Functions to avoid constantly making new function files -->
 
 <?php
+/* Registration */
+// If enabled, the user will be redirected to the homepage automatically upon registration.
+define('auto_login_after_register',false);
+/* Account Activation */
+// If enabled, the account will require email activation before the user can login.
+define('account_activation',false);
+// Change "Your Company Name" and "yourdomain.com" - do not remove the < and > characters.
+define('mail_from','Starpoint <noreply@starpoint.com>');
+// The link to the activation file.
+define('activation_link','http://localhost:8080/html/html/activate.php');
 
 function DisplayCustomerTable() {
     $pdo = pdo_connect_mysql();

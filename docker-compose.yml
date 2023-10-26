@@ -7,6 +7,9 @@
 version: '3' # Docker Version
 services:
   www:
+    build: 
+      context: .
+      dockerfile: Dockerfile.php
     image: php:apache # pulls apache image for php
     volumes:
       - "./:/var/www/html" # sync project dir with container web dir
@@ -28,3 +31,33 @@ services:
       - 8001:80
     environment:
       - PMA_HOST=db
+  mailserver:
+    image: mailserver/docker-mailserver:latest
+    hostname: mail
+    domainname: starpoint.com
+    container_name: mailserver
+    ports:
+      - 25:25
+      - 143:143
+      - 587:587
+      - 993:993
+    volumes:
+      - ~/docker-mailstate:/var/mail-state
+      - /var/mail:/var/mail
+      - ./config/:/tmp/docker-mailserver/
+
+    environment:
+      - ENABLE_SPAMASSASSIN=1
+      - ENABLE_CLAMAV=1
+      - ENABLE_FAIL2BAN=1
+      - ENABLE_POSTGREY=1
+      - ONE_DIR=1
+      - DMS_DEBUG=0
+    cap_add:
+      - NET_ADMIN
+      - SYS_PTRACE
+
+networks:
+  default:
+    name: mail_network
+    external: true

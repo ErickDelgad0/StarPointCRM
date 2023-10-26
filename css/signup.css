@@ -1,0 +1,264 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    color: #fff;
+    font-size:100%;
+    letter-spacing: 1px; 
+    font-weight: 400;
+}
+.content{
+    background: url(../img/banner.jpeg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    text-align: center; 
+}
+textarea:focus, input:focus, select:focus, select:active{
+    outline: none;
+    box-shadow:none;
+}
+.form-control:focus, .form-control:focus{
+    box-shadow: none !important;
+    outline: 0 none !important;
+    border-color:transparent !important;
+}
+.placeholder-fix:focus::-webkit-input-placeholder  {color:transparent !important; }
+.placeholder-fix:focus::-moz-placeholder   {color:transparent !important;}
+.placeholder-fix:-moz-placeholder   {color:transparent !important;}
+
+a{
+    text-decoration: none;
+}
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn.focus:active, .btn:active:focus, .btn:focus, select:focus, select:active select:active:focus {outline: none;}
+a,h1,h2,h3,h4,h5{cursor: pointer;}
+a:focus, a:hover{text-decoration: none;}
+a:focus {outline: none; outline-offset: 0;}
+ul{list-style: none;}
+.pl-5{
+    padding-left: 5px !important;
+}
+.pr-5{
+    padding-right: 5px !important;
+}
+.book-form input,.book-form select {
+    border: medium none;
+    border-radius: 0;
+    color: #000 !important;
+    font-weight: 600;
+    height: 35px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    padding: 10px 8px;
+    width: 75%;
+    font-size: 12px;
+    box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.4);
+}
+.logo h1 {
+    color: #fff;
+    letter-spacing: 2px;
+    margin-left: 40px;
+    margin-top: 30px;
+    text-align: left;
+}
+.box{
+    background-color: #393c57;
+    padding: 30px 20px;
+    margin-top: 80px;
+    border-radius: 5px;
+}
+.buttons .btn {
+    background-color: #ddb71d;
+    border-radius: 0px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    width:100%;
+    border-radius: 5px;
+}
+.buttons .btn:hover{
+    background-color: #fff;  
+    border-color: #ddb71d;
+    color:#ddb71d;
+}
+.book-form input::-moz-placeholder {
+    color: #000;
+    font-weight: 600;
+    opacity: 1;
+    text-transform: capitalize;
+}
+.book-form input::-webkit-input-placeholder{
+    color: #000;
+    font-weight: 600;
+    opacity: 1;
+    text-transform: capitalize;
+}
+.title > h1 {
+    color: #fff;
+    line-height: 40px;
+    margin-top: 0;
+    text-transform: uppercase;
+}
+.form-group select {
+    background-image: linear-gradient(45deg, transparent 50%, #000 50%), linear-gradient(135deg, #000 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 8px), calc(100% - 15px) calc(1em + 8px);
+    background-repeat: no-repeat;
+    background-size: 5px 5px, 5px 5px, 1px 1.5em;
+    box-sizing: border-box;
+    text-transform: capitalize;
+}
+.title h2 {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+}
+.book-form span{
+    color: #fff;
+    float: left;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 5px;
+    vertical-align: middle;
+    width: 25%;
+    text-align: left;
+}
+.book-form .btn{
+    font-size: 17px;
+    font-weight: 600;
+    padding: 10px;
+    width: 100%;
+    background-color: transparent;
+    border-color: white;
+    color: white;
+
+    color: white;
+    margin-top: 20px;
+}
+.book-form .btn:hover{
+    background-color: dodgerblue;
+}
+.title {
+    color: #fff;
+    font-size: 30px;
+    margin-bottom: 0;
+}
+.para {
+    color: white;
+    font-size: 16px;
+    margin: 10px auto 20px;
+    width: 50%;
+}
+.book-form {
+    margin-top: 40px;
+}
+.copyright {
+    color: #fff;
+    font-size: 16px;
+    margin-top: 40px;
+}
+.copyright a, .copyright a:hover{
+    color: #32ba28;
+    text-decoration: none;
+}
+@media (max-width: 991px){
+    .title {
+        font-size: 26px;
+    }
+    .para {
+        font-size: 14px;
+        margin: 10px auto 0;
+    }
+    .logo h1 {
+        margin-left: 20px;
+    }
+}
+@media (max-width: 767px){
+    .para {
+        font-size: 12px;
+        margin: 10px auto 0;
+        width:80%;
+    }
+}
+@media (max-width: 400px){
+    .book-form span {
+        font-size: 12px;
+        margin-top: 10px;
+    }
+    .book-form input, .book-form select {
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+    .book-form .btn {
+        margin-top: 10px;
+        font-size: 16px;
+        padding: 8px;
+    }
+    .book-form {
+        margin-top: 30px;
+    }
+    .para {
+        width: 90%;
+    }
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+  
