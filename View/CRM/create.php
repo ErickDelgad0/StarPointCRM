@@ -34,64 +34,87 @@ if (isset($_POST['submit'], $_POST['first_name'], $_POST['last_name'], $_POST['e
     }
 }
 ?>
-<?=CRM_header('Create')?>
-<div class=container-fluid>
-    <div class="content update">
+<?=CRM_header('Ambetter- Create')?>
 
-        <form action="" method="post" class="crud-form">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top">
 
-            <div class="cols">
+            </nav>
 
-                <div class="style-form-control">
-                    <label for="first_name">First Name</label>
-                    <input type="text" name="first_name" id="first_name" placeholder="John" required>
+            <div class="container-fluid">
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <div class="wrap">
+                        <h1 class="h3 mb-0 text-gray-800">Create Ambetter Contact</h1>
+                    </div>
                 </div>
 
-                <div class="style-form-control">
-                    <label for="last_name">Last Name</label>
-                    <input type="text" name="last_name" id="last_name" placeholder="Doe" required>
-                </div>
+                <form action="" method="post" class="crud-form">
 
-                <div class="style-form-control">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" placeholder="Email Address" required>
-                </div>
+                    <div class="cols">
 
-                <div class="style-form-control">
-                    <label for="phone">Phone</label>
-                    <input type="tel" name="phone" id="phone" placeholder="Phone Number" required>
-                </div>
+                        <div class="style-form-control">
+                            <label for="first_name">First Name</label>
+                            <input type="text" name="first_name" id="first_name" placeholder="John" required>
+                        </div>
 
-                <div class="style-form-control">
-                    <label for="title">Title</label>
-                    <select name="title" id="title" required>
-                        <option value="Employee">Employee</option>
-                        <option value="Assistant">Assistant</option>
-                        <option value="Manager">Manager</option>
-                    </select>
-                </div>
+                        <div class="style-form-control">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" name="last_name" id="last_name" placeholder="Doe" required>
+                        </div>
 
-                <div class="style-form-control">
-                    <label for="created">Created</label>
-                    <input type="datetime-local" name="created" id="created" placeholder="Created" value="<?=date('Y-m-d\TH:i')?>" required>
-                </div>
+                        <div class="style-form-control">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" placeholder="Email Address" required>
+                        </div>
 
+                        <div class="style-form-control">
+                            <label for="phone">Phone</label>
+                            <input type="tel" name="phone" id="phone" placeholder="Phone Number" required>
+                        </div>
+
+                        <div class="style-form-control">
+                            <label for="title">Title</label>
+                            <select name="title" id="title" required>
+                                <option value="Employee">Employee</option>
+                                <option value="Assistant">Assistant</option>
+                                <option value="Manager">Manager</option>
+                            </select>
+                        </div>
+
+                        <div class="style-form-control">
+                            <label for="created">Created</label>
+                            <input type="datetime-local" name="created" id="created" placeholder="Created" value="<?=date('Y-m-d\TH:i')?>" required>
+                        </div>
+
+                    </div>
+
+                    <?php if ($error_msg): ?>
+                    <p class="msg-error"><?=$error_msg?></p>
+                    <?php endif; ?>
+
+                    <?php if ($success_msg): ?>
+                    <p class="msg-success"><?=$success_msg?></p>
+                    <?php endif; ?>
+
+                    <button type="submit" name="submit" class="btn">Save Record</button>
+
+                </form>
             </div>
-
-            <?php if ($error_msg): ?>
-            <p class="msg-error"><?=$error_msg?></p>
-            <?php endif; ?>
-
-            <?php if ($success_msg): ?>
-            <p class="msg-success"><?=$success_msg?></p>
-            <?php endif; ?>
-
-            <button type="submit" name="submit" class="btn">Save Record</button>
-
-        </form>
+            <?=CRM_footer()?>
+        </div>
     </div>
-    <?=CRM_footer()?>
-</div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    
+    <?=js_torun()?>
+</body>
+</html>
+
+
 
 
 

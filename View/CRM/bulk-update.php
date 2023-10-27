@@ -64,72 +64,74 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
-<?=CRM_header('Bulk Update')?>
+<?=CRM_header('Ambetter - Bulk Update')?>
 
-<div class="content update">
+<div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top"></nav>
 
-    <div class="page-title">
-		<i class="fa-solid fa-user fa-lg"></i>
-		<div class="wrap">
-			<h2>Bulk Update</h2>
-			<p>Update multiple Customers at once.</p>
-		</div>
-	</div>
-
-    <form action="?ids=<?=$_GET['ids']?>" method="post" class="crud-form">
-
-        <?php foreach ($Customers as $contact): ?> 
-        <div class="cols">
-
-            <h2>Contact <?=$contact['id']?></h2>
-
-            <div class="form-control">
-                <label for="first_name">First Name</label>
-                <input type="text" name="first_name_<?=$contact['id']?>" id="first_name" value="<?=$contact['first_name']?>" placeholder="John" required>
+        <div class="container-fluid">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <div class="wrap">
+                    <h2>Bulk Ambetter Update</h2>
+                </div>
             </div>
 
-            <div class="form-control">
-                <label for="last_name">Last Name</label>
-                <input type="text" name="last_name_<?=$contact['id']?>" id="last_name" value="<?=$contact['last_name']?>" placeholder="Doe" required>
-            </div>
+            <form action="?ids=<?=$_GET['ids']?>" method="post" class="crud-form">
 
-            <div class="form-control">
-                <label for="email">Email</label>
-                <input type="email" name="email_<?=$contact['id']?>" id="email" value="<?=$contact['email']?>" placeholder="Email Address" required>
-            </div>
+                <?php foreach ($Customers as $contact): ?> 
+                <div class="cols">
 
-            <div class="form-control">
-                <label for="phone">Phone</label>
-                <input type="tel" name="phone_<?=$contact['id']?>" id="phone" value="<?=$contact['phone']?>" placeholder="Phone Number" required>
-            </div>
+                    <h2>Contact <?=$contact['id']?></h2>
 
-            <div class="form-control">
-                <label for="title">Title</label>
-                <select name="title_<?=$contact['id']?>" id="title" required>
-                    <option value="Employee"<?=$contact['title']=='Employee'?' selected':''?>>Employee</option>
-                    <option value="Assistant"<?=$contact['title']=='Assistant'?' selected':''?>>Assistant</option>
-                    <option value="Manager"<?=$contact['title']=='Manager'?' selected':''?>>Manager</option>
-                </select>
-            </div>
+                    <div class="style-form-control">
+                        <label for="first_name">First Name</label>
+                        <input type="text" name="first_name_<?=$contact['id']?>" id="first_name" value="<?=$contact['first_name']?>" placeholder="John" required>
+                    </div>
 
-            <div class="form-control">
-                <label for="created">Created</label>
-                <input type="datetime-local" name="created_<?=$contact['id']?>" id="created" value="<?=date('Y-m-d\TH:i', strtotime($contact['created']))?>" placeholder="Created" required>
-            </div>
+                    <div class="style-form-control">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" name="last_name_<?=$contact['id']?>" id="last_name" value="<?=$contact['last_name']?>" placeholder="Doe" required>
+                    </div>
 
+                    <div class="style-form-control">
+                        <label for="email">Email</label>
+                        <input type="email" name="email_<?=$contact['id']?>" id="email" value="<?=$contact['email']?>" placeholder="Email Address" required>
+                    </div>
+
+                    <div class="style-form-control">
+                        <label for="phone">Phone</label>
+                        <input type="tel" name="phone_<?=$contact['id']?>" id="phone" value="<?=$contact['phone']?>" placeholder="Phone Number" required>
+                    </div>
+
+                    <div class="style-form-control">
+                        <label for="title">Title</label>
+                        <select name="title_<?=$contact['id']?>" id="title" required>
+                            <option value="default"<?=$contact['title']=='Employee'?' selected':''?>>Default</option>
+                            <option value="employee"<?=$contact['title']=='Assistant'?' selected':''?>>employee</option>
+                            <option value="admin"<?=$contact['title']=='Manager'?' selected':''?>>admin</option>
+                        </select>
+                    </div>
+
+                    <div class="style-form-control">
+                        <label for="created">Created</label>
+                        <input type="datetime-local" name="created_<?=$contact['id']?>" id="created" value="<?=date('Y-m-d\TH:i', strtotime($contact['created']))?>" placeholder="Created" required>
+                    </div>
+
+                </div>
+                <?php endforeach; ?>
+
+                <?php if ($error_msg): ?>
+                <p class="msg-error"><?=implode('<br>', $error_msg)?></p>
+                <?php elseif ($success_msg): ?>
+                <p class="msg-success"><?=$success_msg?></p>
+                <?php endif; ?>
+
+                <button type="submit" name="submit" class="btn">Save Records</button>
+
+                </form>
         </div>
-        <?php endforeach; ?>
-
-        <?php if ($error_msg): ?>
-        <p class="msg-error"><?=implode('<br>', $error_msg)?></p>
-        <?php elseif ($success_msg): ?>
-        <p class="msg-success"><?=$success_msg?></p>
-        <?php endif; ?>
-
-        <button type="submit" name="submit" class="btn">Save Records</button>
-
-    </form>
-
+        <?=CRM_footer()?>
+    </div>
 </div>
-
-<?=template_footer()?>

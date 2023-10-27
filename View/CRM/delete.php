@@ -7,7 +7,7 @@ $msg = '';
 // Check that the contact ID exists
 if (isset($_GET['id'])) {
     // Select the record that is going to be deleted
-    $stmt = $pdo->prepare('SELECT * FROM contacts WHERE id = ?');
+    $stmt = $pdo->prepare('SELECT * FROM Customers WHERE id = ?');
     $stmt->execute([ $_GET['id'] ]);
     $contact = $stmt->fetch(PDO::FETCH_ASSOC);
     if (!$contact) {
@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
     if (isset($_GET['confirm'])) {
         if ($_GET['confirm'] == 'yes') {
             // User clicked the "Yes" button, delete record
-            $stmt = $pdo->prepare('DELETE FROM contacts WHERE id = ?');
+            $stmt = $pdo->prepare('DELETE FROM Customers WHERE id = ?');
             $stmt->execute([ $_GET['id'] ]);
             $msg = 'You have deleted the contact!';
         } else {
@@ -30,34 +30,38 @@ if (isset($_GET['id'])) {
     exit('No ID specified!');
 }
 ?>
-<?=CRM_header('Delete')?>
+<?=CRM_header('Ambetter - Delete')?>
 
-<div class="content delete">
+<div id="content-wrapper" class="d-flex flex-column">
+    <div id="content">
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top"></nav>
+        <!-- End of Topbar -->
 
-    <div class="page-title">
-		<i class="fa-solid fa-user fa-lg"></i>
-		<div class="wrap">
-			<h2>Delete Contact #<?=$contact['id']?></h2>
-			<p>The contact will be permanently deleted from the database.</p>
-		</div>
-	</div>
+        <div class= container-fluid>
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <div class="wrap">
+                    <h1 class="h3 mb-0 text-gray-800">Delete Ambetter Contact #<?=$contact['id']?></h1>
+                </div>
+            </div>
 
-    <form action="" method="get" class="crud-form">
+            <form action="" method="get" class="crud-form">
 
-        <input type="hidden" name="id" value="<?=$contact['id']?>">
+                <input type="hidden" name="id" value="<?=$contact['id']?>">
 
-        <?php if ($msg): ?>
-        <p class="msg-success"><?=$msg?></p>
-        <?php else: ?>
-        <p>Are you sure you want to delete contact #<?=$contact['id']?>?</p>
-        <div class="btns">
-            <button type="submit" name="confirm" value="yes" class="btn red">Yes</button>
-            <button type="submit" name="confirm" value="no" class="btn">No</button>
+                <?php if ($msg): ?>
+                <p class="msg-success"><?=$msg?></p>
+                <?php else: ?>
+                <p>Are you sure you want to delete contact #<?=$contact['id']?>?</p>
+                <div class="btns">
+                    <button type="submit" name="confirm" value="yes" class="btn red">Yes</button>
+                    <button type="submit" name="confirm" value="no" class="btn">No</button>
+                </div>
+                <?php endif; ?>
+
+            </form>
         </div>
-        <?php endif; ?>
-
-    </form>
-
+    </div>
+    <?=CRM_footer()?>
 </div>
 
-<?=CRM_footer()?>

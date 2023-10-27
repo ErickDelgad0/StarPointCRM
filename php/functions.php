@@ -1,8 +1,4 @@
-<!-- http://localhost:8080/index.php -->
-<!-- General Functions to avoid constantly making new function files -->
-
 <?php
-
 function DisplayCustomerTable() {
     $pdo = pdo_connect_mysql();
     $Customer_Table = "Customer";
