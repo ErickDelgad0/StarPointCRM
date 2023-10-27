@@ -1,37 +1,31 @@
 <?php
-include '../php/main.php';
+include '../php/functions.php';
 // No need for the user to see the login form if they're logged-in, so redirect them to the home page
 if (isset($_SESSION['loggedin'])) {
 	// If the user is not logged in, redirect to the home page.
-	header('Location: crm.php');
-	exit;
+    header('Location: CRM/index.php');
+    exit;
 }
-// Also check if they are "remembered"
+
+// // Also check if they are "remembered"
 if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme'])) {
-	// If the remember me cookie matches one in the database then we can update the session variables.
-	$stmt = $con->prepare('SELECT id, username, type FROM Employee WHERE rememberme = ?');
-	$stmt->bind_param('s', $_COOKIE['rememberme']);
-	$stmt->execute();
-	$stmt->store_result();
-	if ($stmt->num_rows > 0) {
-		// Found a match
-		$stmt->bind_result($id, $username, $role);
-		$stmt->fetch();
-		$stmt->close();
+	// If the remember me cookie matches one in the database then we can update the session variables and the user will be logged-in.
+	$stmt = $pdo->prepare('SELECT * FROM Employee WHERE rememberme = ?');
+	$stmt->execute([ $_COOKIE['rememberme'] ]);
+	$account = $stmt->fetch(PDO::FETCH_ASSOC);
+	if ($account) {
 		// Authenticate the user
 		session_regenerate_id();
 		$_SESSION['loggedin'] = TRUE;
-		$_SESSION['name'] = $username;
-		$_SESSION['id'] = $id;
-		$_SESSION['type'] = $role;
+		$_SESSION['name'] = $account['username'];
+		$_SESSION['id'] = $account['id'];
+        $_SESSION['role'] = $account['role'];
 		// Update last seen date
 		$date = date('Y-m-d\TH:i:s');
-		$stmt = $con->prepare('UPDATE Employee SET last_seen = ? WHERE id = ?');
-		$stmt->bind_param('si', $date, $id);
-		$stmt->execute();
-		$stmt->close();
-		// Redirect to the home page
-		header('Location: crm.php');
+		$stmt = $pdo->prepare('UPDATE Employee SET last_seen = ? WHERE id = ?');
+		$stmt->execute([ $date, $account['id'] ]);
+		// Redirect to home page
+        header('Location: CRM/index.php');
 		exit;
 	}
 }
@@ -75,7 +69,7 @@ if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme'])) {
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user" action="register-process.php" method="POST" autocomplete="off">
+                            <form class="user" action="../php/register-process.php" method="POST" autocomplete="off">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="text" class="form-control form-control-user" name="firstname" id="firstName"
@@ -107,9 +101,9 @@ if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme'])) {
                                 <button type="submit" class="btn btn-primary btn-user btn-block">Register Account</button>
                             </form>
                             <hr>
-                            <a href="index.html" class="btn btn-google btn-user btn-block">
+                            <!-- <a href="index.html" class="btn btn-google btn-user btn-block">
                                 <i class="fab fa-google fa-fw"></i> Register with Google
-                            </a>
+                            </a> -->
                             <hr>
                             <div class="text-center">
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
@@ -128,13 +122,66 @@ if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme'])) {
     <?=js_torun()?>
 
     <script>
+        document.querySelector('.user').addEventListener('submit', function(event) {
+            const username = document.getElementById('username').value;
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('exampleInputPassword').value;
+            const confirmPassword = document.getElementById('cpassword').value;
+            
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                event.preventDefault();
+                return;
+            }
+
+            // Check input lengths
+            if (username.length > 50) {
+                alert('Username exceeds the maximum allowed length of 50 characters.');
+                event.preventDefault();
+                return;
+            }
+
+            if (firstName.length > 50) {
+                alert('First Name exceeds the maximum allowed length of 50 characters.');
+                event.preventDefault();
+                return;
+            }
+
+            if (lastName.length > 50) {
+                alert('Last Name exceeds the maximum allowed length of 50 characters.');
+                event.preventDefault();
+                return;
+            }
+
+            if (email.length > 255) {
+                alert('Email exceeds the maximum allowed length of 255 characters.');
+                event.preventDefault();
+                return;
+            }
+
+            if (password.length > 255) {
+                alert('Password exceeds the maximum allowed length of 255 characters.');
+                event.preventDefault();
+                return;
+            }
+
+            if (password.length < 5) {
+                alert('Password should be at least 5 characters long.');
+                event.preventDefault();
+                return;
+            }
+        });
+
 		// AJAX code
 		let registrationForm = document.querySelector('.register form');
 		registrationForm.onsubmit = event => {
 			event.preventDefault();
 			fetch(registrationForm.action, { method: 'POST', body: new FormData(registrationForm) }).then(response => response.text()).then(result => {
 				if (result.toLowerCase().includes('autologin')) {
-					window.location.href = 'crm.php';
+					window.location.href = 'CRM/index.php';
 				} else {
 					document.querySelector('.msg').innerHTML = result;
 				}

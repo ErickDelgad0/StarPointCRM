@@ -68,10 +68,10 @@ CREATE TABLE `Employee` (
   `password` varchar(255) NOT NULL,
   `activation_code` varchar(50) NOT NULL DEFAULT '',
   `rememberme` varchar(255) NOT NULL DEFAULT '',
-  `phone` varchar(100) NOT NULL,
+  `phone` varchar(100) NOT NULL DEFAULT '',
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `registered` datetime NOT NULL,
-  `type` varchar(25) NOT NULL DEFAULT 'guest',
+  `role` varchar(25) NOT NULL DEFAULT 'guest',
   `last_seen` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 

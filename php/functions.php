@@ -1,49 +1,11 @@
 <?php
-function DisplayCustomerTable() {
-    $pdo = pdo_connect_mysql();
-    $Customer_Table = "Customer";
-    $Query_Customer_Table = "SELECT * FROM $Customer_Table";
 
-    try {
-        $stmt = $pdo->query($Query_Customer_Table);
-
-        $tableHTML = "<table class='customer-table'>";
-        $tableHTML .= "<thead>";
-        $tableHTML .= "<tr>";
-        $tableHTML .= "<th>ID</th>";
-        $tableHTML .= "<th>First Name</th>";
-        $tableHTML .= "<th>Last Name</th>";
-        $tableHTML .= "<th>DOB</th>";
-        $tableHTML .= "</tr>";
-        $tableHTML .= "</thead>";
-        
-        $tableHTML .= "<tbody>";
-        while ($i = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $tableHTML .= "<tr>";
-            $tableHTML .= "<td>".$i['id']."</td>";
-            $tableHTML .= "<td>".$i['firstname']."</td>";
-            $tableHTML .= "<td>".$i['lastname']."</td>";
-            $tableHTML .= "<td>".$i['DOB']."</td>";
-            $tableHTML .= "</tr>";
-        }
-        $tableHTML .= "</tbody>";
-
-        $tableHTML .= "</table>";
-
-    } catch (PDOException $e) {
-        exit('Failed to fetch data from database: ' . $e->getMessage());
-    }
-
-    // With PDO, you don't typically need to "close" the connection, as it's done automatically.
-    // However, if you want to explicitly close it, you can set $pdo to null.
-    // $pdo = null;
-
-    return $tableHTML;
-}
+// We need to use sessions, so you should always start sessions using the below code.
+session_start();
 
 function pdo_connect_mysql() {
     // Read from .env file
-    $dbconfig = parse_ini_file("../../.env");
+    $dbconfig = parse_ini_file("../.env");
 
     $DATABASE_HOST = isset($dbconfig["MYSQL_HOST"]) ? $dbconfig["MYSQL_HOST"] : 'db';
     $DATABASE_USER = $dbconfig["MYSQL_USER"];
@@ -68,6 +30,46 @@ function pdo_connect_mysql() {
         exit('Database connection error: ' . $exception->getMessage());
     }
 }
+
+function check_loggedin($pdo, $redirect_file = 'index.php') {
+	// If you want to update the "last seen" column on every page load, you can uncomment the below code
+	/*
+	if (isset($_SESSION['loggedin'])) {
+		$date = date('Y-m-d\TH:i:s');
+		$stmt = $pdo->prepare('UPDATE accounts SET last_seen = ? WHERE id = ?');
+		$stmt->execute([ $date, $_SESSION['id'] ]);
+	}
+	*/
+	// Check for remember me cookie variable and loggedin session variable
+    if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme']) && !isset($_SESSION['loggedin'])) {
+    	// If the remember me cookie matches one in the database then we can update the session variables.
+    	$stmt = $pdo->prepare('SELECT * FROM accounts WHERE rememberme = ?');
+    	$stmt->execute([ $_COOKIE['rememberme'] ]);
+    	$account = $stmt->fetch(PDO::FETCH_ASSOC);
+		// If account exists...
+    	if ($account) {
+    		// Found a match, update the session variables and keep the user logged-in
+    		session_regenerate_id();
+    		$_SESSION['loggedin'] = TRUE;
+    		$_SESSION['name'] = $account['username'];
+    		$_SESSION['id'] = $account['id'];
+			$_SESSION['role'] = $account['role'];
+			// Update last seen date
+			$date = date('Y-m-d\TH:i:s');
+			$stmt = $pdo->prepare('UPDATE accounts SET last_seen = ? WHERE id = ?');
+			$stmt->execute([ $date, $account['id'] ]);
+    	} else {
+    		// If the user is not remembered redirect to the login page.
+    		header('Location: ' . $redirect_file);
+    		exit;
+    	}
+    } else if (!isset($_SESSION['loggedin'])) {
+    	// If the user is not logged in redirect to the login page.
+    	header('Location: ' . $redirect_file);
+    	exit;
+    }
+}
+
 
 function CRM_header($title) {
 echo <<<EOT
