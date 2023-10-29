@@ -5,7 +5,12 @@ session_start();
 
 function pdo_connect_mysql() {
     // Read from .env file
-    $dbconfig = parse_ini_file("../.env");
+    $envPath = __DIR__ . '/../../.env';
+    if (!file_exists($envPath)) {
+        $envPath = __DIR__ . '/../.env';
+    }
+    $dbconfig = parse_ini_file($envPath);
+
 
     $DATABASE_HOST = isset($dbconfig["MYSQL_HOST"]) ? $dbconfig["MYSQL_HOST"] : 'db';
     $DATABASE_USER = $dbconfig["MYSQL_USER"];

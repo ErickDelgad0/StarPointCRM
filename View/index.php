@@ -506,17 +506,17 @@
           </div>
           <div class="col-md-4">
             <div class="ftco-footer-widget mb-4">
-              <ul class="ftco-footer-social list-unstyled float-md-right float-lft">
+              <!-- <ul class="ftco-footer-social list-unstyled float-md-right float-lft">
                 <li><a href="#"><span class="icon-twitter"></span></a></li>
                 <li><a href="#"><span class="icon-facebook"></span></a></li>
                 <li><a href="#"><span class="icon-instagram"></span></a></li>
-              </ul>
+              </ul> -->
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md text-left">
-            <p>&copy; Exclusivity 2017. All Rights Reserved. Adapted from Free-Template.co</a></p>
+            <p>&copy; StarPoint 2023</a></p>
           </div>
         </div>
       </div>
