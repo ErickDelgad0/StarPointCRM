@@ -3,7 +3,9 @@ include 'functions.php';
 
 // Now we check if the data from the login form was submitted, isset() will check if the data exists.
 if (!isset($_POST['email'], $_POST['password'])) {
-    exit('Please fill both the email and password fields!');
+    $_SESSION['error'] = 'Please fill both the email and password fields!';
+    header('Location: ../login.php');
+    exit();
 }
 
 $pdo = pdo_connect_mysql();
@@ -13,9 +15,10 @@ $account = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($account) {
     if (password_verify($_POST['password'], $account['password'])) {
-        // Check if the account has been verified by admin
         if ($account['activation_code'] != '1') {
-            echo 'Your account has not been verified by an admin yet. Please wait for verification.';
+            $_SESSION['error'] = 'Your account has not been verified by an admin yet. Please wait for verification.';
+            header('Location: ../view/login.php');
+            exit();
         } else {
             session_regenerate_id();
             $_SESSION['loggedin'] = TRUE;
@@ -35,12 +38,18 @@ if ($account) {
             $stmt = $pdo->prepare('UPDATE Employee SET last_seen = ? WHERE id = ?');
             $stmt->execute([ $date, $account['id'] ]);
             
-            header('Location: ' . '/crm/');
+            $_SESSION['success'] = 'Login successful!';
+            header('Location: ../view/crm/index.php'); // replace this with your actual destination
+            exit();
         }
     } else {
-        echo 'Incorrect email and/or password!';
+        $_SESSION['error'] = 'Incorrect email and/or password!';
+        header('Location: ../view/login.php');
+        exit();
     }
 } else {
-    echo 'Incorrect email and/or password!';
+    $_SESSION['error'] = 'Incorrect email and/or password!';
+    header('Location: ../view/login.php');
+    exit();
 }
 ?>

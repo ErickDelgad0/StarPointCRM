@@ -1,4 +1,5 @@
 <?php
+
 include '../../php/functions.php';
 
 // Connect to MySQL database
@@ -15,26 +16,28 @@ if (isset($_GET['bulk_action'])) {
 		// Delete records
 		if ($_GET['bulk_action'] == 'delete') {
 			// Delete from the database
-			$stmt = $pdo->prepare('DELETE FROM Customers WHERE id IN (' . implode(',', array_fill(0, count($ids), '?')) . ')');
+			$stmt = $pdo->prepare('DELETE FROM Ambetter WHERE id IN (' . implode(',', array_fill(0, count($ids), '?')) . ')');
 			$stmt->execute($ids);
 		}
 		// Export records to CSV file
 		if ($_GET['bulk_action'] == 'export') {
 			// Prepare the SQL statement, we basically want to select all the records where the ID is in the POST values
-			$stmt = $pdo->prepare('SELECT * FROM Customers WHERE id IN (' . implode(',', array_fill(0, count($ids), '?')) . ')');
+			$stmt = $pdo->prepare('SELECT * FROM Ambetter WHERE id IN (' . implode(',', array_fill(0, count($ids), '?')) . ')');
 			$stmt->execute($ids);
 			$records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			// Download the CSV file - we force this by sending a HTTP header with header()
 			header('Content-Type: text/csv; charset=utf-8');
-			header('Content-Disposition: attachment; filename=Customers.csv');
+			header('Content-Disposition: attachment; filename=Ambetter.csv');
 			$output = fopen('php://output', 'w');
-			fputcsv($output, ['id','first_name','last_name','email','phone','title','created']);
-			foreach ($records as $record) {
+            fputcsv($output, ['id', 'broker_name', 'broker_npn', 'policy_number', 'insured_first_name', 'insured_last_name', 'broker_effective_date', 'broker_term_date', 'policy_effective_date', 'policy_term_date', 'paid_through_date', 'county', 'state', 'on/off exchange', 'exchange_subscriber_id', 'member_phone_number', 'member_email', 'member_responsibilty', 'member_Date_Of_Birth', 'autopay', 'eligible_for_commission', 'number_of_members', 'payable_agent', 'ar_policy_type', 'created']);
+			
+            foreach ($records as $record) {
 				fputcsv($output, $record);
 			}
 			fclose($output);
 			exit;
 		}
+        
 		// Edit records
 		if ($_GET['bulk_action'] == 'edit') {
 			// Redirect to the bulk-update.php page, with all the IDs specified in the URL parameters
@@ -45,24 +48,31 @@ if (isset($_GET['bulk_action'])) {
 }
 // Get the page via GET request (URL param: page), if non exists default the page to 1
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
+
 // Number of records to show on each page
 $records_per_page = isset($_GET['records_per_page']) && (is_numeric($_GET['records_per_page']) || $_GET['records_per_page'] == 'all') ? $_GET['records_per_page'] : $default_records_per_page;
+
 // Column list
-$columns = ['id', 'first_name', 'last_name', 'email', 'phone', 'title', 'created'];
-// Order by which column if specified (default to id)
-$order_by = isset($_GET['order_by']) && in_array($_GET['order_by'], $columns) ? $_GET['order_by'] : 'id';
+$columns = ['policy_number', 'broker_name', 'broker_npn', 'first_name','last_name', 'state',`member_DOB`, 'member_phone_number', 'created'];
+
+// Order by which column if specified (default to policy_number)
+$order_by = isset($_GET['order_by']) && in_array($_GET['order_by'], $columns) ? $_GET['order_by'] : 'policy_number';
+
 // Sort by ascending or descending if specified (default to ASC)
 $order_sort = isset($_GET['order_sort']) && $_GET['order_sort'] == 'DESC' ? 'DESC' : 'ASC';
+
 // Filter params
 $from_date = isset($_GET['from_date']) ? $_GET['from_date'] : '';
 $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : '';
+
 // Where SQL condition
 $where_sql = '';
 // Add search to SQL query (if search term exists)
 if (isset($_GET['search']) && !empty($_GET['search'])) {
-	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  ' first_name LIKE :search_query OR last_name LIKE :search_query OR email LIKE :search_query OR phone LIKE :search_query OR title LIKE :search_query OR created LIKE :search_query ';
+	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  ' policy_number LIKE :search_query OR broker_name LIKE :search_query OR broker_npn LIKE :search_query OR first_name LIKE :search_query OR last_name LIKE :search_query OR state LIKE :search_query OR member_DOB LIKE :search_query';
 }
-// Add from and/or to date filter to SQL query (if set); It will only work if the "created" column exists in your database! Rename the column below if you want to use a different DATETIME column
+
+
 if (!empty($from_date) && !empty($to_date)) {
 	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  ' created BETWEEN :from_date AND :to_date ';
 } else if (!empty($from_date)) {
@@ -70,13 +80,15 @@ if (!empty($from_date) && !empty($to_date)) {
 } else if (!empty($to_date)) {
 	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  ' created <= :to_date ';
 }
+
 // Limit SQL
 $limit_sql = '';
 if ($records_per_page != 'all') {
 	$limit_sql = ' LIMIT :current_page, :record_per_page ';
 }
-// SQL statement to get all Customers with search query
-$stmt = $pdo->prepare('SELECT * FROM Customers ' . $where_sql . ' ORDER BY ' . $order_by . ' ' . $order_sort . $limit_sql);
+
+// SQL statement to get all Ambetter with search query
+$stmt = $pdo->prepare('SELECT * FROM Ambetter ' . $where_sql . ' ORDER BY ' . $order_by . ' ' . $order_sort . $limit_sql);
 // Bind the search query param to the SQL query
 if (isset($_GET['search']) && !empty($_GET['search'])) {	
 	$stmt->bindValue(':search_query', '%' . $_GET['search'] . '%');
@@ -86,6 +98,7 @@ if ($records_per_page != 'all') {
 	$stmt->bindValue(':current_page', ($page-1)*(int)$records_per_page, PDO::PARAM_INT);
 	$stmt->bindValue(':record_per_page', (int)$records_per_page, PDO::PARAM_INT);
 }
+
 // Bind the from and to date params to the SQL query
 if (!empty($from_date)) {
 	$stmt->bindValue(':from_date', date('Y-m-d H:i:s', strtotime($from_date)));
@@ -93,16 +106,21 @@ if (!empty($from_date)) {
 if (!empty($to_date)) {
 	$stmt->bindValue(':to_date', date('Y-m-d H:i:s', strtotime($to_date)));
 }
+
 // Execute the prepared statement and fetch the results
 $stmt->execute();
+
 // Fetch the records so we can populate them in our template below.
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-// Get the total number of Customers, so we can determine whether there should be a next and previous button
-$stmt = $pdo->prepare('SELECT COUNT(*) FROM Customers ' . $where_sql);
+
+// Get the total number of Ambetter, so we can determine whether there should be a next and previous button
+$stmt = $pdo->prepare('SELECT COUNT(*) FROM Ambetter ' . $where_sql);
+
 // Bind the search query param to the SQL query
 if (isset($_GET['search']) && !empty($_GET['search'])) {	
 	$stmt->bindValue(':search_query', '%' . $_GET['search'] . '%');
 }
+
 // Bind the from and to date params to the SQL query
 if (!empty($from_date)) {
 	$stmt->bindValue(':from_date', date('Y-m-d H:i:s', strtotime($from_date)));
@@ -110,10 +128,14 @@ if (!empty($from_date)) {
 if (!empty($to_date)) {
 	$stmt->bindValue(':to_date', date('Y-m-d H:i:s', strtotime($to_date)));
 }
+
 $stmt->execute();
 // Total number of results
 $num_results = $stmt->fetchColumn();
+
 ?>
+
+
 <?=CRM_header("Ambetter Contacts")?>
 
         <!-- Content Wrapper -->
@@ -136,7 +158,7 @@ $num_results = $stmt->fetchColumn();
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Ambetter Contacts</h1>
                             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                    class="fas fa-download fa-sm text-white-50"></i> Refresh All</a>
+                                    class="fas fa-download fa-sm text-white-50"></i> New Import</a>
                     </div>
 
                     <div class="style-content read">
@@ -171,17 +193,33 @@ $num_results = $stmt->fetchColumn();
                                             <td class="checkbox">
                                                 <input type="checkbox" class="select-all">
                                             </td>
-                                            <td<?=$order_by=='id'?' class="active"':''?>>
-                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=id&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
-                                                    #
-                                                    <?php if ($order_by == 'id'): ?>
+                                            <td<?=$order_by=='policy_number'?' class="active"':''?>>
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=policy_number&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                    Policy #
+                                                    <?php if ($order_by == 'policy_number'): ?>
+                                                    <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
+                                                    <?php endif; ?>
+                                                </a>
+                                            </td>
+                                            <td<?=$order_by=='broker_name'?' class="active"':''?>>
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=broker_name&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                    Broker Name
+                                                    <?php if ($order_by == 'broker_name'): ?>
+                                                    <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
+                                                    <?php endif; ?>
+                                                </a>
+                                            </td>
+                                            <td<?=$order_by=='broker_npn'?' class="active"':''?>>
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=broker_npn&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                    Broker NPN
+                                                    <?php if ($order_by == 'broker_npn'): ?>
                                                     <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
                                                     <?php endif; ?>
                                                 </a>
                                             </td>
                                             <td<?=$order_by=='first_name'?' class="active"':''?>>
                                                 <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=first_name&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
-                                                    First Name
+                                                    Insured First Name
                                                     <?php if ($order_by == 'first_name'): ?>
                                                     <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
                                                     <?php endif; ?>
@@ -189,44 +227,36 @@ $num_results = $stmt->fetchColumn();
                                             </td>			
                                             <td<?=$order_by=='last_name'?' class="active"':''?>>
                                                 <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=last_name&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
-                                                    Last Name
+                                                    Insured Last Name
                                                     <?php if ($order_by == 'last_name'): ?>
                                                     <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
                                                     <?php endif; ?>
                                                 </a>
                                             </td>
-                                            <td<?=$order_by=='email'?' class="active"':''?>>
-                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=email&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
-                                                    Email
-                                                    <?php if ($order_by == 'email'): ?>
+                                            <td<?=$order_by=='state'?' class="active"':''?>>
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=state&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                    State
+                                                    <?php if ($order_by == 'state'): ?>
                                                     <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
                                                     <?php endif; ?>
                                                 </a>
                                             </td>
-                                            <td<?=$order_by=='phone'?' class="active"':''?>>
-                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=phone&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
-                                                    Phone
-                                                    <?php if ($order_by == 'phone'): ?>
-                                                    <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
-                                                    <?php endif; ?>
-                                                </a>
-                                            </td>
-                                            <td<?=$order_by=='title'?' class="active"':''?>>
-                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=title&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
-                                                    Title
-                                                    <?php if ($order_by == 'title'): ?>
+                                            <td<?=$order_by=='member_DOB'?' class="active"':''?>>
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=member_DOB&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                    Member DOB
+                                                    <?php if ($order_by == 'member_DOB'): ?>
                                                     <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
                                                     <?php endif; ?>
                                                 </a>
                                             </td>
                                             <td<?=$order_by=='created'?' class="active"':''?>>
-                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=created&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                <a href="read.php?page=1&records_per_page=<?=$records_per_page?>&order_by=created&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
                                                     Created
                                                     <?php if ($order_by == 'created'): ?>
                                                     <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
                                                     <?php endif; ?>
                                                 </a>
-                                            </td>			
+                                            </td>	
                                             <td></td>
                                         </tr>
                                     </thead>
@@ -239,16 +269,17 @@ $num_results = $stmt->fetchColumn();
                                         <?php foreach ($results as $result): ?>
                                         <tr>
                                             <td class="checkbox"><input type="checkbox" value="<?=$result['id']?>" name="record[]"></td>
-                                            <td class="id"><?=$result['id']?></td>
+                                            <td class="policy_number"><?=$result['policy_number']?></td>
+                                            <td class="broker_name"><?=htmlspecialchars($result['broker_name'], ENT_QUOTES)?></td>
+                                            <td class="broker_npn"><?=htmlspecialchars($result['broker_npn'], ENT_QUOTES)?></td>
                                             <td class="first_name"><?=htmlspecialchars($result['first_name'], ENT_QUOTES)?></td>
                                             <td class="last_name"><?=htmlspecialchars($result['last_name'], ENT_QUOTES)?></td>
-                                            <td class="email"><?=htmlspecialchars($result['email'], ENT_QUOTES)?></td>
-                                            <td class="phone"><?=htmlspecialchars($result['phone'], ENT_QUOTES)?></td>
-                                            <td class="title"><?=htmlspecialchars($result['title'], ENT_QUOTES)?></td>
+                                            <td class="state"><?=htmlspecialchars($result['state'], ENT_QUOTES)?></td>
+                                            <td class="member_DOB"><?=htmlspecialchars($result['member_DOB'], ENT_QUOTES)?></td>
                                             <td class="created"><?=date('Y-m-d H:i', strtotime($result['created']))?></td>
                                             <td class="actions">
-                                                <a href="update.php?id=<?=$result['id']?>" class="edit"><i class="fa-solid fa-pen fa-xs"></i></a>
-                                                <a href="delete.php?id=<?=$result['id']?>" class="trash"><i class="fa-solid fa-xmark fa-xs"></i></a>
+                                                <a href="update.php?id=<?=$result['policy_number']?>" class="edit"><i class="fa-solid fa-pen fa-xs"></i></a>
+                                                <a href="delete.php?id=<?=$result['policy_number']?>" class="trash"><i class="fa-solid fa-xmark fa-xs"></i></a>
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>

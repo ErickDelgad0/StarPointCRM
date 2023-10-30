@@ -41,14 +41,14 @@ function check_loggedin($pdo, $redirect_file = 'index.php') {
 	/*
 	if (isset($_SESSION['loggedin'])) {
 		$date = date('Y-m-d\TH:i:s');
-		$stmt = $pdo->prepare('UPDATE accounts SET last_seen = ? WHERE id = ?');
+		$stmt = $pdo->prepare('UPDATE Employee SET last_seen = ? WHERE id = ?');
 		$stmt->execute([ $date, $_SESSION['id'] ]);
 	}
 	*/
 	// Check for remember me cookie variable and loggedin session variable
     if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme']) && !isset($_SESSION['loggedin'])) {
     	// If the remember me cookie matches one in the database then we can update the session variables.
-    	$stmt = $pdo->prepare('SELECT * FROM accounts WHERE rememberme = ?');
+    	$stmt = $pdo->prepare('SELECT * FROM Employee WHERE rememberme = ?');
     	$stmt->execute([ $_COOKIE['rememberme'] ]);
     	$account = $stmt->fetch(PDO::FETCH_ASSOC);
 		// If account exists...
@@ -61,7 +61,7 @@ function check_loggedin($pdo, $redirect_file = 'index.php') {
 			$_SESSION['role'] = $account['role'];
 			// Update last seen date
 			$date = date('Y-m-d\TH:i:s');
-			$stmt = $pdo->prepare('UPDATE accounts SET last_seen = ? WHERE id = ?');
+			$stmt = $pdo->prepare('UPDATE Employee SET last_seen = ? WHERE id = ?');
 			$stmt->execute([ $date, $account['id'] ]);
     	} else {
     		// If the user is not remembered redirect to the login page.

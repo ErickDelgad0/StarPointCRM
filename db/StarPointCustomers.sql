@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Oct 26, 2023 at 06:34 PM
+-- Generation Time: Oct 30, 2023 at 03:28 PM
 -- Server version: 8.1.0
 -- PHP Version: 8.2.10
 
@@ -24,34 +24,45 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Customers`
+-- Table structure for table `Ambetter`
 --
 
-CREATE TABLE `Customers` (
+CREATE TABLE `Ambetter` (
   `id` int NOT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `last_name` varchar(50) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `phone` varchar(255) NOT NULL,
-  `title` varchar(255) NOT NULL,
+  `broker_name` varchar(255) DEFAULT NULL,
+  `broker_npn` varchar(255) DEFAULT NULL,
+  `policy_number` varchar(255) DEFAULT NULL,
+  `first_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+  `broker_effective_date` date DEFAULT NULL,
+  `broker_term_date` date DEFAULT NULL,
+  `policy_effective_date` date DEFAULT NULL,
+  `policy_term_date` date DEFAULT NULL,
+  `paid_through_date` date DEFAULT NULL,
+  `county` varchar(255) DEFAULT NULL,
+  `state` varchar(50) DEFAULT NULL,
+  `on/off_exchange` varchar(50) DEFAULT NULL,
+  `exchange_subscriber_id` varchar(255) DEFAULT NULL,
+  `member_phone_number` varchar(255) DEFAULT NULL,
+  `member_email` varchar(255) DEFAULT NULL,
+  `member_responsibility` varchar(255) DEFAULT NULL,
+  `member_DOB` date DEFAULT NULL,
+  `autopay` varchar(50) DEFAULT NULL,
+  `eligible_for_commission` varchar(50) DEFAULT NULL,
+  `number_of_members` int DEFAULT NULL,
+  `payable_agent` varchar(255) DEFAULT NULL,
+  `ar_policy_type` varchar(255) DEFAULT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `Customers`
+-- Dumping data for table `Ambetter`
 --
 
-INSERT INTO `Customers` (`id`, `first_name`, `last_name`, `email`, `phone`, `title`, `created`) VALUES
-(1, 'Sam', 'White', 'samwhite@example.com', '2004550121', 'Manager', '2023-09-12 17:29:00'),
-(2, 'Colin', 'Chaplin', 'colinchaplin@example.com', '2022550178', 'Employee', '2023-09-12 17:29:00'),
-(3, 'Ricky', 'Waltz', 'rickywaltz@example.com', '7862342390', 'Employee', '2023-09-12 19:16:00'),
-(4, 'Arnold', 'Hall', 'arnoldhall@example.com', '5089573579', 'Manager', '2023-09-12 19:17:00'),
-(5, 'Donald', 'Smith', 'donald1983@example.com', '7019007916', 'Employee', '2023-09-12 19:20:00'),
-(6, 'Nadia', 'Doole', 'nadia.doole0@example.com', '6153353674', 'Employee', '2023-09-12 19:20:00'),
-(7, 'Sarah', 'Jones', 'angela1977@example.com', '3094234980', 'Assistant', '2023-09-12 19:21:00'),
-(8, 'Robert', 'Junior', 'robertjunior@example.com', '4209875343', 'Assistant', '2023-09-12 23:52:00'),
-(9, 'Jakob', 'Biggs', 'jakobbiggs@example.com', '0125345786', 'Manager', '2023-09-11 16:48:00'),
-(10, 'John', 'Doe', 'johndoe@example.com', '0675213823', 'Manager', '2023-09-12 20:17:00');
+INSERT INTO `Ambetter` (`id`, `broker_name`, `broker_npn`, `policy_number`, `first_name`, `last_name`, `broker_effective_date`, `broker_term_date`, `policy_effective_date`, `policy_term_date`, `paid_through_date`, `county`, `state`, `on/off_exchange`, `exchange_subscriber_id`, `member_phone_number`, `member_email`, `member_responsibility`, `member_DOB`, `autopay`, `eligible_for_commission`, `number_of_members`, `payable_agent`, `ar_policy_type`, `created`) VALUES
+(1, 'Erick Delgado', '8829666', 'U70153469', 'Candie', 'Cane', '2023-07-01', '2099-12-31', '2023-07-01', '2024-12-31', '2023-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0010243871\'', '3050000000', NULL, '0', '2020-02-06', NULL, 'Yes', 1, 'Health Family Insurance', NULL, '2023-10-30 14:43:26'),
+(2, 'Erick Delgado', '8829666', 'U70153466', 'Hello', 'World', '2023-07-01', '2099-12-31', '2023-07-01', '2024-12-31', '2023-12-31', 'Orange County', 'FL', 'On', '\'0010243871\'', '3051000000', NULL, '0', '2020-02-06', NULL, 'Yes', 1, 'Health Family Insurance', NULL, '2023-10-30 14:43:26'),
+(3, 'Erick Delgado', '8829666', 'U70153666', 'Sunshine', 'Rainbow', '2023-07-01', '2099-12-31', '2023-07-01', '2024-12-31', '2023-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0010243871\'', '3052000000', NULL, '0', '2020-02-06', NULL, 'Yes', 1, 'Health Family Insurance', NULL, '2023-10-30 14:43:26');
 
 -- --------------------------------------------------------
 
@@ -76,14 +87,15 @@ CREATE TABLE `Employee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `Employee`
 --
 
+INSERT INTO `Employee` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `activation_code`, `rememberme`, `phone`, `created`, `registered`, `role`, `last_seen`) VALUES
+(1, 'cheesestick', 'Erick', 'Delgado', 'delrick2323@outlook.com', '$2y$10$imHdOR35Lii3u4LhG/gis.0o0M6gn3bCG5sh.1ZMnICTCjejIepUu', '1', '$2y$10$yrlEr8S2QIU8vRC60MvFBO6nccRdy5RlaTYE31Mek11kGeA2opixG', '', '2023-10-30 14:41:24', '2023-10-30 14:41:24', 'admin', '2023-10-30 14:43:26');
+
 --
--- Indexes for table `Customers`
+-- Indexes for dumped tables
 --
-ALTER TABLE `Customers`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `Employee`
@@ -91,22 +103,24 @@ ALTER TABLE `Customers`
 ALTER TABLE `Employee`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `Ambetter`
+  ADD PRIMARY KEY (`id`);
+
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `Customers`
---
-ALTER TABLE `Customers`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
 -- AUTO_INCREMENT for table `Employee`
 --
 ALTER TABLE `Employee`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
+
+ALTER TABLE `Ambetter`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
