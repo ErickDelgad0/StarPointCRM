@@ -11,7 +11,7 @@ if (!isset($_GET['id'])) {
     exit('No ID specified!');
 }
 // Get the contact from the Customers table
-$stmt = $pdo->prepare('SELECT * FROM Customers WHERE id = ?');
+$stmt = $pdo->prepare('SELECT * FROM Ambetter WHERE id = ?');
 $stmt->execute([ $_GET['id'] ]);
 $contact = $stmt->fetch(PDO::FETCH_ASSOC);
 // Contact doesn't exist with the specified ID, so output error message and stop the script
@@ -43,7 +43,7 @@ if (isset($_POST['submit'], $_POST['first_name'], $_POST['last_name'], $_POST['e
         $stmt = $pdo->prepare('UPDATE Customers SET first_name = ?, last_name = ?, email = ?, phone = ?, title = ?, created = ? WHERE id = ?');
         $stmt->execute([ $data['first_name'], $data['last_name'], $data['email'], $data['phone'], $data['title'], $data['created'], $_GET['id'] ]);
         // Get the updated contact from the Customers table
-        $stmt = $pdo->prepare('SELECT * FROM Customers WHERE id = ?');
+        $stmt = $pdo->prepare('SELECT * FROM Ambetter WHERE id = ?');
         $stmt->execute([ $_GET['id'] ]);
         $contact = $stmt->fetch(PDO::FETCH_ASSOC);
         // Output message

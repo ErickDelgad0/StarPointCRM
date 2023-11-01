@@ -40,8 +40,8 @@ if (isset($_GET['bulk_action'])) {
         
 		// Edit records
 		if ($_GET['bulk_action'] == 'edit') {
-			// Redirect to the bulk-update.php page, with all the IDs specified in the URL parameters
-			header('Location: bulk-update.php?ids=' . implode(',', $ids));
+			// Redirect to the ambetter-bulk-update.php page, with all the IDs specified in the URL parameters
+			header('Location: ambetter-bulk-update.php?ids=' . implode(',', $ids));
 			exit;
 		}
 	}
@@ -157,7 +157,7 @@ $num_results = $stmt->fetchColumn();
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Ambetter Contacts</h1>
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                            <a href="ambetter-import" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                     class="fas fa-download fa-sm text-white-50"></i> New Import</a>
                     </div>
 
@@ -166,7 +166,7 @@ $num_results = $stmt->fetchColumn();
 
                             <div class="top">
                                 <div class="btns">
-                                    <a href="create.php" class="btn">Create Contact</a>
+                                    <a href="ambetter-create.php" class="btn">Create Contact</a>
                                 </div>
                                 <div class="wrap">
                                     <div class="filters">
@@ -250,7 +250,7 @@ $num_results = $stmt->fetchColumn();
                                                 </a>
                                             </td>
                                             <td<?=$order_by=='created'?' class="active"':''?>>
-                                                <a href="read.php?page=1&records_per_page=<?=$records_per_page?>&order_by=created&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=created&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
                                                     Created
                                                     <?php if ($order_by == 'created'): ?>
                                                     <i class="fa-solid fa-arrow-<?=str_replace(array('ASC', 'DESC'), array('up', 'down'), $order_sort)?>-long fa-sm"></i>
@@ -277,9 +277,10 @@ $num_results = $stmt->fetchColumn();
                                             <td class="state"><?=htmlspecialchars($result['state'], ENT_QUOTES)?></td>
                                             <td class="member_DOB"><?=htmlspecialchars($result['member_DOB'], ENT_QUOTES)?></td>
                                             <td class="created"><?=date('Y-m-d H:i', strtotime($result['created']))?></td>
+                                            
                                             <td class="actions">
-                                                <a href="update.php?id=<?=$result['policy_number']?>" class="edit"><i class="fa-solid fa-pen fa-xs"></i></a>
-                                                <a href="delete.php?id=<?=$result['policy_number']?>" class="trash"><i class="fa-solid fa-xmark fa-xs"></i></a>
+                                                <a href="ambetter-update.php?id=<?=$result['id']?>" class="edit"><i class="fa-solid fa-pen fa-xs"></i></a>
+                                                <a href="ambetter-delete.php?id=<?=$result['id']?>" class="trash"><i class="fa-solid fa-xmark fa-xs"></i></a>
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>
