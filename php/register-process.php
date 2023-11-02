@@ -1,5 +1,6 @@
 <?php
 include 'functions.php';
+session_start();
 
 // Validate that required POST data exists
 if (empty(trim($_POST['username'])) || empty(trim($_POST['password'])) || empty(trim($_POST['cpassword'])) || empty(trim($_POST['email'])) || empty(trim($_POST['firstname'])) || empty(trim($_POST['lastname']))) {

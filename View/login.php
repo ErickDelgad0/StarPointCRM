@@ -1,5 +1,6 @@
 <?php
 include '../php/functions.php';
+session_start();
 
 if (isset($_SESSION['error'])) {
     echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';

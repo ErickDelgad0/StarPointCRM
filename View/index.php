@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!-- FREE BOOTSTRAP TEMPLATE -->
 
 <!DOCTYPE html>

@@ -1,7 +1,6 @@
 <?php
 
-// We need to use sessions, so you should always start sessions using the below code.
-session_start();
+include 'config.php';
 
 function pdo_connect_mysql() {
     // Read from .env file
@@ -36,15 +35,8 @@ function pdo_connect_mysql() {
     }
 }
 
+
 function check_loggedin($pdo, $redirect_file = 'index.php') {
-	// If you want to update the "last seen" column on every page load, you can uncomment the below code
-	/*
-	if (isset($_SESSION['loggedin'])) {
-		$date = date('Y-m-d\TH:i:s');
-		$stmt = $pdo->prepare('UPDATE Employee SET last_seen = ? WHERE id = ?');
-		$stmt->execute([ $date, $_SESSION['id'] ]);
-	}
-	*/
 	// Check for remember me cookie variable and loggedin session variable
     if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme']) && !isset($_SESSION['loggedin'])) {
     	// If the remember me cookie matches one in the database then we can update the session variables.

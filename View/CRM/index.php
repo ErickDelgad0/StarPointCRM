@@ -1,5 +1,9 @@
 <?php
 include '../../php/functions.php';
+
+session_start();
+$pdo = pdo_connect_mysql();
+check_loggedin($pdo, '../index.php');
 ?>
 
 <?=CRM_header('CRM Dashboard')?>

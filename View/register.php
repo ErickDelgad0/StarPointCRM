@@ -1,5 +1,7 @@
 <?php
 include '../php/functions.php';
+session_start();
+
 // No need for the user to see the login form if they're logged-in, so redirect them to the home page
 if (isset($_SESSION['loggedin'])) {
 	// If the user is not logged in, redirect to the home page.
