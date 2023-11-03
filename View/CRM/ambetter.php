@@ -28,7 +28,7 @@ if (isset($_GET['bulk_action'])) {
 			$records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			// Download the CSV file - we force this by sending a HTTP header with header()
 			header('Content-Type: text/csv; charset=utf-8');
-			header('Content-Disposition: attachment; filename=contacts.csv');
+			header('Content-Disposition: attachment; filename=Ambetter.csv');
 			$output = fopen('php://output', 'w');
 			fputcsv($output, array_keys($Ambetter_Columns));
 			foreach ($records as $record) {

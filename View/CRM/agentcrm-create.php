@@ -16,7 +16,7 @@ $success_msg = '';
 if (isset($_POST['submit'])) {
     // Iterate through the fields and extract the data from the form
     $data = [];
-    foreach ($Ambetter_Columns as $column => $array) {
+    foreach ($AgentCRM_Columns as $column => $array) {
         if (isset($_POST[$column])) {
             $data[$column] = $_POST[$column];
             // Validate
@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
     // If no validation errors, proceed to insert the record(s) in the database
     if (!$error_msg) {
         // Insert the records
-        $stmt = $pdo->prepare('INSERT INTO ' . $Ambetter . ' (' . implode(', ', array_keys($data)) . ') VALUES (' . implode(', ', array_map(function ($column) {
+        $stmt = $pdo->prepare('INSERT INTO ' . $AgentCRM . ' (' . implode(', ', array_keys($data)) . ') VALUES (' . implode(', ', array_map(function ($column) {
             return ':' . $column;
         }, array_keys($data))) . ')');
         // bind over the data to the placeholders in the prepared statement
@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
     }
 }
 ?>
-<?=CRM_header('Ambetter- Create')?>
+<?=CRM_header('AgentCRM- Create')?>
 
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
@@ -59,14 +59,14 @@ if (isset($_POST['submit'])) {
             <div class="container-fluid">
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <div class="wrap">
-                        <h1 class="h3 mb-0 text-gray-800">Create Ambetter Contact</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Create AgentCRM Contact</h1>
                     </div>
                 </div>
 
                 <form action="" method="post" class="crud-form">
 
                     <div class="cols">
-                        <?php foreach ($Ambetter_Columns as $column => $array): ?>
+                        <?php foreach ($AgentCRM_Columns as $column => $array): ?>
                         <?php if (isset($array['input'])): ?>
                         <?php $input = $array['input']; ?>
                         <div class="style-form-control">
@@ -79,6 +79,8 @@ if (isset($_POST['submit'])) {
                             <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>"<?=$input['required'] ? ' required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?> value="<?=date('Y-m-d')?>">
                             <?php elseif ($input['type'] == 'textarea'): ?>
                             <textarea id="<?=$column?>" name="<?=$column?>" placeholder="<?=$input['placeholder']?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>></textarea>
+                            <?php elseif ($input['type'] == 'time'): ?>
+                            <input type="time" id="<?= $column ?>" name="<?= $column ?>" placeholder="<?= $input['placeholder'] ?>" <?= $input['required'] ? 'required' : '' ?> <?= isset($input['custom']) ? $input['custom'] : '' ?>>
                             <?php elseif ($input['type'] == 'select'): ?>
                             <select id="<?=$column?>" name="<?=$column?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
                                 <?php foreach ($input['options'] as $option): ?>

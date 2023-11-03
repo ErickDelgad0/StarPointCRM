@@ -10,27 +10,27 @@ check_loggedin($pdo, '../index.php');
 
 // Bulk action handler
 if (isset($_GET['bulk_action'])) {
-	// Get the IDs of the selected records
-	$ids = isset($_GET['record']) && is_array($_GET['record']) ? array_filter($_GET['record'], 'is_numeric') : null;
-	// Make sure we have IDs
-	if ($ids) {
+	// Get the contact_ids of the selected records
+	$contact_ids = isset($_GET['record']) && is_array($_GET['record']) ? array_filter($_GET['record'], 'is_numeric') : null;
+	// Make sure we have contact_ids
+	if ($contact_ids) {
 		// Delete records
 		if ($_GET['bulk_action'] == 'delete') {
 			// Delete from the database
-			$stmt = $pdo->prepare('DELETE FROM ' . $Ambetter . ' WHERE id IN (' . implode(',', array_fill(0, count($ids), '?')) . ')');
-			$stmt->execute($ids);
+			$stmt = $pdo->prepare('DELETE FROM ' . $Agentcrm . ' WHERE contact_id IN (' . implode(',', array_fill(0, count($contact_ids), '?')) . ')');
+			$stmt->execute($contact_ids);
 		}
 		// Export records to CSV file
 		if ($_GET['bulk_action'] == 'export') {
-			// Prepare the SQL statement, we basically want to select all the records where the ID is in the POST values
-			$stmt = $pdo->prepare('SELECT * FROM ' . $Ambetter . ' WHERE id IN (' . implode(',', array_fill(0, count($ids), '?')) . ')');
-			$stmt->execute($ids);
+			// Prepare the SQL statement, we basically want to select all the records where the contact_id is in the POST values
+			$stmt = $pdo->prepare('SELECT * FROM ' . $AgentCRM . ' WHERE contact_id IN (' . implode(',', array_fill(0, count($contact_ids), '?')) . ')');
+			$stmt->execute($contact_ids);
 			$records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			// Download the CSV file - we force this by sending a HTTP header with header()
 			header('Content-Type: text/csv; charset=utf-8');
-			header('Content-Disposition: attachment; filename=contacts.csv');
+			header('Content-Disposition: attachment; filename=AgentCRM.csv');
 			$output = fopen('php://output', 'w');
-			fputcsv($output, array_keys($Ambetter_Columns));
+			fputcsv($output, array_keys($AgentCRM_Columns));
 			foreach ($records as $record) {
 				fputcsv($output, $record);
 			}
@@ -39,8 +39,8 @@ if (isset($_GET['bulk_action'])) {
 		}
 		// Edit records
 		if ($_GET['bulk_action'] == 'edit') {
-			// Redirect to the bulk-update.php page, with all the IDs specified in the URL parameters
-			header('Location: ambetter-bulk-update.php?ids=' . implode(',', $ids));
+			// Redirect to the bulk-update.php page, with all the contact_ids specified in the URL parameters
+			header('Location: agentcrm-bulk-update.php?contact_ids=' . implode(',', $contact_ids));
 			exit;
 		}
 	}
@@ -49,8 +49,8 @@ if (isset($_GET['bulk_action'])) {
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 // Number of records to show on each page
 $records_per_page = isset($_GET['records_per_page']) && (is_numeric($_GET['records_per_page']) || $_GET['records_per_page'] == 'all') ? $_GET['records_per_page'] : $default_records_per_page;
-// Order by which column if specified (default to id)
-$order_by = isset($_GET['order_by']) && in_array($_GET['order_by'], array_keys($Ambetter_Columns)) ? $_GET['order_by'] : $default_ambetter_column;
+// Order by which column if specified (default to contact_id)
+$order_by = isset($_GET['order_by']) && in_array($_GET['order_by'], array_keys($AgentCRM_Columns)) ? $_GET['order_by'] : $default_agentcrm_column;
 // Sort by ascending or descending if specified (default to ASC)
 $order_sort = isset($_GET['order_sort']) && $_GET['order_sort'] == 'DESC' ? 'DESC' : 'ASC';
 // Filter params
@@ -60,7 +60,7 @@ $to_date = isset($_GET['to_date']) ? $_GET['to_date'] : '';
 $where_sql = '';
 // Add search to SQL query (if search term exists)
 if (isset($_GET['search']) && !empty($_GET['search'])) {
-	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  implode(' LIKE :search_query OR ', array_keys($Ambetter_Columns)) . ' LIKE :search_query ';
+	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  implode(' LIKE :search_query OR ', array_keys($AgentCRM_Columns)) . ' LIKE :search_query ';
 }
 // Add from and/or to date filter to SQL query (if set); It will only work if the "created" column exists in your database! Rename the column below if you want to use a different DATETIME column
 if (!empty($from_date) && !empty($to_date)) {
@@ -76,7 +76,7 @@ if ($records_per_page != 'all') {
 	$limit_sql = ' LIMIT :current_page, :record_per_page ';
 }
 // SQL statement to get all contacts with search query
-$stmt = $pdo->prepare('SELECT * FROM ' . $Ambetter . $where_sql . ' ORDER BY ' . $order_by . ' ' . $order_sort . $limit_sql);
+$stmt = $pdo->prepare('SELECT * FROM ' . $AgentCRM . $where_sql . ' ORDER BY ' . $order_by . ' ' . $order_sort . $limit_sql);
 // Bind the search query param to the SQL query
 if (isset($_GET['search']) && !empty($_GET['search'])) {	
 	$stmt->bindValue(':search_query', '%' . $_GET['search'] . '%');
@@ -98,7 +98,7 @@ $stmt->execute();
 // Fetch the records so we can populate them in our template below.
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // Get the total number of contacts, so we can determine whether there should be a next and previous button
-$stmt = $pdo->prepare('SELECT COUNT(*) FROM ' . $Ambetter . $where_sql);
+$stmt = $pdo->prepare('SELECT COUNT(*) FROM ' . $AgentCRM . $where_sql);
 // Bind the search query param to the SQL query
 if (isset($_GET['search']) && !empty($_GET['search'])) {	
 	$stmt->bindValue(':search_query', '%' . $_GET['search'] . '%');
@@ -116,7 +116,7 @@ $num_results = $stmt->fetchColumn();
 ?>
 
 
-<?=CRM_header("Ambetter Contacts")?>
+<?=CRM_header("AgentCRM Contacts")?>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -136,8 +136,8 @@ $num_results = $stmt->fetchColumn();
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Ambetter Contacts</h1>
-                            <a href="ambetter-import.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                            <h1 class="h3 mb-0 text-gray-800">Agentcrm Contacts</h1>
+                            <a href="agentcrm-import.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                     class="fas fa-download fa-sm text-white-50"></i> New Import</a>
                     </div>
 
@@ -146,7 +146,7 @@ $num_results = $stmt->fetchColumn();
 
                         <div class="top">
                             <div class="btns">
-                                <a href="ambetter-create.php" class="btn">Create Contact</a>
+                                <a href="agentcrm-create.php" class="btn">Create Contact</a>
                             </div>
                             <div class="wrap">
                                 <div class="filters">
@@ -173,10 +173,10 @@ $num_results = $stmt->fetchColumn();
                                         <td class="checkbox">
                                             <input type="checkbox" class="select-all">
                                         </td>
-                                        <?php foreach ($Ambetter_Columns as $column_key => $column): ?>
+                                        <?php foreach ($AgentCRM_Columns as $column_key => $column): ?>
                                         <td<?=$order_by==$column_key?' class="active"':''?>>
                                             <?php if ($column['sortable']): ?>
-                                            <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=<?=$column_key?>&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
+                                            <a href="agentcrm.php?page=1&records_per_page=<?=$records_per_page?>&order_by=<?=$column_key?>&order_sort=<?=$order_sort == 'ASC' ? 'DESC' : 'ASC'?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">
                                             <?php endif; ?>
                                                 <?=$column['label']?>
                                                 <?php if ($order_by == $column_key): ?>
@@ -198,8 +198,8 @@ $num_results = $stmt->fetchColumn();
                                     <?php endif; ?>
                                     <?php foreach ($results as $result): ?>
                                     <tr>
-                                        <td class="checkbox"><input type="checkbox" value="<?=$result['id']?>" name="record[]"></td>
-                                        <?php foreach ($Ambetter_Columns as $column_key => $column): ?>
+                                        <td class="checkbox"><input type="checkbox" value="<?=$result['contact_id']?>" name="record[]"></td>
+                                        <?php foreach ($AgentCRM_Columns as $column_key => $column): ?>
                                         <?php if ($column['type'] == 'datetime'): ?>
                                         <td class="<?=$column_key?>"><?=date('Y-m-d H:i', strtotime($result[$column_key]))?></td>
                                         <?php elseif ($column['type'] == 'date'): ?>
@@ -211,8 +211,8 @@ $num_results = $stmt->fetchColumn();
                                         <?php endif; ?>
                                         <?php endforeach; ?>
                                         <td class="actions">
-                                            <a href="ambetter-update.php?id=<?=$result['id']?>" class="edit"><i class="fa-solid fa-pen fa-xs"></i></a>
-                                            <a href="ambetter-delete.php?id=<?=$result['id']?>" class="trash"><i class="fa-solid fa-xmark fa-xs"></i></a>
+                                            <a href="agentcrm-update.php?contact_id=<?=$result['contact_id']?>" class="edit"><i class="fa-solid fa-pen fa-xs"></i></a>
+                                            <a href="agentcrm-delete.php?contact_id=<?=$result['contact_id']?>" class="trash"><i class="fa-solid fa-xmark fa-xs"></i></a>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>
@@ -228,45 +228,45 @@ $num_results = $stmt->fetchColumn();
                                     <option value="edit">Edit</option>
                                     <option value="export">Export</option>
                                 </select>
-                                <a href="ambetter.php?page=1&records_per_page=5&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">5</a>
-                                <a href="ambetter.php?page=1&records_per_page=10&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">10</a>
-                                <a href="ambetter.php?page=1&records_per_page=20&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">20</a>
-                                <a href="ambetter.php?page=1&records_per_page=50&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">50</a>
-                                <a href="ambetter.php?page=1&records_per_page=100&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">100</a>
-                                <a href="ambetter.php?page=1&records_per_page=all&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">all</a>
+                                <a href="agentcrm.php?page=1&records_per_page=5&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">5</a>
+                                <a href="agentcrm.php?page=1&records_per_page=10&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">10</a>
+                                <a href="agentcrm.php?page=1&records_per_page=20&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">20</a>
+                                <a href="agentcrm.php?page=1&records_per_page=50&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">50</a>
+                                <a href="agentcrm.php?page=1&records_per_page=100&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">100</a>
+                                <a href="agentcrm.php?page=1&records_per_page=all&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">all</a>
                             </div>
                             <div class="pagination">
                                 <?php if ($records_per_page != 'all'): ?>
                                 <?php if ($page > 1): ?>
-                                <a href="ambetter.php?page=<?=$page-1?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>" class="prev">
+                                <a href="agentcrm.php?page=<?=$page-1?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>" class="prev">
                                     <i class="fa-solid fa-angle-left"></i> Prev
                                 </a>
                                 <?php endif; ?>
                                 <?php if ($page > 1): ?>
-                                <a href="ambetter.php?page=1&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">1</a>
+                                <a href="agentcrm.php?page=1&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">1</a>
                                 <?php endif; ?>
                                 <?php if ($page > 2): ?>
                                 <div class="dots">...</div>
                                 <?php if ($page == ceil($num_results/$records_per_page) && ceil($num_results/$records_per_page) > 3): ?>
-                                <a href="ambetter.php?page=<?=$page-2?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=$page-2?></a>
+                                <a href="agentcrm.php?page=<?=$page-2?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=$page-2?></a>
                                 <?php endif; ?>
                                 <?php endif; ?>
                                 <?php if ($page-1 > 1): ?>
-                                <a href="ambetter.php?page=<?=$page-1?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=$page-1?></a>
+                                <a href="agentcrm.php?page=<?=$page-1?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=$page-1?></a>
                                 <?php endif; ?>
-                                <a href="ambetter.php?page=<?=$page?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>" class="selected"><?=$page?></a>
+                                <a href="agentcrm.php?page=<?=$page?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>" class="selected"><?=$page?></a>
                                 <?php if ($page+1 < ceil($num_results/$records_per_page)): ?>
-                                <a href="ambetter.php?page=<?=$page+1?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=$page+1?></a>
+                                <a href="agentcrm.php?page=<?=$page+1?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=$page+1?></a>
                                 <?php if ($page == 1 && $page+2 < ceil($num_results/$records_per_page)): ?>
-                                <a href="ambetter.php?page=<?=$page+2?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=$page+2?></a>
+                                <a href="agentcrm.php?page=<?=$page+2?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=$page+2?></a>
                                 <?php endif; ?>
                                 <div class="dots">...</div>
                                 <?php endif; ?>
                                 <?php if ($page < ceil($num_results/$records_per_page)): ?>
-                                <a href="ambetter.php?page=<?=ceil($num_results/$records_per_page)?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=ceil($num_results/$records_per_page)?></a>
+                                <a href="agentcrm.php?page=<?=ceil($num_results/$records_per_page)?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>"><?=ceil($num_results/$records_per_page)?></a>
                                 <?php endif; ?>
                                 <?php if ($records_per_page != 'all' && $page < ceil($num_results/$records_per_page)): ?>
-                                <a href="ambetter.php?page=<?=$page+1?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>" class="next">
+                                <a href="agentcrm.php?page=<?=$page+1?>&records_per_page=<?=$records_per_page?>&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>" class="next">
                                     Next <i class="fa-solid fa-angle-right"></i>
                                 </a>
                                 <?php endif; ?>

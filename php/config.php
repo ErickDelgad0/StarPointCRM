@@ -314,4 +314,237 @@ $Ambetter_Columns = [
 		]
 	]
 ];
+
+
+$default_agentcrm_column = 'contact_id';
+$AgentCRM = 'AgentCRM';
+$AgentCRM_Columns = [
+	'contact_id' => [
+		'label' => 'Contact ID',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter Contact ID',
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'Contact ID must not be empty!',
+			'validate_regex' => '/^.{1,255}$/',
+		]
+	],
+	'policy_number' => [
+		'label' => 'Policy Number',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter Policy Number',
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'Policy number must be between 1 and 255 characters!',
+			'validate_regex' => '/^[a-zA-Z0-9\s]{1,255}$/',
+		]
+	],
+	'first_name' => [
+		'label' => 'First Name',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter First Name',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'First name must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\s]{1,50}$/',
+		]
+	],
+	'last_name' => [
+		'label' => 'Last Name',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter Last Name',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'Last name must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\s\-\'\.]{1,50}$/',
+		]
+	],
+	'phone' => [
+		'label' => 'Phone Number',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter Phone Number',
+			'type' => 'tel',
+			'required' => false,
+			'validate_msg' => 'Phone number must be between 1 and 15 characters!',
+			'validate_regex' => '/^[\d\s()+-]{1,15}$/',
+		]
+	],
+	'email' => [
+		'label' => 'Email Address',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter Email Address',
+			'type' => 'email',
+			'required' => false,
+			'validate_msg' => 'Must be a valid email address!',
+		]
+	],
+	'state' => [
+		'label' => 'State',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter State',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'State must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\s]{1,50}$/',
+		]
+	],
+	'DOB' => [
+		'label' => 'Date of Birth',
+		'sortable' => true,
+		'type' => 'date',
+		'input' => [
+			'placeholder' => 'Enter Date of Birth',
+			'type' => 'date',
+			'required' => false,
+			'validate_msg' => 'Must be a valid date!',
+		]
+	],
+	'closure' => [
+		'label' => 'Closure',
+		'sortable' => true,
+		'type' => 'select',
+		'input' => [
+			'placeholder' => 'Select...',
+			'type' => 'select',
+			'required' => true,
+			'validate_msg' => 'Please select a closure!',
+			'options' => [
+				'Genesis Romero' => 'Genesis Romero',
+				'Juan Villatoro' => 'Juan Villatoro',
+				'Roberto Valle' => 'Roberto Valle',
+				'Navil Urbina' => 'Navil Urbina',
+				'Johnny Urbina' => 'Johnny Urbina',
+				'Emily Avila' => 'Emily Avila',
+				'Jose Lopez' => 'Jose Lopez',
+				'Arnaldo Williams' => 'Arnaldo Williams',
+				'Micheal Corral' => 'Micheal Corral',
+				'Michael Villanueva' => 'Michael Villanueva',
+				'Jack Volpe' => 'Jack Volpe',
+				'Nic Narzisi' => 'Nic Narzisi',
+				'Jorge Serna' => 'Jorge Serna',
+				'Alejandro Schulz' => 'Alejandro Schulz',
+				'Juan Castro' => 'Juan Castro',
+				'Eduardo Real' => 'Eduardo Real',
+				'Miguel Gutierrez' => 'Miguel Gutierrez',
+				'Jack Buffa' => 'Jack Buffa',
+				'Adrian Alfonso' => 'Adrian Alfonso',
+				'Kevin Freyre' => 'Kevin Freyre',
+				'Cooper Scully' => 'Cooper Scully',
+				'Amanda Benitez' => 'Amanda Benitez',
+				'Taimi Silvera' => 'Taimi Silvera',
+				'Joel Mendez' => 'Joel Mendez',
+				'Andrew Melero' => 'Andrew Melero',
+				'Eddie Durand' => 'Eddie Durand',
+				'Ivannia Vilchez' => 'Ivannia Vilchez',
+				'Peter Moran' => 'Peter Moran',
+				'Evan Garcia' => 'Evan Garcia',
+				'Nancy Lopez' => 'Nancy Lopez',
+				'Juan Mila' => 'Juan Mila',
+			]
+		]
+	],
+	
+	'closure_date' => [
+		'label' => 'Closure Date',
+		'sortable' => true,
+		'type' => 'date',
+		'input' => [
+			'placeholder' => 'Enter Closure Date',
+			'type' => 'date',
+			'required' => true,
+			'validate_msg' => 'Must be a valid date!',
+			// No need for regex here since 'date' type input inherently validates the format.
+		]
+	],
+	'closure_time' => [
+		'label' => 'Closure Time',
+		'sortable' => true,
+		'type' => 'time',
+		'input' => [
+			'placeholder' => 'Enter Closure Time',
+			'type' => 'time',
+			'required' => true,
+			'validate_msg' => 'Must be a valid time!',
+			// No need for regex here since 'time' type input inherently validates the format.
+		]
+	],
+	'closure_stage' => [
+		'label' => 'Closure Stage',
+		'sortable' => true,
+		'type' => 'select',
+		'input' => [
+			'placeholder' => 'Select...',
+			'type' => 'select',
+			'required' => true,
+			'validate_msg' => 'Please select a closure stage!',
+			'options' => [
+				'Carrier' => 'Carrier',
+				'Not Found-SSN/Income Needed Create New' => 'Not Found-SSN/Income Needed Create New',
+				'SOLD AOR OP/RC - Ambetter' => 'SOLD AOR OP/RC/Ambetter',
+				'Found - CANX/No Plan/ - SSN/Income Needed' => 'Found/CANX/No Plan/SSN/Income Needed',
+				'Issues' => 'Issues',
+				'Multi apps' => 'Multi apps',
+				'NPN' => 'NPN',
+				'state' => 'state',
+				'SOLD OP/RC Ambetter SSN/Income Needed' => 'SOLD OP/RC Ambetter SSN/Income Needed',
+				'DO NOT WORK - Unfinished Leads' => 'DO NOT WORK/Unfinished Leads',
+				'ACA MYACA NEW LEAD PROCESSOR DISTRIBUTION' => 'MYACA NEW LEAD PROCESSOR DISTRIBUTION',
+				'Not Processed - Multi apps' => 'Not Processed - Multi apps',
+				'SOLD - AOR- OP/RC - Ambetter' => 'SOLD/AOR/OP/RC/Ambetter',
+				'Found - No Plan/CANX - SSN/Income Needed' => 'Found/No Plan/CANX/SSN/Income Needed',
+				'STATE EOM' => 'STATE EOM',
+				'NOT FOUND' => 'NOT FOUND',
+				'ACA MYACA NEW LEAD AGENT PIPELINE' => 'MYACA NEW LEAD AGENT PIPELINE',
+				'MYACA End of month' => 'MYACA End of month',
+				'Not Processed - Carrier' => 'Not Processed - Carrier',
+			]
+		]
+	],
+	'closure_pipeline' => [
+		'label' => 'Closure Pipeline',
+		'sortable' => true,
+		'type' => 'select',
+		'input' => [
+			'placeholder' => 'Select...',
+			'type' => 'select',
+			'required' => true,
+			'validate_msg' => 'Must be a valid pipeline!',
+			'options' => [
+				'ACA MYACA NEW LEAD PROCESSOR DISTRIBUTION' => 'MYACA NEW LEAD PROCESSOR DISTRIBUTION',
+				'ACA MYACA NEW LEAD AGENT PIPELINE' => 'MYACA NEW LEAD AGENT PIPELINE',
+				'MYACA End of month' => 'MYACA End of month',
+				'ACA 2023BOOKFLG Pipeline' => 'ACA 2023BOOKFLG Pipeline',
+			],
+		],
+	],
+	'team_name' => [
+		'label' => 'Team Name',
+		'sortable' => true,
+		'type' => 'select',
+		'input' => [
+			'placeholder' => 'Select...',
+			'type' => 'select',
+			'required' => true,
+			'validate_msg' => 'Must select a team!',
+			'options' => [
+				'UF TEAM' => 'UF TEAM',
+				'International CREW' => 'International CREW',
+			],
+		],
+	]
+];
 ?>

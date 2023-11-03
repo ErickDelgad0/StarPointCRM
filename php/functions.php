@@ -1,5 +1,4 @@
 <?php
-
 include 'config.php';
 
 function pdo_connect_mysql() {
@@ -34,7 +33,6 @@ function pdo_connect_mysql() {
         exit('Database connection error: ' . $exception->getMessage());
     }
 }
-
 
 function check_loggedin($pdo, $redirect_file = 'index.php') {
 	// Check for remember me cookie variable and loggedin session variable

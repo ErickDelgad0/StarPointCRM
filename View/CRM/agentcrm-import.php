@@ -22,21 +22,22 @@ if (isset($_POST['submit'])) {
         $csv = array_map('str_getcsv', file($_FILES['csv']['tmp_name']));
         // Validate the header
         $header = array_shift($csv);
-        $Ambetter_Columns = array_keys($Ambetter_Columns);
-        if ($header != $Ambetter_Columns) {
-            $error_msg = 'The CSV header must match the Ambetter columns!';
+        $AgentCRM_Columns = array_keys($AgentCRM_Columns);
+
+        if ($header != $AgentCRM_Columns) {
+            $error_msg = 'The CSV header must match the AgentCRM columns!';
         } else {
             // Import the CSV data
             foreach ($csv as $row) {
-                $stmt = $pdo->prepare('INSERT INTO ' . $Ambetter . ' (' . implode(', ', $Ambetter_Columns) . ') VALUES (' . implode(', ', array_map(function ($column) {
+                $stmt = $pdo->prepare('INSERT INTO ' . $AgentCRM . ' (' . implode(', ', $AgentCRM_Columns) . ') VALUES (' . implode(', ', array_map(function ($column) {
                     return ':' . $column;
-                }, $Ambetter_Columns)) . ')');
+                }, $AgentCRM_Columns)) . ')');
                 foreach ($row as $key => $value) {
                     // check if datetime
-                    if (in_array($Ambetter_Columns[$key], ['created', 'updated'])) {
+                    if (in_array($AgentCRM_Columns[$key], ['created', 'updated'])) {
                         $value = date('Y-m-d H:i:s', strtotime($value));
                     }
-                    $stmt->bindValue(':' . $Ambetter_Columns[$key], $value);
+                    $stmt->bindValue(':' . $AgentCRM_Columns[$key], $value);
                 }
                 $stmt->execute();
             }
@@ -48,7 +49,7 @@ if (isset($_POST['submit'])) {
 
 ?>
 
-<?=CRM_header('Ambetter - Import')?>
+<?=CRM_header('AgentCRM - Import')?>
 
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
@@ -57,7 +58,7 @@ if (isset($_POST['submit'])) {
         <div class="container-fluid">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <div class="wrap">
-                    <h2>Ambetter Import</h2>
+                    <h2>AgentCRM Import</h2>
                 </div>
             </div>
 

@@ -40,8 +40,8 @@ CREATE TABLE `AgentCRM` (
   `closure_date` date NOT NULL,
   `closure_time` time NOT NULL,
   `closure_stage` varchar(500) NOT NULL,
-  `closure_pipeline` int NOT NULL,
-  `team_name` int NOT NULL
+  `closure_pipeline` varchar(255) NOT NULL,
+  `team_name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------

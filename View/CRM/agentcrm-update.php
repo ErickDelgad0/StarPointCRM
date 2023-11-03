@@ -13,23 +13,23 @@ check_loggedin($pdo, '../index.php');
 $error_msg = '';
 // Success message
 $success_msg = '';
-// Ensure contact "ID" param exists
-if (!isset($_GET['id'])) {
-    exit('No ID specified!');
+// Ensure contact "contact_id" param exists
+if (!isset($_GET['contact_id'])) {
+    exit('No contact_id specified!');
 }
 // Get the contact from the contacts table
-$stmt = $pdo->prepare('SELECT * FROM ' . $Ambetter . ' WHERE id = ?');
-$stmt->execute([ $_GET['id'] ]);
+$stmt = $pdo->prepare('SELECT * FROM ' . $AgentCRM . ' WHERE contact_id = ?');
+$stmt->execute([ $_GET['contact_id'] ]);
 $contact = $stmt->fetch(PDO::FETCH_ASSOC);
-// Contact doesn't exist with the specified ID, so output error message and stop the script
+// Contact doesn't exist with the specified contact_id, so output error message and stop the script
 if (!$contact) {
-    exit('Contact doesn\'t exist with that ID!');
+    exit('Contact doesn\'t exist with that contact_id!');
 }
 // Check if POST data exists (user submitted the form)
 if (isset($_POST['submit'])) {
     // Iterate through the fields and extract the data from the form
     $data = [];
-    foreach ($Ambetter_Columns as $column => $array) {
+    foreach ($AgentCRM_Columns as $column => $array) {
         if (isset($_POST[$column])) {
             $data[$column] = $_POST[$column];
             // Validate
@@ -46,27 +46,27 @@ if (isset($_POST['submit'])) {
     // If no validation errors, proceed to update the record(s) in the database
     if (!$error_msg) {
         // Update the record
-        $stmt = $pdo->prepare('UPDATE ' . $Ambetter . ' SET ' . implode(', ', array_map(function ($column) {
+        $stmt = $pdo->prepare('UPDATE ' . $AgentCRM . ' SET ' . implode(', ', array_map(function ($column) {
             return $column . ' = :' . $column;
-        }, array_keys($data))) . ' WHERE id = :id');
+        }, array_keys($data))) . ' WHERE contact_id = :contact_id');
         // bind over the data to the placeholders in the prepared statement
         foreach ($data as $column => $value) {
             $stmt->bindValue(':' . $column, $value);
         }
-        // Bind ID
-        $stmt->bindValue(':id', $_GET['id']);
+        // Bind contact_id
+        $stmt->bindValue(':contact_id', $_GET['contact_id']);
         // Execute the SQL statement
         $stmt->execute();
         // Get the updated contact from the contacts table
-        $stmt = $pdo->prepare('SELECT * FROM  ' . $Ambetter . ' WHERE id = ?');
-        $stmt->execute([ $_GET['id'] ]);
+        $stmt = $pdo->prepare('SELECT * FROM  ' . $AgentCRM . ' WHERE contact_id = ?');
+        $stmt->execute([ $_GET['contact_id'] ]);
         $contact = $stmt->fetch(PDO::FETCH_ASSOC);
         // Output message
         $success_msg = 'Updated Successfully!';
     }
 }
 ?>
-<?=CRM_header('Ambetter - Update')?>
+<?=CRM_header('AgentCRM - Update')?>
 
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
@@ -79,14 +79,14 @@ if (isset($_POST['submit'])) {
 
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <div class="wrap">
-                    <h1 class="h3 mb-0 text-gray-800">Update Ambetter Contact #<?=$contact['id']?></h1>
+                    <h1 class="h3 mb-0 text-gray-800">Update AgentCRM Contact #<?=$contact['contact_id']?></h1>
                 </div>
             </div>
 
-            <form action="?id=<?=$contact['id']?>" method="post" class="crud-form">
+            <form action="?contact_id=<?=$contact['contact_id']?>" method="post" class="crud-form">
 
                 <div class="cols">
-                    <?php foreach ($Ambetter_Columns as $column => $array): ?>
+                    <?php foreach ($AgentCRM_Columns as $column => $array): ?>
                     <?php if (isset($array['input'])): ?>
                     <?php $input = $array['input']; ?>
                     <div class="style-form-control">
