@@ -24,6 +24,9 @@ if (isset($_POST['submit'])) {
         $header = array_shift($csv);
         $AgentCRM_Columns = array_keys($AgentCRM_Columns);
 
+        print_r($header);
+        print_r($AgentCRM_Columns);
+
         if ($header != $AgentCRM_Columns) {
             $error_msg = 'The CSV header must match the AgentCRM columns!';
         } else {

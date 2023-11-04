@@ -93,7 +93,15 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
 
+
             <form action="?ids=<?=$_GET['ids']?>" method="post" class="crud-form">
+
+            <?php if ($error_msg): ?>
+            <p class="msg-error"><?=implode('<br>', $error_msg)?></p>
+            <?php elseif ($success_msg): ?>
+            <p class="msg-success"><?=$success_msg?></p>
+            <?php endif; ?>
+            
                 <?php foreach ($contacts as $contact): ?>
                 <div class="cols">
                     <h2>Contact <?=$contact['id']?></h2>
@@ -132,12 +140,6 @@ if (isset($_POST['submit'])) {
                     <?php endforeach; ?>
                 </div>  
                 <?php endforeach; ?>
-
-                <?php if ($error_msg): ?>
-                <p class="msg-error"><?=implode('<br>', $error_msg)?></p>
-                <?php elseif ($success_msg): ?>
-                <p class="msg-success"><?=$success_msg?></p>
-                <?php endif; ?>
 
                 <button type="submit" name="submit" class="btn">Save Records</button>
 
