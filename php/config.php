@@ -320,7 +320,7 @@ $default_agentcrm_column = 'contact_id';
 $AgentCRM = 'AgentCRM';
 $AgentCRM_Columns = [
 	'contact_id' => [
-		'label' => 'Contact ID',
+		'label' => 'Contact Id',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [
@@ -368,7 +368,7 @@ $AgentCRM_Columns = [
 		]
 	],
 	'phone' => [
-		'label' => 'Phone Number',
+		'label' => 'Phone',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [
@@ -380,7 +380,7 @@ $AgentCRM_Columns = [
 		]
 	],
 	'email' => [
-		'label' => 'Email Address',
+		'label' => 'Email',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [

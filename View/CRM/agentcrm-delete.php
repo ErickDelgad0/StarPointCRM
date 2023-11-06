@@ -69,5 +69,6 @@ if (isset($_GET['contact_id'])) {
         </div>
     </div>
     <?=CRM_footer()?>
+    <?=js_torun()?>
 </div>
 

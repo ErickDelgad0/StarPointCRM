@@ -1,4 +1,3 @@
-
 # using 'docker-compose up' restarts the docker service
 # using 'docker-compose down' stopping everything that was happeing
 

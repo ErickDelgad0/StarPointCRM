@@ -32,16 +32,16 @@ CREATE TABLE `AgentCRM` (
   `policy_number` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
-  `phone` varchar(15) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   `state` varchar(50) DEFAULT NULL,
   `DOB` date DEFAULT NULL,
   `closure` varchar(100) NOT NULL,
   `closure_date` date NOT NULL,
   `closure_time` time NOT NULL,
-  `closure_stage` varchar(500) NOT NULL,
-  `closure_pipeline` varchar(255) NOT NULL,
-  `team_name` varchar(100) NOT NULL
+  `closure_stage` varchar(500)DEFAULT NULL,
+  `closure_pipeline` varchar(255) DEFAULT NULL,
+  `team_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -66,7 +66,7 @@ CREATE TABLE `Ambetter` (
   `state` varchar(4) DEFAULT NULL,
   `on_off_exchange` varchar(3) DEFAULT NULL,
   `exchange_subscriber_id` varchar(255) DEFAULT NULL,
-  `member_phone_number` varchar(15) DEFAULT NULL,
+  `member_phone_number` varchar(20) DEFAULT NULL,
   `member_email` varchar(255) DEFAULT NULL,
   `member_responsibility` varchar(255) DEFAULT NULL,
   `member_DOB` date DEFAULT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE `Employee` (
   `password` varchar(255) NOT NULL,
   `activation_code` varchar(50) NOT NULL DEFAULT '',
   `rememberme` varchar(255) NOT NULL DEFAULT '',
-  `phone` varchar(100) NOT NULL DEFAULT '',
+  `phone` varchar(20) NOT NULL DEFAULT '',
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `registered` datetime NOT NULL,
   `role` varchar(25) NOT NULL DEFAULT 'guest',

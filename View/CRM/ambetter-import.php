@@ -83,8 +83,7 @@ if (isset($_POST['submit'])) {
             </form>
         </div>
     </div>
-
-    
     <?=CRM_footer()?>
+    <?=js_torun()?>
 </div>
 

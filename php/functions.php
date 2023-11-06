@@ -67,11 +67,9 @@ function check_loggedin($pdo, $redirect_file = 'index.php') {
 
 
 function CRM_header($title) {
-echo <<<EOT
-
+    echo <<<EOT
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
