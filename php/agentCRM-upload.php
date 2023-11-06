@@ -1,5 +1,5 @@
 <?php
-include("php/config.php");
+include("config.php");
 //upload.php
 session_start();
 

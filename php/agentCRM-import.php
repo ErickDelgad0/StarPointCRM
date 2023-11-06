@@ -1,6 +1,6 @@
 <?php
 
-include("php/functions.php"); // Assuming this file contains the pdo_connect_mysql function.
+include("functions.php"); // Assuming this file contains the pdo_connect_mysql function.
 
 $pdo = pdo_connect_mysql(); // Establish a database connection.
 
