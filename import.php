@@ -14,6 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         // Open the uploaded file for reading.
         $file = fopen($_FILES['file']['tmp_name'], 'r');
+        
+        // Initialize an array to hold error messages.
+        $errorMessages = [];
 
         // Initialize a counter for the total number of processed records.
         $processedCount = 0;
@@ -88,26 +91,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $statement->bindValue(":$key", $value);
                 }
 
-                // Attempt to execute the statement.
-                if (!$statement->execute()) {
-                    echo("An error occured at");
-                    echo($processedCount);
-                    // Handle errors, e.g., output error information.
-                    echo "\nPDOStatement::errorInfo():\n";
-                    print_r($statement->errorInfo());
-                    fclose($file);
-                }
-                else{
-                    $processedCount += 1;
+                try {    
+                    // Attempt to execute the statement.
+                    if (!$statement->execute()) {
+                        // Handle errors, e.g., add error information to the array.
+                        $errorMessages[] = ['Row' => $processedCount, 'Error' => json_encode($statement->errorInfo())];
+                    } else {
+                        $processedCount += 1;
+                    }
+                } catch (PDOException $e) {
+                    // Log the error with the row number or content to the array
+                    $errorMessages[] = ['Row' => $processedCount, 'Error' => $e->getMessage()];
                 }
             }
         }
         // Close the file after reading.
-        echo "\n";
         fclose($file);
 
         // Final count output.
         echo "Import complete: " . $processedCount . " records processed.\n";
+
+        // If there are errors, print them.
+        if (!empty($errorMessages)) {
+            echo "Some records could not be processed:\n";
+            // Loop through and print out each error.
+            foreach ($errorMessages as $error) {
+                echo "Row {$error['Row']}: {$error['Error']}\n";
+            }
+            // Error Option, save errors to a session variable, redirect, and display on another page idk
+            // $_SESSION['error_messages'] = $errorMessages;
+            // header('Location: show_errors.php');
+            // exit;
+        }
+
+        // Redirect to another page after completion if no errors or after displaying them.
+        // header('Location: success_page.php');
+        // exit;
+
     } else {
         // Output an error message if no file was uploaded.
         echo "No file uploaded.";
