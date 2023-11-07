@@ -203,7 +203,7 @@ $num_results = $stmt->fetchColumn();
                                         <?php if ($column['type'] == 'datetime'): ?>
                                         <td class="<?=$column_key?>"><?=date('Y-m-d H:i', strtotime($result[$column_key]))?></td>
                                         <?php elseif ($column['type'] == 'date'): ?>
-                                        <td class="<?=$column_key?>"><?=date('Y-m-d', strtotime($result[$column_key]))?></td>
+                                        <td class="<?=$column_key?>"><?=date('Y-m-d', strtotime((string) $result[$column_key]))?></td>
                                         <?php elseif ($column['type'] == 'integer'): ?>
                                         <td class="<?=$column_key?>"><?=number_format($result[$column_key])?></td>
                                         <?php else: ?>
