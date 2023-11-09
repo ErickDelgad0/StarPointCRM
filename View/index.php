@@ -2,8 +2,6 @@
 session_start();
 ?>
 
-<!-- FREE BOOTSTRAP TEMPLATE -->
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,24 +33,24 @@ session_start();
         <div class="collapse navbar-collapse" id="ftco-nav">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active"><a href="#section-home" class="nav-link">Home</a></li>
-            <li class="nav-item"><a href="#section-features" class="nav-link">Features</a></li>
-            <li class="nav-item"><a href="#section-services" class="nav-link">Services</a></li>
+            <li class="nav-item"><a href="#section-features" class="nav-link">Quick Start</a></li>
+            <!-- <li class="nav-item"><a href="#section-services" class="nav-link">Services</a></li> -->
             <li class="nav-item"><a href="#section-pricing" class="nav-link">Pricing</a></li>
+            <li class="nav-item"><a href="#section-FAQ" class="nav-link">FAQ</a></li>
             <li class="nav-item"><a href="#section-about" class="nav-link">About</a></li>
-            <li class="nav-item"><a href="#section-contact" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="#section-contact" class="nav-link">Free Quote</a></li>
           </ul>
         </div>
       </div>
     </nav>
     <!-- END nav -->
 
-    <section class="ftco-cover ftco-slant" style="background-image: url(../css/index/images/bg_3.jpg);" id="section-home">
+    <section class="ftco-cover" style="background-image: url(../css/index/images/img_2.jpeg);" id="section-home">
       <div class="container">
         <div class="row align-items-center justify-content-center text-center ftco-vh-100">
           <div class="col-md-10">
-            <h1 class="ftco-heading ftco-animate">Special Enrollment is here! Act by Nov 15 for coverage in 2023</h1>
-            <!-- <h2 class="h5 ftco-subheading mb-5 ftco-animate">A free template by <a href="#">Free-Template.co</a></h2>     -->
-            <p><a href="#" target="_blank" class="btn btn-primary ftco-animate">APPLY HERE</a></p>
+            <h1 class="ftco-heading ftco-animate darkness">Special Enrollment is here!</h1>
+            <p><a href="#section-contact" target="_blank" class="btn btn-primary ftco-animate">FREE QUOTE HERE</a></p>
           </div>
         </div>
       </div>
@@ -61,84 +59,79 @@ session_start();
     
 
     <section class="ftco-section bg-light  ftco-slant ftco-slant-white" id="section-features">
-      <div class="container">
-        
-        <div class="row">
-          <div class="col-md-12 text-center mb-5 ftco-animate">
-            <h2 class="text-uppercase ftco-uppercase">Our Awesome Features</h2>
-            <div class="row justify-content-center">
-              <div class="col-md-7">
-                <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="media d-block mb-4 text-center ftco-media p-md-5 p-4 ftco-animate">
-              <div class="ftco-icon mb-3"><span class="oi oi-thumb-up display-4 text-muted"></span></div>
-              <div class="media-body">
-                <h5 class="mt-0">Free Bootstrap 4</h5>
-                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Learn More</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="media d-block mb-4 text-center ftco-media p-md-5 p-4 ftco-animate">
-              <div class="ftco-icon mb-3"><span class="oi oi-bolt display-4 text-muted"></span></div>
-              <div class="media-body">
-                <h5 class="mt-0">Fast Loading</h5>
-                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Learn More</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="media d-block mb-4 text-center ftco-media p-md-5 p-4 ftco-animate">
-              <div class="ftco-icon mb-3"><span class="oi oi-person display-4 text-muted"></span></div>
-              <div class="media-body">
-                <h5 class="mt-0">Designer &amp; Developer</h5>
-                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Learn More</a></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-4 col-md-6">
-            <div class="media d-block mb-4 text-center ftco-media p-md-5 p-4 ftco-animate">
-              <div class="ftco-icon mb-3"><span class="oi oi-code display-4 text-muted"></span></div>
-              <div class="media-body">
-                <h5 class="mt-0">Clean Code</h5>
-                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Learn More</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="media d-block mb-4 text-center ftco-media p-md-5 p-4 ftco-animate">
-              <div class="ftco-icon mb-3"><span class="oi oi-magnifying-glass display-4 text-muted"></span></div>
-              <div class="media-body">
-                <h5 class="mt-0">Search Engine</h5>
-                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Learn More</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="media d-block mb-4 text-center ftco-media p-md-5 p-4 ftco-animate">
-              <div class="ftco-icon mb-3"><span class="oi oi-phone display-4 text-muted"></span></div>
-              <div class="media-body">
-                <h5 class="mt-0">Fully Responsive</h5>
-                <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Learn More</a></p>
-              </div>
+      <div class="row">
+        <div class="col-md-12 text-center mb-5 ftco-animate">
+          <h2 class="text-uppercase ftco-uppercase">Quick Start Guide</h2>
+          <div class="row justify-content-center">
+            <div class="col-md-7">
+              <p class="lead">If you haven't applied for health coverage in 2023 here's everything you need to know. </p>
             </div>
           </div>
         </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="media d-block mb-4 text-center ftco-media p-md-5 p-4 ftco-animate">
+            <div class="ftco-icon mb-3"><span class="oi oi-phone display-4 text-muted"></span></div>
+            <div class="media-body">
+              <h5 class="mt-0">You can contact us to help sign up.</h5>
+              <p class="mb-5">Fill out GET A FREE QUOTE for more information or to receive help enrolling. We would be more than happy to assist you and getting the health coverage you deserve in 2023.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="media d-block mb-4 text-center ftco-media p-md-5 p-4 ftco-animate">
+            <div class="ftco-icon mb-3"><span class="oi oi-person display-4 text-muted"></span></div>
+            <div class="media-body">
+              <h5 class="mt-0">What you pay for insurance depends on your income</h5>
+              <p class="mb-5">Your savings are based on an estimated income based off your previous year's income.</p>
+              <br>
+              <br>
+              <p class="mb-0"><a href="#contact-form" class="btn btn-primary btn-sm">Get A Free Quote</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="media d-block mb-4 text-center ftco-media p-md-5 p-4 ftco-animate">
+            <div class="ftco-icon mb-3"><span class="oi oi-bolt display-4 text-muted"></span></div>
+            <div class="media-body">
+              <h5 class="mt-0">The Health Insurance Marketplace is for people who don't have health coverage</h5>
+              <p class="mb-5">If you do not currently have insurance coverage you can use the Marketplace to find health or dental coverage.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-lg-4 col-md-6">
+          <div class="media d-block mb-4 text-center ftco-media p-md-5 p-4 ftco-animate">
+            <div class="ftco-icon mb-3"><span class="oi oi-code display-4 text-muted"></span></div>
+            <div class="media-body">
+              <h5 class="mt-0">Clean Code</h5>
+              <p class="mb-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+              <p class="mb-0"><a href="#" class="btn btn-primary btn-sm">Learn More</a></p>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-lg-4 col-md-6">
+          <div class="  mb-4 text-center f p-md-5 p-4 ftco-animate">
+            <div class="ftco-icon mb-3"><span class=""></span></div>
+            <div class="media-body">
+              <h5 class="mt-0"></h5>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="media d-block mb-4 text-center ftco-media p-md-5 p-4 ftco-animate">
+            <div class="ftco-icon mb-3"><span class="oi oi-thumb-up display-4 text-muted"></span></div>
+            <div class="media-body">
+              <h5 class="mt-0">2023 Special Enrollment runs from January 15, 2023 through November 15, 2023</h5>
+              <p class="mb-5">Plans sold start the 1st of the following month.</p>
+            </div>
+          </div>
+        </div>
+        
       </div>
     </section>
     <!-- END section -->
 
-    <section class="ftco-section ftco-slant" id="section-services">
+    <!-- <section class="ftco-section ftco-slant" id="section-services">
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-center ftco-animate">
@@ -150,15 +143,15 @@ session_start();
             </div>
           </div>
         </div>
-        <!-- END row -->
+
         <div class="row">
           <div class="col-lg-4 mb-5 ftco-animate">
-            <figure><img src="../css/index/images/img_2.jpg" alt="Free Template by Free-Template.co" class="img-fluid"></figure>
+            <figure><img src="../css/index/images/img_2.jpeg" alt="img" class="img-fluid"></figure>
             <div class="p-3">
               <h3 class="h4">Title of Service here</h3>
               <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
               <ul class="list-unstyled ftco-list-check text-left">
-                <li class="d-flex mb-2"><span class="oi oi-check mr-3 text-primary"></span> <span>Free template for designer and developers</span></li>
+                <li class="d-flex mb-2"><span class="oi oi-check mr-3 text-primary"></span> <span>template for designer and developers</span></li>
                 <li class="d-flex mb-2"><span class="oi oi-check mr-3 text-primary"></span> <span>Vokalia and consonantia blind texts</span></li>
                 <li class="d-flex mb-2"><span class="oi oi-check mr-3 text-primary"></span> <span>Behind the word mountains blind texts</span></li>
               </ul>
@@ -166,12 +159,12 @@ session_start();
           </div>
 
           <div class="col-lg-4 mb-5 ftco-animate">
-            <figure><img src="../css/index/images/img_1.jpg" alt="Free Template by Free-Template.co" class="img-fluid"></figure>
+            <figure><img src="../css/index/images/img_1.jpg" alt="img" class="img-fluid"></figure>
             <div class="p-3">
               <h3 class="h4">Title of Service here</h3>
               <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
               <ul class="list-unstyled ftco-list-check text-left">
-                <li class="d-flex mb-2"><span class="oi oi-check mr-3 text-primary"></span> <span>Free template for designer and developers</span></li>
+                <li class="d-flex mb-2"><span class="oi oi-check mr-3 text-primary"></span> <span>template for designer and developers</span></li>
                 <li class="d-flex mb-2"><span class="oi oi-check mr-3 text-primary"></span> <span>Vokalia and consonantia blind texts</span></li>
                 <li class="d-flex mb-2"><span class="oi oi-check mr-3 text-primary"></span> <span>Behind the word mountains blind texts</span></li>
               </ul>
@@ -179,12 +172,12 @@ session_start();
           </div>
 
           <div class="col-lg-4 mb-5 ftco-animate">
-            <figure><img src="../css/index/images/img_3.jpg" alt="Free Template by Free-Template.co" class="img-fluid"></figure>
+            <figure><img src="../css/index/images/img_3.jpg" alt="img" class="img-fluid"></figure>
             <div class="p-3">
               <h3 class="h4">Title of Service here</h3>
               <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
               <ul class="list-unstyled ftco-list-check text-left">
-                <li class="d-flex mb-2"><span class="oi oi-check mr-3 text-primary"></span> <span>Free template for designer and developers</span></li>
+                <li class="d-flex mb-2"><span class="oi oi-check mr-3 text-primary"></span> <span>template for designer and developers</span></li>
                 <li class="d-flex mb-2"><span class="oi oi-check mr-3 text-primary"></span> <span>Vokalia and consonantia blind texts</span></li>
                 <li class="d-flex mb-2"><span class="oi oi-check mr-3 text-primary"></span> <span>Behind the word mountains blind texts</span></li>
               </ul>
@@ -193,9 +186,9 @@ session_start();
 
         </div>
       </div>
-    </section>
+    </section> -->
 
-    <section class="ftco-section bg-light ftco-slant ftco-slant-white" id="section-pricing">
+    <section class="ftco-section ftco-slant" id="section-pricing">
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-center ftco-animate">
@@ -262,8 +255,8 @@ session_start();
         </div>
       </div>
     </section>
-
-    <section class="ftco-section ftco-slant ftco-slant-light">
+    
+    <section class="ftco-section bg-light ftco-slant ftco-slant-white">
       <div class="container">
         <div class="row">
           <div class="col-md-12 text-center ftco-animate">
@@ -304,7 +297,7 @@ session_start();
                 <div class="media d-block text-left ftco-media p-md-5 p-4">
                   <div class="ftco-icon mb-3"><span class="oi oi-location display-4"></span></div>
                   <div class="media-body">
-                    <h5 class="mt-0">Free Bootstrap 4</h5>
+                    <h5 class="mt-0">  Bootstrap 4</h5>
                     <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                   </div>
                 </div>
@@ -327,7 +320,7 @@ session_start();
     </section>
     
 
-    <section class="ftco-section ftco-slant ftco-slant-light  bg-light ftco-slant ftco-slant-white" id="section-faq">
+    <section class="ftco-section ftco-slant ftco-slant-light" id="section-FAQ">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 text-center ftco-animate">
@@ -365,7 +358,7 @@ session_start();
       </div>
     </section>
 
-    <section class="ftco-section ftco-slant ftco-slant-light" id="section-about">
+    <section class="ftco-section bg-light  ftco-slant ftco-slant-white" id="section-about">
       <div class="container">
 
         <div class="row mb-5">
@@ -373,7 +366,7 @@ session_start();
             <h2 class="text-uppercase ftco-uppercase">About Us</h2>
             <div class="row justify-content-center mb-5">
               <div class="col-md-7">
-                <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Feel free to send us an email to <a href="#">info@yourdomain.com</a></p>
+                <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Feel   to send us an email to <a href="#">info@yourdomain.com</a></p>
               </div>
             </div>
           </div>
@@ -383,7 +376,7 @@ session_start();
 
         <div class="row no-gutters align-items-center ftco-animate">
           <div class="col-md-6 mb-md-0 mb-5">
-            <img src="../css/index/images/bg_3.jpg" alt="Free Template by Free-Template.co" class="img-fluid">
+            <img src="../css/index/images/bg_3.jpg" alt="img" class="img-fluid">
           </div>
           <div class="col-md-6 p-md-5">
             <h3 class="h3 mb-4">Far far away, behind the word mountains</h3>
@@ -393,7 +386,7 @@ session_start();
         </div>
         <div class="row no-gutters align-items-center ftco-animate">
           <div class="col-md-6 order-md-3 mb-md-0 mb-5">
-            <img src="../css/index/images/bg_1.jpg" alt="Free Template by Free-Template.co" class="img-fluid">
+            <img src="../css/index/images/bg_1.jpg" alt="img" class="img-fluid">
           </div>
           <div class="col-md-6 p-md-5 order-md-1">
             <h3 class="h3 mb-4">Far from the countries Vokalia and Consonantia</h3>
@@ -404,70 +397,118 @@ session_start();
 
       </div>
     </section>
-    <section class="ftco-section bg-light ftco-slant ftco-slant-white" id="section-counter">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-md-12 text-center ftco-animate">
-            <h2 class="text-uppercase ftco-uppercase">Fun Facts</h2>
-            <div class="row justify-content-center mb-5">
-              <div class="col-md-7">
-                <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- END row -->
-        <div class="row">
-          <div class="col-md ftco-animate">
-            <div class="ftco-counter text-center">
-              <span class="ftco-number" data-number="34146">0</span>
-              <span class="ftco-label">Lines of Codes</span>
-            </div>
-          </div>
-          <div class="col-md ftco-animate">
-            <div class="ftco-counter text-center">
-              <span class="ftco-number" data-number="1239">0</span>
-              <span class="ftco-label">Pizza Consume</span>
-            </div>
-          </div>
-          <div class="col-md ftco-animate">
-            <div class="ftco-counter text-center">
-              <span class="ftco-number" data-number="124">0</span>
-              <span class="ftco-label">Number of Clients</span>
-            </div>
-          </div>    
-        </div>
-      </div>
-      
-    </section>
-    <section class="ftco-section bg-white ftco-slant ftco-slant-dark" id="section-contact">
-      <div class="container">
-        <div class="row">
 
+    <section class="ftco-section bg-white ftco-slant ftco-slant-dark">
+      <div class="container">
+      <h2 class="text-uppercase ftco-uppercase" id="section-contact">Free Quote</h2>
+        <div class="row">
           <div class="col-md pr-md-5 mb-5">
-            <form action="" method="post">
-              <div class="form-group">
-                <label for="name" class="sr-only">Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter your name">
+            <form action="new-lead.php" method="post">
+              <div class="form-row">
+                <div class="form-group form-group-inline">
+                    <label for="first_name" class="sr-only">Name</label>
+                    <input type="text" class="form-control" id="first_name" placeholder="Enter your First Name" required>
+                </div>
+                <div class="form-group form-group-inline">
+                  <label for="last_name" class="sr-only">Name</label>
+                  <input type="text" class="form-control" id="last_name" placeholder="Enter your Last name" required>
+                </div>
               </div>
-              <div class="form-group">
-                <label for="email" class="sr-only">Email</label>
-                <input type="text" class="form-control" id="email" placeholder="Enter your email">
+
+              <div class="form-row">
+                <div class="form-group form-group-inline">
+                  <label for="email" class="sr-only">Email</label>
+                  <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group form-group-inline">
+                  <label for="phone" class="sr-only">Phone Number</label>
+                  <input type="text" class="form-control" id="phone" placeholder="Phone (7869654412)" required>
+                </div>
               </div>
+
+              <div class="form-row">
+                <div class="form-group form-group-inline">
+                  <label for="state" class="sr-only">State</label>
+                  <select class="form-control" id="state" name="state" required>
+                    <option value="" disabled selected>Select your state</option>
+                    <option value="AL">AL</option>
+                    <option value="AK">AK</option>
+                    <option value="AZ">AZ</option>
+                    <option value="AR">AR</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DE">DE</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="IA">IA</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="ME">ME</option>
+                    <option value="MD">MD</option>
+                    <option value="MA">MA</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MS">MS</option>
+                    <option value="MO">MO</option>
+                    <option value="MT">MT</option>
+                    <option value="NE">NE</option>
+                    <option value="NV">NV</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NY">NY</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VT">VT</option>
+                    <option value="VA">VA</option>
+                    <option value="WA">WA</option>
+                    <option value="WV">WV</option>
+                    <option value="WI">WI</option>
+                    <option value="WY">WY</option>
+                  </select>
+                </div>
+
+                <div class="form-group form-group-inline">
+                  <label for="Date of Birth" class="sr-only">Date of Birth</label>
+                  <input type="text" class="form-control" id="dob" placeholder="" required>
+                </div>
+              </div>
+
+              
               <div class="form-group">
                 <label for="message" class="sr-only">Message</label>
-                <textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Write your message"></textarea>
+                <textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Write an optional message"></textarea>
               </div>
+              <p class="disclaimer">
+                An agent will contact you after sending your info
+                <br>
+                By clicking “REQUEST A FREE QUOTE”, I agree to receive marketing via newsletter, text, automatic telephone dialing system, or by artificial/pre-recorded message from StarPoint Insurance and its agents and affiliates at the telephone number or email I have provided. I understand that my consent is not required as a condition of purchasing any goods or services.
+              </p>
               <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Send Message">
+                <input type="submit" class="btn btn-primary" value="REQUEST A FREE QUOTE">
               </div>
             </form>
           </div>
-          <div class="col-md" id="map">
-          </div>
         </div>
       </div>
     </section>
+   
     <footer class="ftco-footer ftco-bg-dark">
       <div class="container">
         <div class="row mb-5">
@@ -509,13 +550,13 @@ session_start();
             </div>
           </div>
           <div class="col-md-4">
-            <div class="ftco-footer-widget mb-4">
-              <!-- <ul class="ftco-footer-social list-unstyled float-md-right float-lft">
+            <!--<div class="ftco-footer-widget mb-4">
+               <ul class="ftco-footer-social list-unstyled float-md-right float-lft">
                 <li><a href="#"><span class="icon-twitter"></span></a></li>
                 <li><a href="#"><span class="icon-facebook"></span></a></li>
                 <li><a href="#"><span class="icon-instagram"></span></a></li>
-              </ul> -->
-            </div>
+              </ul> 
+            </div>-->
           </div>
         </div>
         <div class="row">
@@ -536,8 +577,6 @@ session_start();
     <script src="../css/index/js/jquery.easing.1.3.js"></script>
     <script src="../css/index/js/jquery.waypoints.min.js"></script>
     <script src="../css/index/js/owl.carousel.min.js"></script>
-    <script src="../css/index/js/jquery.animateNumber.min.js"></script>
-
     <script src="../css/index/js/main.js"></script>
 
     
