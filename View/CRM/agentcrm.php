@@ -288,5 +288,6 @@ $num_results = $stmt->fetchColumn();
     </a>
 
     <?=js_torun()?>
+    <?=logout_modal()?>
 </body>
 </html>

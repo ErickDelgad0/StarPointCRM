@@ -85,5 +85,6 @@ if (isset($_POST['submit'])) {
     </div>
     <?=CRM_footer()?>
     <?=js_torun()?>
+    <?=logout_modal()?>
 </div>
 

@@ -280,6 +280,7 @@ $num_results = $stmt->fetchColumn();
         <i class="fas fa-angle-up"></i>
     </a>
 
+    <?=logout_modal()?>
     <?=js_torun()?>
 </body>
 </html>

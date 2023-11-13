@@ -68,5 +68,6 @@ if (isset($_GET['contact_id'])) {
     </div>
     <?=CRM_footer()?>
     <?=js_torun()?>
+    <?=logout_modal()?>
 </div>
 

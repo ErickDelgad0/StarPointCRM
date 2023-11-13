@@ -66,3 +66,4 @@ $dbColumns = [
 
 
 <?=CRM_footer()?>
+<?=logout_modal()?>

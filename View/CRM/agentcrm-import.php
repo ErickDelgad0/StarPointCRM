@@ -52,6 +52,7 @@ CRM_header('AgentCRM - Import');
 
     
     <?=CRM_footer()?>
+    <?=logout_modal()?>
 </div>
 
 <script>

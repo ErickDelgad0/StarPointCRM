@@ -119,6 +119,7 @@ if (isset($_POST['submit'])) {
     </a>
     
     <?=js_torun()?>
+    <?=logout_modal()?>
 </body>
 </html>
 

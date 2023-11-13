@@ -213,6 +213,7 @@ try {
     </a>
 
     <?=js_torun()?>
+    <?=logout_modal()?>
 
     <script>
         <?php 

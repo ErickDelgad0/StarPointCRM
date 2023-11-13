@@ -146,4 +146,5 @@ if (isset($_POST['submit'])) {
         </div>
         <?=CRM_footer()?>
     </div>
+    <?=logout_modal()?>
 </div>
