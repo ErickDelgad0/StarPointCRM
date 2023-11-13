@@ -22,6 +22,7 @@ if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme'])) {
 		$_SESSION['name'] = $account['username'];
 		$_SESSION['id'] = $account['id'];
         $_SESSION['role'] = $account['role'];
+        $_SESSION['fullname'] = $account['first_name'] . ' ' . $account['last_name'];
 		// Update last seen date
 		$date = date('Y-m-d\TH:i:s');
 		$stmt = $pdo->prepare('UPDATE Employee SET last_seen = ? WHERE id = ?');

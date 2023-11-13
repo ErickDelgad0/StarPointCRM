@@ -31,6 +31,7 @@ $dbColumns = [
 <?=CRM_header('Ambetter - Mapping')?>
 
 <div class="content update">
+    <?= CRM_topbar($_SESSION) ?>
     <h2>Map the following fields to the Ambetter Database</h2>
     <form action="ambetter-import-handler.php" method="post">
         <table>

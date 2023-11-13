@@ -124,11 +124,7 @@ $num_results = $stmt->fetchColumn();
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top">
-
-                </nav>
-                <!-- End of Topbar -->
+                <?= CRM_topbar($_SESSION) ?>
 
 
                 <!-- Begin Page Content -->
@@ -273,8 +269,8 @@ $num_results = $stmt->fetchColumn();
                                 <?php endif; ?>
                             </div>
                         </div>
-                        </form>
-                    </div>
+                    </form>
+                </div>
             </div>
             <!-- End of Main Content -->
 

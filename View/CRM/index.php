@@ -13,9 +13,7 @@ check_loggedin($pdo, '../index.php');
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand topbar mb-4 static-top">
-                </nav>
+                <?= CRM_topbar($_SESSION) ?>
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">

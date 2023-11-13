@@ -103,14 +103,7 @@ $stmt = $pdo->prepare('SELECT COUNT(*) FROM ' . $Ambetter . $where_sql);
 if (isset($_GET['search']) && !empty($_GET['search'])) {	
 	$stmt->bindValue(':search_query', '%' . $_GET['search'] . '%');
 }
-// Bind the from and to date params to the SQL query
-if (!empty($from_date)) {
-	$stmt->bindValue(':from_date', date('Y-m-d H:i:s', strtotime($from_date)));
-}
-if (!empty($to_date)) {
-	$stmt->bindValue(':to_date', date('Y-m-d H:i:s', strtotime($to_date)));
-}
-$stmt->execute();
+
 // Total number of results
 $num_results = $stmt->fetchColumn();
 ?>
@@ -124,11 +117,7 @@ $num_results = $stmt->fetchColumn();
             <!-- Main Content -->
             <div id="content">
 
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top">
-
-                </nav>
-                <!-- End of Topbar -->
+                <?= CRM_topbar($_SESSION) ?>
 
 
                 <!-- Begin Page Content -->

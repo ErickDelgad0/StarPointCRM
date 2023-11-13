@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
 
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
-        <nav class="navbar navbar-expand navbar-light topbar mb-4 static-top"></nav>
+        <?= CRM_topbar($_SESSION) ?>
 
         <div class="container-fluid">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
