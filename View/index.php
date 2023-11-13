@@ -5,7 +5,7 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>StarPoint</title>
+    <title>myaca</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keywords" content="free bootstrap 4, free bootstrap 4 template, free website templates, free html5, free template, free website template, html5, css3, mobile first, responsive" />
@@ -25,7 +25,7 @@ session_start();
     
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
       <div class="container">
-        <a class="navbar-brand" href="index.php">StarPoint</a>
+        <a class="navbar-brand" href="index.php">myaca</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="oi oi-menu"></span> Menu
         </button>
@@ -263,7 +263,7 @@ session_start();
             <h2 class="text-uppercase ftco-uppercase">About Us</h2>
             <div class="row justify-content-center mb-5">
               <!-- <div class="col-md-7">
-                <p class="lead">Contact Us Directly @ <a href="#">starpoint.insurance@gmail.com</a></p>
+                <p class="lead">Contact Us Directly @ <a href="#">info@myaca.org</a></p>
               </div> -->
             </div>
           </div>
@@ -277,7 +277,7 @@ session_start();
           </div>
           <div class="col-md-6 p-md-5">
             <h3 class="h3 mb-4">Our Mission</h3>
-            <p>Starpoint is a dynamic and innovative company, harnessing the power 
+            <p>myaca is a dynamic and innovative company, harnessing the power 
               of AI technology to revolutionize the way our members access and 
               utilize health insurance services. As a burgeoning enterprise,
               we are committed to providing instant, AI-driven assistance to our clients, 
@@ -291,12 +291,12 @@ session_start();
           </div>
           <div class="col-md-6 p-md-5 order-md-1">
             <h3 class="h3 mb-4">Where We Began</h3>
-            <p>Starpoint is a family-founded business that 
+            <p>myaca is a family-founded business that 
               has evolved into a leader within the AI-driven health insurance 
-              industry. As it expands, Starpoint maintains the core 
+              industry. As it expands, myaca maintains the core 
               principles established by its founders, now boasting a team of 20 dedicated 
               agents who are available around the clock, ensuring members receive timely, 
-              informed, and empathetic assistance. This growth not only reflects Starpoint's 
+              informed, and empathetic assistance. This growth not only reflects myaca's 
               unwavering commitment to its clients but also embodies the heart of its mission: 
               to deliver innovative and responsive health insurance solutions.</p>
             <!-- <p class="mb-5"><a href="#">Learn More</a></p> -->
@@ -314,7 +314,7 @@ session_start();
             <h2 class="text-uppercase ftco-uppercase">FAQ</h2>
             <div class="row justify-content-center mb-5">
               <div class="col-md-7">
-                <p class="lead">If You Have additional Questions Contact Us Directly @ <a href="#">starpoint.insurance@gmail.com</a></p>
+                <p class="lead">If You Have additional Questions Contact Us Directly @ <a href="#">info@myaca.org</a></p>
               </div>
             </div>
           </div>
@@ -322,7 +322,7 @@ session_start();
         <!-- END row -->
         <div class="row">
           <div class="col-md-6 mb-5 ftco-animate">
-            <h3 class="h5 mb-4">Why ObamaCare with StarPoint?</h3>
+            <h3 class="h5 mb-4">Why ObamaCare with myaca?</h3>
             <p>Our firm is at the forefront of technological innovation, 
               making the purchase of health insurance a seamless experience. 
               Leveraging our vast network of top-tier insurance providers, 
@@ -449,7 +449,7 @@ session_start();
               <p class="disclaimer">
                 An agent will contact you after sending your info
                 <br>
-                By clicking “REQUEST A FREE QUOTE”, I agree to receive marketing via newsletter, text, automatic telephone dialing system, or by artificial/pre-recorded message from StarPoint Insurance and its agents and affiliates at the telephone number or email I have provided. I understand that my consent is not required as a condition of purchasing any goods or services.
+                By clicking “REQUEST A FREE QUOTE”, I agree to receive marketing via newsletter, text, automatic telephone dialing system, or by artificial/pre-recorded message from myaca Insurance and its agents and affiliates at the telephone number or email I have provided. I understand that my consent is not required as a condition of purchasing any goods or services.
               </p>
               <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="REQUEST A FREE QUOTE">
@@ -512,7 +512,7 @@ session_start();
         </div>
         <div class="row">
           <div class="col-md text-left">
-            <p>&copy; StarPoint 2023</a></p>
+            <p>&copy; myaca 2023</a></p>
           </div>
         </div>
       </div>

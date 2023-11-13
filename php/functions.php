@@ -22,7 +22,7 @@ function pdo_connect_mysql() {
     // define('MAIL_PASSWORD', $dbconfig["MAIL_PASSWORD"]);
 
     // Global variables
-    define('WEBSITE_NAME', 'StarPoint');
+    define('WEBSITE_NAME', 'Myaca');
 
     try {
         $pdo = new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME . ';charset=utf8', $DATABASE_USER, $DATABASE_PASS);
@@ -107,7 +107,7 @@ function CRM_header($title) {
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">Star Point</div>
+                <div class="sidebar-brand-text mx-3">Myaca</div>
             </a>
 
             <!-- Divider -->

@@ -45,7 +45,7 @@ if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme'])) {
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>StarPoint - Register</title>
+    <title>Myaca - Register</title>
 
     <!-- Custom fonts for this template-->
     <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
