@@ -61,3 +61,36 @@ function setChartLabel(text) {
     leadsChart.data.datasets[0].label = text;
     leadsChart.update();
 }
+
+// Top 5 producers
+function showTopProducers() {
+    // Clone the current chart data
+    var currentData = leadsChart.data.datasets[0].data.slice();
+    var currentLabels = leadsChart.data.labels.slice();
+
+    // Combine labels and data, sort them, and slice the top 5
+    var combinedData = currentLabels.map((label, i) => ({ label: label, value: currentData[i] }));
+    combinedData.sort((a, b) => b.value - a.value);
+    var topData = combinedData.slice(0, 5);
+
+    // Update chart
+    setChartLabels(topData.map(item => item.label));
+    setChartData(topData.map(item => item.value));
+    setChartLabel('Top 5 Producers');
+}
+
+// Bottom 5 producers
+function showBottomProducers() {
+    var currentData = leadsChart.data.datasets[0].data.slice();
+    var currentLabels = leadsChart.data.labels.slice();
+
+    var combinedData = currentLabels.map((label, i) => ({ label: label, value: currentData[i] }));
+    combinedData.sort((a, b) => a.value - b.value);
+    var bottomData = combinedData.slice(0, 5);
+
+    // Update chart
+    setChartLabels(bottomData.map(item => item.label));
+    setChartData(bottomData.map(item => item.value));
+    setChartLabel('Bottom 5 Producers');
+}
+
