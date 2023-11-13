@@ -21,18 +21,18 @@ var leadsChart = new Chart(ctx, {
             x: {
                 beginAtZero: true,
                 ticks: {
-                    autoSkip: false,
-                    maxRotation: 90,
-                    minRotation: 90
+                    autoSkip: true, // Automatically skip labels to avoid overlap
+                    maxRotation: 0, // Optional: Set to 0 to prevent rotation of labels
+                    minRotation: 0  // Optional: Set to 0 to prevent rotation of labels
                 }
             },
             y: {
                 beginAtZero: true,
                 ticks: {
-                    autoSkip: false
+                    autoSkip: true
                 }
             }
-        },
+        },        
         plugins: {
             title: {
                 display: false
