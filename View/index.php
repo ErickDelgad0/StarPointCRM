@@ -85,7 +85,7 @@ session_start();
               <p class="mb-5">Your savings are based on an estimated income based off your previous year's income.</p>
               <br>
               <br>
-              <p class="mb-0"><a href="#contact-form" class="btn btn-primary btn-sm">Get A Free Quote</a></p>
+              <p class="mb-0"><a href="#section-contact" class="btn btn-primary btn-sm">Get A Free Quote</a></p>
             </div>
           </div>
         </div>

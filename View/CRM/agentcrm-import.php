@@ -7,7 +7,9 @@ $pdo = pdo_connect_mysql();
 // Check if we are logged in
 check_loggedin($pdo, '../index.php');
 
-CRM_header('AgentCRM - Import');
+if (isset($_SESSION['file_data'])) {
+  unset($_SESSION['file_data']);
+}
 ?>
 
 <style>
@@ -18,18 +20,19 @@ CRM_header('AgentCRM - Import');
 
 <script src="http://code.jquery.com/jquery.js"></script>
 
+<?=CRM_header('AgentCRM - Import')?>
+
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
       <?= CRM_topbar($_SESSION) ?>
-
-        <div class="container">
+          <div class="container">
             <div id="message"></div>
-            <div class="panel panel-default">
+              <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Select CSV File</h3>
                 </div>
                 <div class="panel-body">
-                    <div class="row" id="upload_area">
+                  <div class="row" id="upload_area">
                     <form method="post" id="upload_form" enctype="multipart/form-data">
                         <div class="col-md-6" align="left"></div>
                         <div class="col-md-6">
@@ -40,20 +43,28 @@ CRM_header('AgentCRM - Import');
                         <input type="submit" name="upload_file" id="upload_file" class="btn btn-primary" value="Upload" />
                         </div>
                     </form>
-                    
-                    </div>
-                    <div class="table-responsive" id="process_area">
-                    <!-- Content dynamically added here, possibly through AJAX or PHP -->
-                    </div>
+                  </div>
+                  <div class="table-responsive" id="process_area"></div>
                 </div>
+              </div>
             </div>
-        </div>
+          </div>
+          <?=CRM_footer()?>
     </div>
+  </div>
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
     
-    <?=CRM_footer()?>
     <?=logout_modal()?>
-</div>
+    <?=js_torun()?>
+
+</body>
+
+</html>
 
 <script>
 $(document).ready(function() {

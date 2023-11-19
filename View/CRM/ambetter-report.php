@@ -122,31 +122,28 @@ try {
                     <div class="col-xl-5 col-lg-7">
                         <div class="card shadow mb-4">
                             <!-- Card Header - Dropdown -->
-                            <div
-                                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold text-primary">
                                     <?php
                                     if (!empty($from_date) && !empty($to_date)) {
-                                        // If both from and to dates are set, show them in the title
                                         echo "Leads Completed from " . date('Y-m-d', strtotime($from_date)) . " to " . date('Y-m-d', strtotime($to_date));
                                     } else {
-                                        // If no dates are set, show the default title
                                         echo "All Leads Completed";
                                     }
                                     ?>
                                 </h6>
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink">
                                         <div class="dropdown-header">Dropdown Header:</div>
-                                        <a class="dropdown-item" href="#">Top 5</a>
-                                        <a class="dropdown-item" href="#">Bottom 5</a>
+                                        <a class="dropdown-item" href="#" id="top5">Top 5</a>
+                                        <a class="dropdown-item" href="#" id="bottom5">Bottom 5</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">Something else here</a>
+                                        <a class="dropdown-item" href="#" id="allLeads">All Leads</a>
                                     </div>
                                 </div>
                             </div>
@@ -154,6 +151,8 @@ try {
                             <div class="card-body">
                                 <div class="chart-area">
                                     <canvas id="leadsChart" width="600" height="1000"></canvas>
+                                    <canvas id="topLeadsChart" width="600" height="1000"></canvas>
+                                    <canvas id="bottomLeadsChart" width="600" height="1000"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -216,6 +215,49 @@ try {
     <?=logout_modal()?>
 
     <script>
+        function showChart(chartId) {
+        // Hide all charts
+        document.getElementById('leadsChart').style.display = 'none';
+        document.getElementById('topLeadsChart').style.display = 'none';
+        document.getElementById('bottomLeadsChart').style.display = 'none';
+
+        // Show the selected chart
+        document.getElementById(chartId).style.display = 'block';
+    }
+
+    // Event listeners for dropdown items
+    document.getElementById('top5').addEventListener('click', function() {
+        showChart('topLeadsChart');
+        enableOptions();
+    });
+
+    document.getElementById('bottom5').addEventListener('click', function() {
+        showChart('bottomLeadsChart');
+        enableOptions();
+    });
+
+    document.getElementById('allLeads').addEventListener('click', function() {
+        showChart('leadsChart');
+        disableOptions();
+    });
+
+    // Disable "Top 5" and "Bottom 5" initially
+    function disableOptions() {
+        document.getElementById('top5').setAttribute('disabled', 'disabled');
+        document.getElementById('bottom5').setAttribute('disabled', 'disabled');
+    }
+
+    // Enable "Top 5" and "Bottom 5"
+    function enableOptions() {
+        document.getElementById('top5').removeAttribute('disabled');
+        document.getElementById('bottom5').removeAttribute('disabled');
+    }
+
+    // Initialize with "All Leads" chart
+    document.addEventListener("DOMContentLoaded", function() {
+        showChart('leadsChart');
+        disableOptions();
+    });
         <?php 
         // Bar Chart Dynamic Label Updating
         if (!empty($from_date) && !empty($to_date)) {
@@ -227,6 +269,12 @@ try {
 
         echo "setChartLabels(['" . implode("', '", $labels) . "']);";
         echo "setChartData([" . implode(", ", $data) . "]);";
+
+        echo "setBottomLeadsChartLabels(['" . implode("', '", $labels) . "']);";
+        echo "setBottomLeadsChartData([" . implode(", ", $data) . "]);";
+
+        echo "setTopLeadsChartLabels(['" . implode("', '", $labels) . "']);";
+        echo "setTopLeadsChartData([" . implode(", ", $data) . "]);";
 
         // Pie Chart Dynamic Label Updating
         $labelsPie = array_map(function($result) {

@@ -8,7 +8,8 @@ if (isset($_SESSION['error'])) {
 }
 
 if (isset($_SESSION['success'])) {
-    echo '<div class="alert alert-success">' . $_SESSION['success'] . '</div>';
+    echo '<div class="alert alert-success">' . $_SESSION['success'] . 
+         ' <a href="CRM/index.php">Click Here to Continue</a></div>';
     unset($_SESSION['success']); // remove it after displaying
 }
 

@@ -368,4 +368,4 @@ check_loggedin($pdo, '../index.php');
 
 </body>
 
-</html>a
+</html>

@@ -1,6 +1,6 @@
 FROM php:apache
 
-# Installs needed extentions to use pdo_connect and mysqli to connect to phpmyadmin
+# Installs needed extensions to use pdo_connect and mysqli to connect to phpmyadmin
 RUN docker-php-ext-install pdo pdo_mysql mysqli
 
 # Copy custom php settings to deal with much larger file sizes

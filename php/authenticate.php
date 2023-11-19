@@ -23,7 +23,7 @@ if ($account) {
         } else {
             session_regenerate_id();
             $_SESSION['loggedin'] = TRUE;
-            $_SESSION['name'] = $account['email']; 
+            $_SESSION['name'] = $account['username']; 
             $_SESSION['id'] = $account['id'];
             $_SESSION['role'] = $account['role'];
 

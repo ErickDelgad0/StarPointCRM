@@ -111,6 +111,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Final count output.
         echo "Import complete: " . $processedCount . " records processed.\n";
 
+        if (isset($_SESSION['file_data'])) {
+            unset($_SESSION['file_data']);
+        }
+
         // If there are errors, print them.
         if (!empty($errorMessages)) {
             echo "Some records could not be processed:\n";
