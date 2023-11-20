@@ -2,14 +2,15 @@
 include '../php/functions.php';
 session_start();
 
-// No need for the user to see the login form if they're logged-in, so redirect them to the home page
+// No need for the user to see the Register form if they're already logged-in,
+// as a result redirect them to the CRM page
 if (isset($_SESSION['loggedin'])) {
 	// If the user is not logged in, redirect to the home page.
     header('Location: CRM/index.php');
     exit;
 }
 
-// // Also check if they are "remembered"
+// Also check if they are "remembered"
 if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme'])) {
 	// If the remember me cookie matches one in the database then we can update the session variables and the user will be logged-in.
 	$stmt = $pdo->prepare('SELECT * FROM Employee WHERE rememberme = ?');
@@ -107,12 +108,12 @@ if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme'])) {
                             <!-- <a href="index.html" class="btn btn-google btn-user btn-block">
                                 <i class="fab fa-google fa-fw"></i> Register with Google
                             </a> -->
-                            <hr>
+                            <!-- <hr> -->
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                <a class="small" href="forgot-password.php">Forgot Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="login.php">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>

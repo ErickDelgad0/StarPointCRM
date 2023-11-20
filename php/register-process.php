@@ -49,3 +49,4 @@ if ($account) {
         echo 'There was an error registering your account.';
     }
 }
+

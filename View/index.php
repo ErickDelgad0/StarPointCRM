@@ -465,7 +465,7 @@ session_start();
         <div class="row mb-5">
           <div class="col-md-8">
             <div class="row">
-              <div class="col-md">
+              <!-- <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
                   <h2 class="ftco-heading-2">Company</h2>
                   <ul class="list-unstyled">
@@ -486,15 +486,15 @@ session_start();
                     <li><a href="#" class="py-2 d-block">Good Template</a></li>
                   </ul>
                 </div>
-              </div>
+              </div> -->
               <div class="col-md">
                  <div class="ftco-footer-widget mb-4">
                   <h2 class="ftco-heading-2">Useful links</h2>
                   <ul class="list-unstyled">
                     <li><a href="register.php" class="py-2 d-block">Register</a></li>
                     <li><a href="login.php" class="py-2 d-block">Login</a></li>
-                    <li><a href="#" class="py-2 d-block">HTML5</a></li>
-                    <li><a href="#" class="py-2 d-block">Sass</a></li>
+                    <!-- <li><a href="#" class="py-2 d-block">HTML5</a></li>
+                    <li><a href="#" class="py-2 d-block">Sass</a></li> -->
                   </ul>
                 </div>
               </div>
