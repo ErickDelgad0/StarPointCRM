@@ -489,10 +489,10 @@ session_start();
               </div> -->
               <div class="col-md">
                  <div class="ftco-footer-widget mb-4">
-                  <h2 class="ftco-heading-2">Useful links</h2>
+                  <h2 class="ftco-heading-2">Agent Resources</h2>
                   <ul class="list-unstyled">
-                    <li><a href="register.php" class="py-2 d-block">Register</a></li>
-                    <li><a href="login.php" class="py-2 d-block">Login</a></li>
+                    <!-- <li><a href="register.php" class="py-2 d-block">Register</a></li> -->
+                    <li><a href="login.php" class="py-2 d-block">Employee Login</a></li>
                     <!-- <li><a href="#" class="py-2 d-block">HTML5</a></li>
                     <li><a href="#" class="py-2 d-block">Sass</a></li> -->
                   </ul>

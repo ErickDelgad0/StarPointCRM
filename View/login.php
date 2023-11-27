@@ -54,7 +54,7 @@ if (isset($_SESSION['success'])) {
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Sign In</h1>
                                     </div>
                                     <form class="user" action="../php/authenticate.php" method="post">
                                         <div class="form-group">
@@ -82,9 +82,9 @@ if (isset($_SESSION['success'])) {
                                     <div class="text-center">
                                         <a class="small" href="forgot-password.php">Forgot Password?</a>
                                     </div>
-                                    <div class="text-center">
+                                    <!-- <div class="text-center">
                                         <a class="small" href="register.php">Create an Account!</a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

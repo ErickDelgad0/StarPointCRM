@@ -34,6 +34,16 @@ function pdo_connect_mysql() {
     }
 }
 
+function check_role($roles, $redirectFile = 'index.php') {
+    $redirectFile = filter_var($redirectFile, FILTER_SANITIZE_URL);
+    $roles = is_array($roles) ? $roles : [$roles];
+
+    if (!in_array($_SESSION['role'], $roles)) {
+        header('Location: ' . $redirectFile);
+        exit;
+    }
+}
+
 function check_loggedin($pdo, $redirect_file = 'index.php') {
 	// Check for remember me cookie variable and loggedin session variable
     if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme']) && !isset($_SESSION['loggedin'])) {
@@ -308,18 +318,6 @@ function logout_modal(){
 }
 
 function admin_header($title, $selected = 'dashboard', $selected_child = '') {
-    // Admin HTML links
-    $admin_links = '
-        <a href="index.php"' . ($selected == 'dashboard' ? ' class="selected"' : '') . '><i class="fas fa-tachometer-alt"></i>Dashboard</a>
-        <a href="accounts.php"' . ($selected == 'accounts' ? ' class="selected"' : '') . '><i class="fas fa-users"></i>Accounts</a>
-        <div class="sub">
-            <a href="accounts.php"' . ($selected == 'accounts' && $selected_child == 'view' ? ' class="selected"' : '') . '><span>&#9724;</span>View Accounts</a>
-            <a href="account.php"' . ($selected == 'accounts' && $selected_child == 'manage' ? ' class="selected"' : '') . '><span>&#9724;</span>Create Account</a>
-        </div>
-        <a href="roles.php"' . ($selected == 'roles' ? ' class="selected"' : '') . '><i class="fas fa-list"></i>Roles</a>
-        <a href="emailtemplate.php"' . ($selected == 'emailtemplate' ? ' class="selected"' : '') . '><i class="fas fa-envelope"></i>Email Templates</a>
-        <a href="settings.php"' . ($selected == 'settings' ? ' class="selected"' : '') . '><i class="fas fa-tools"></i>Settings</a>
-    ';
     // Indenting the below code may cause an error
 echo <<<EOT
 <!DOCTYPE html>
@@ -332,14 +330,6 @@ echo <<<EOT
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer">
     </head>
     <body class="admin">
-        <aside class="responsive-width-100 responsive-hidden">
-            <h1>Admin</h1>
-            $admin_links
-            <div class="footer">
-                <a href="https://codeshack.io/package/php/advanced-secure-login-registration-system/" target="_blank">Advanced Login & Registration</a>
-                Version 2.0.1
-            </div>
-        </aside>
         <main class="responsive-width-100">
             <header>
                 <a class="responsive-toggle" href="#">

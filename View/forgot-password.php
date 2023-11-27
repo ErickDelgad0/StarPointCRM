@@ -57,9 +57,9 @@ session_start();
                                         </a>
                                     </form>
                                     <hr>
-                                    <div class="text-center">
+                                    <!-- <div class="text-center">
                                         <a class="small" href="register.php">Create an Account!</a>
-                                    </div>
+                                    </div> -->
                                     <div class="text-center">
                                         <a class="small" href="login.php">Already have an account? Login!</a>
                                     </div>

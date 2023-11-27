@@ -547,4 +547,217 @@ $AgentCRM_Columns = [
 		],
 	]
 ];
+
+// Global Admin Employee Settings
+$default_employee_column = 'id';
+$Employee = 'Employee';
+$Employee_Columns = [
+	'id' => [
+		'label' => '#',
+		'sortable' => true,
+		'type' => 'integer'
+	],
+    'username' => [
+		'label' => 'username',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Username',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'Must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\s]{1,50}$/',
+		]
+	],
+    'first_name' => [
+		'label' => 'First Name',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Erick',
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'Last name must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\'-]{1,50}$/',
+		]
+	],
+	'last_name' => [
+		'label' => 'Last Name',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Delgado',
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'Last name must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\'-]{1,50}$/',
+		]
+	],
+	'email' => [
+		'label' => 'Email',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Email Address',
+			'type' => 'email',
+			'required' => false,
+			'validate_msg' => 'Please enter a valid email address!',
+			'validate_regex' => '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+		]
+	],
+	'password' => [
+		'label' => 'Password',
+		'sortable' => false,
+		'type' => 'password',
+		'input' => [
+			'placeholder' => 'Enter password',
+			'type' => 'password',
+			'required' => true,
+			'validate_msg' => 'Please enter a valid password',
+			'validate_regex' => '/^.{8,}$/',
+		]
+	],
+	'activation_code' => [
+		'label' => 'Activation Code',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter activation code',
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'Please enter a valid activation code',
+			'validate_regex' => '/^[A-Za-z0-9]{1,50}$/',
+		]
+	],
+	'rememberme' => [
+		'label' => 'Remember Me',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Remember Me Token',
+			'type' => 'text',
+			'required' => false,
+		]
+	],
+	'phone' => [
+		'label' => 'Phone Number',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter phone number',
+			'type' => 'tel', 
+			'required' => true,
+			'validate_msg' => 'Please enter a valid phone number',
+			'validate_regex' => '/^\+?[0-9]{10,20}$/',
+		]
+	],
+	'created' => [
+		'label' => 'Creation Date',
+		'sortable' => true,
+		'type' => 'datetime',
+		'input' => [
+			'type' => 'datetime-local',
+			'required' => true,
+		]
+	],
+	'registered' => [
+		'label' => 'Registration Date',
+		'sortable' => true,
+		'type' => 'datetime',
+		'input' => [
+			'type' => 'datetime-local',
+			'required' => true,
+		]
+	],
+	'role' => [
+		'label' => 'User Role',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'Please select a valid role',
+			'validate_regex' => '/^(admin|employee|guest)$/',
+		]
+	],
+	'last_seen' => [
+		'label' => 'Last Seen',
+		'sortable' => true,
+		'type' => 'datetime',
+		'input' => [
+			'type' => 'datetime-local',
+			'required' => false,
+		]
+	]
+];
+
+// Global Employee Settings for Profile changes
+$Employee = 'Employee';
+$Employee_Profile_Columns = [
+	'id' => [
+		'label' => '#',
+		'sortable' => true,
+		'type' => 'integer'
+	],
+    'username' => [
+		'label' => 'username',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Username',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'Must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\s]{1,50}$/',
+		]
+	],
+    'first_name' => [
+		'label' => 'First Name',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Erick',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'Last name must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\'-]{1,50}$/',
+		]
+	],
+	'last_name' => [
+		'label' => 'Last Name',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Delgado',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'Last name must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\'-]{1,50}$/',
+		]
+	],
+	'email' => [
+		'label' => 'Email',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Email Address',
+			'type' => 'email',
+			'required' => false,
+			'validate_msg' => 'Please enter a valid email address!',
+			'validate_regex' => '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+		]
+	],
+	'phone' => [
+		'label' => 'Phone Number',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter phone number',
+			'type' => 'tel', 
+			'required' => false,
+			'validate_msg' => 'Please enter a valid phone number',
+			'validate_regex' => '/^\+?[0-9]{10,20}$/',
+		]
+	]
+];
 ?>
