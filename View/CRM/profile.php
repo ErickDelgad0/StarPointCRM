@@ -119,186 +119,235 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
     <div id="content-wrapper" class="d-flex flex-column">
-    <div id="content">
-    <?=CRM_topbar($_SESSION)?>
+        <div id="content">
+            <?= CRM_topbar($_SESSION) ?>
 
-    <div class="container">
-    <div class="main-body">
+            <div class="container">
+                <div class="main-body">
+                    <?php if (!isset($_GET['action'])): ?>
+                        <div class="row gutters-sm">
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column align-items-center text-center">
+                                            <img src="../../img/undraw_profile.svg" alt="Photo" class="rounded-circle" width="150">
+                                            <div class="mt-3">
+                                                <h4><?=$contact['first_name']?> <?=$contact['last_name']?></h4>
+                                                <!-- Additional info can be uncommented or added here -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Full Name</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <?=$contact['first_name']?> <?=$contact['last_name']?>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Email</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <?=$contact['email']?>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Phone</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <?php
+                                                    if (empty($contact['phone'])) {
+                                                        echo "Unknown";
+                                                    } else {
+                                                        echo $contact['phone'];
+                                                    }
+                                                ?>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Role</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <?=$contact['role']?>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0">Joined</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <?=$contact['registered']?>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <a class="btn btn-info" target="__blank" href="profile.php?action=edit">Edit</a>
+                                                <a class="btn btn-info" target="__blank" href="profile.php?action=change_password">Change Password</a>
+                                                <?php if ($contact['role'] == 'admin'): ?>
+                                                    <a class="btn btn-info" target="_blank" href="admin.php">Admin Panel</a>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php elseif ($_GET['action'] == 'edit'): ?>
+                        <div class="container-fluid">
+                            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                                <div class="wrap">
+                                    <h1 class="h3 mb-0 text-gray-800"><?=$contact['username']?> Profile Update</h1>
+                                </div>
+                            </div>
 
-<?php if (!isset($_GET['action'])): ?>
-    <div class="row gutters-sm">
-    <div class="col-md-4 mb-3">
-    <div class="card">
-    <div class="card-body">
-    <div class="d-flex flex-column align-items-center text-center">
-    <img src="../../img/undraw_profile.svg" alt="Photo" class="rounded-circle" width="150">
-    <div class="mt-3">
-    <h4><?=$contact['first_name']?> <?=$contact['last_name']?></h4>
-    <!-- <p class="text-secondary mb-1">Full Stack Developer</p>
-    <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p> -->
-    <!-- <button class="btn btn-primary">Follow</button>
-    <button class="btn btn-outline-primary">Message</button> -->
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    <div class="col-md-8">
-    <div class="card mb-3">
-    <div class="card-body">
-    <div class="row">
-    <div class="col-sm-3">
-    <h6 class="mb-0">Full Name</h6>
-    </div>
-    <div class="col-sm-9 text-secondary">
-    <?=$contact['first_name']?> <?=$contact['last_name']?>
-    </div>
-    </div>
-    <hr>
-    <div class="row">
-    <div class="col-sm-3">
-    <h6 class="mb-0">Email</h6>
-    </div>
-    <div class="col-sm-9 text-secondary">
-    <?=$contact['email']?>
-    </div>
-    </div>
-    <hr>
-    <div class="row">
-    <div class="col-sm-3">
-    <h6 class="mb-0">Phone</h6>
-    </div>
-    <div class="col-sm-9 text-secondary">
-    <?php
-    if (empty($contact['phone'])) {
-        echo "Unknown";
-    } else {
-        echo $contact['phone'];
-    }
-    ?>
+                            <form action="?id=<?=$contact['id']?>" method="post" class="crud-form">
+                                <div class="cols">
+                                    <?php foreach ($Employee_Profile_Columns as $column => $array): ?>
+                                        <?php if (isset($array['input'])): ?>
+                                            <?php $input = $array['input']; ?>
+                                            <div class="style-form-control">
+                                                <label for="<?=$column?>"><?=$array['label']?></label>
+                                                <?php if ($input['type'] == 'text' || $input['type'] == 'hidden' || $input['type'] == 'email' || $input['type'] == 'number' || $input['type'] == 'tel'): ?>
+                                                    <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>" placeholder="<?=$input['placeholder']?>" value="<?=htmlspecialchars((string)$contact[$column], ENT_QUOTES)?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
+                                                <?php elseif ($input['type'] == 'date'): ?>
+                                                    <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>" <?=$input['required'] ? ' required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?> value="<?=date('Y-m-d')?>">
+                                                <?php elseif ($input['type'] == 'datetime-local'): ?>
+                                                    <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>" value="<?=date('Y-m-d\TH:i', strtotime($contact[$column]))?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
+                                                <?php elseif ($input['type'] == 'textarea'): ?>
+                                                    <textarea id="<?=$column?>" name="<?=$column?>" placeholder="<?=$input['placeholder']?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>><?=htmlspecialchars($contact[$column], ENT_QUOTES)?></textarea>
+                                                <?php elseif ($input['type'] == 'select'): ?>
+                                                    <select id="<?=$column?>" name="<?=$column?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
+                                                        <?php foreach ($input['options'] as $option): ?>
+                                                            <option value="<?=$option?>" <?=$contact[$column] == $option ? 'selected' : ''?>><?=$option?></option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                <?php elseif ($input['type'] == 'checkbox'): ?>
+                                                    <input id="<?=$column?>" type="hidden" name="<?=$column?>" value="0" <?=isset($input['custom']) ? $input['custom'] : ''?>>
+                                                    <input type="<?=$input['type']?>" name="<?=$column?>" value="1" <?=$contact[$column] == 1 ? 'checked' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
+                                                <?php elseif ($input['type'] == 'radio'): ?>
+                                                    <?php foreach ($input['options'] as $option): ?>
+                                                        <div>
+                                                            <input id="<?=$option?>" type="<?=$input['type']?>" name="<?=$column?>" value="<?=$option?>" <?=$contact[$column] == $option ? 'checked' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
+                                                            <label for="<?=$option?>"><?=$option?></label>
+                                                        </div>
+                                                    <?php endforeach; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                </div>
 
-    </div>
-    </div>
-    <hr>
-    <div class="row">
-    <div class="col-sm-3">
-    <h6 class="mb-0">role</h6>
-    </div>
-    <div class="col-sm-9 text-secondary">
-    <?=$contact['role']?>
-    </div>
-    </div>
-    <hr>
-    <div class="row">
-    <div class="col-sm-3">
-    <h6 class="mb-0">Joined</h6>
-    </div>
-    <div class="col-sm-9 text-secondary">
-    <?=$contact['registered']?>
-    </div>
-    </div>
-    <hr>
-    <div class="row">
-    <div class="col-sm-12">
-    <a class="btn btn-info " target="__blank" href="profile.php?action=edit">Edit</a>
-    <a class="btn btn-info " target="__blank" href="profile.php?action=change_password">Change Password</a>
-    <?php
-    if ($contact['role'] == 'admin') {
-        echo '<a class="btn btn-info" target="_blank" href="admin.php">Admin Panel</a>';
-    }
-    ?>
+                                <?php if ($error_msg): ?>
+                                    <p class="msg-error"><?=$error_msg?></p>
+                                <?php endif; ?>
 
-    </div>
-    </div>
-    </div>
-    </div>
+                                <?php if ($success_msg): ?>
+                                    <p class="msg-success"><?=$success_msg?></p>
+                                <?php endif; ?>
+
+                                <button type="submit" name="submit" class="btn">Save Record</button>
+                            </form>
+                        </div>
+                        <?php elseif ($_GET['action'] == 'change_password'): ?>
+                        <!-- Change password content -->
+                        <?php
+
+                        $passwordIncorrect = false;
+                        $passwordsDoNotMatch = false;
+
+                        // Check if the current password is already verified
+                        $currentPasswordVerified = $_SESSION['current_password_verified'] ?? false;
+
+                        if (!$currentPasswordVerified && isset($_POST['current_password'])) {
+                            $pdo = pdo_connect_mysql();
+                            $stmt = $pdo->prepare('SELECT * FROM Employee WHERE id = ?');
+                            $stmt->execute([ $_SESSION['id'] ]);
+                            $account = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                            if ($account && password_verify($_POST['current_password'], $account['password'])) {
+                                $_SESSION['current_password_verified'] = true; // Set session variable
+                                $currentPasswordVerified = true;
+                            } else {
+                                $passwordIncorrect = true;
+                            }
+                        }
+
+                        if ($currentPasswordVerified && isset($_POST['new_password'], $_POST['confirm_new_password'])) {
+                            if ($_POST['new_password'] === $_POST['confirm_new_password']) {
+                                if (!empty($_POST['new_password'])) {
+                                    // Hash the new password
+                                    $newPasswordHash = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+
+                                    // Update the password in the database
+                                    $updateStmt = $pdo->prepare('UPDATE Employee SET password = ? WHERE id = ?');
+                                    $updateSuccess = $updateStmt->execute([$newPasswordHash, $_SESSION['id']]);
+
+                                    if ($updateSuccess) {
+                                        echo "<p>Password successfully changed. Redirecting...</p>";
+                                        unset($_SESSION['current_password_verified']);
+                                        echo '<meta http-equiv="refresh" content="2;url=profile.php">';
+                                    } else {
+                                        echo "<p>Error updating password. Please try again.</p>";
+                                    }
+                                } else {
+                                    echo "<p>New password cannot be empty.</p>";
+                                }
+                            } else {
+                                $passwordsDoNotMatch = true;
+                            }
+                        }
+
+                        if (!$currentPasswordVerified) {
+                            if ($passwordIncorrect) {
+                                echo "<p>Incorrect current password. Please try again.</p>";
+                            }
+                            ?>
+                            <form action="profile.php?action=change_password" method="post">
+                                Current Password: <input type="password" name="current_password" required>
+                                <button type="submit">Submit</button>
+                            </form>
+                            <?php
+                        } elseif ($currentPasswordVerified) {
+                            if ($passwordsDoNotMatch) {
+                                echo "<p>New passwords do not match. Please try again.</p>";
+                            }
+                            ?>
+                            <form action="profile.php?action=change_password" method="post">
+                                New Password: <input type="password" name="new_password" required>
+                                Confirm New Password: <input type="password" name="confirm_new_password" required>
+                                <button type="submit">Change Password</button>
+                            </form>
+                            <?php
+                        }
+                        ?>
+                    <?php endif; ?>
 
 
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-
-    <?php elseif ($_GET['action'] == 'edit'): ?>
-        <div class=container-fluid>
-
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <div class="wrap">
-                    <h1 class="h3 mb-0 text-gray-800">Update <?=$contact['username']?></h1>
                 </div>
             </div>
-
-            <form action="?id=<?=$contact['id']?>" method="post" class="crud-form">
-
-                <div class="cols">
-                    <?php foreach ($Employee_Profile_Columns as $column => $array): ?>
-                    <?php if (isset($array['input'])): ?>
-                    <?php $input = $array['input']; ?>
-                    <div class="style-form-control">
-                        <label for="<?=$column?>"><?=$array['label']?></label>
-                        <?php if ($input['type'] == 'text' || $input['type'] == 'hidden' || $input['type'] == 'email' || $input['type'] == 'number' || $input['type'] == 'tel'): ?>
-                        <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>" placeholder="<?=$input['placeholder']?>" value="<?=htmlspecialchars((string)$contact[$column], ENT_QUOTES)?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
-                        <?php elseif ($input['type'] == 'date'): ?>
-                        <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>"<?=$input['required'] ? ' required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?> value="<?=date('Y-m-d')?>">
-                        <?php elseif ($input['type'] == 'datetime-local'): ?>
-                        <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>" value="<?=date('Y-m-d\TH:i', strtotime($contact[$column]))?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
-                        <?php elseif ($input['type'] == 'textarea'): ?>
-                        <textarea id="<?=$column?>" name="<?=$column?>" placeholder="<?=$input['placeholder']?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>><?=htmlspecialchars($contact[$column], ENT_QUOTES)?></textarea>
-                        <?php elseif ($input['type'] == 'select'): ?>
-                        <select id="<?=$column?>" name="<?=$column?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
-                            <?php foreach ($input['options'] as $option): ?>
-                            <option value="<?=$option?>" <?=$contact[$column] == $option ? 'selected' : ''?>><?=$option?></option>
-                            <?php endforeach; ?>
-                        </select>
-                        <?php elseif ($input['type'] == 'checkbox'): ?>
-                        <input id="<?=$column?>" type="hidden" name="<?=$column?>" value="0" <?=isset($input['custom']) ? $input['custom'] : ''?>>
-                        <input type="<?=$input['type']?>" name="<?=$column?>" value="1" <?=$contact[$column] == 1 ? 'checked' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
-                        <?php elseif ($input['type'] == 'radio'): ?>
-                        <?php foreach ($input['options'] as $option): ?>
-                        <div>
-                            <input id="<?=$option?>" type="<?=$input['type']?>" name="<?=$column?>" value="<?=$option?>" <?=$contact[$column] == $option ? 'checked' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
-                            <label for="<?=$option?>"><?=$option?></label>
-                        </div>
-                        <?php endforeach; ?>
-                        <?php endif; ?>
-                    </div>
-                    <?php endif; ?>
-                    <?php endforeach; ?>
-                </div>
-
-                <?php if ($error_msg): ?>
-                <p class="msg-error"><?=$error_msg?></p>
-                <?php endif; ?>
-
-                <?php if ($success_msg): ?>
-                <p class="msg-success"><?=$success_msg?></p>
-                <?php endif; ?>
-
-                <button type="submit" name="submit" class="btn">Save Record</button>
-
-            </form>
         </div>
-    <?php elseif ($_GET['action'] == 'change_password'): ?>
-        
+        <?= CRM_footer() ?>
+    </div>
 
-<?php endif; ?>
+    <?= js_torun() ?>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript">
-	
-</script>
-
-<?=CRM_footer()?>
-<?=js_torun()?>
-
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
-
+    <!-- Scroll to Top Button -->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 </body>
 </html>
