@@ -62,7 +62,8 @@ $where_sql = '';
 if (isset($_GET['search']) && !empty($_GET['search'])) {
 	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  implode(' LIKE :search_query OR ', array_keys($Leads_Columns)) . ' LIKE :search_query ';
 }
-// Add from and/or to date filter to SQL query (if set); It will only work if the "created" column exists in your database! Rename the column below if you want to use a different DATETIME column
+// Add from and/or to date filter to SQL query (if set); It will only work if the "created" column exists in your database! 
+// Rename the column below if you want to use a different DATETIME column
 if (!empty($from_date) && !empty($to_date)) {
 	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  ' created BETWEEN :from_date AND :to_date ';
 } else if (!empty($from_date)) {
@@ -70,6 +71,7 @@ if (!empty($from_date) && !empty($to_date)) {
 } else if (!empty($to_date)) {
 	$where_sql .= ($where_sql ? ' AND ' : ' WHERE ') .  ' created <= :to_date ';
 }
+
 // Limit SQL
 $limit_sql = '';
 if ($records_per_page != 'all') {

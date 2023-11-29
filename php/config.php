@@ -761,7 +761,7 @@ $Employee_Profile_Columns = [
 	]
 ];
 
-// Global Employee Settings for Profile changes
+// Global Settings for Leads
 $default_leads_column = 'id';
 $Leads = 'Leads';
 $Leads_Columns = [
