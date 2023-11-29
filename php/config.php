@@ -760,4 +760,112 @@ $Employee_Profile_Columns = [
 		]
 	]
 ];
+
+// Global Employee Settings for Profile changes
+$default_leads_column = 'id';
+$Leads = 'Leads';
+$Leads_Columns = [
+	'id' => [
+		'label' => '#',
+		'sortable' => true,
+		'type' => 'integer'
+	],
+    'first_name' => [
+		'label' => 'First Name',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Erick',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'Last name must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\'-]{1,50}$/',
+		]
+	],
+	'last_name' => [
+		'label' => 'Last Name',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Delgado',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'Last name must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\'-]{1,50}$/',
+		]
+	],
+	'email' => [
+		'label' => 'Email',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Email Address',
+			'type' => 'email',
+			'required' => false,
+			'validate_msg' => 'Please enter a valid email address!',
+			'validate_regex' => '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+		]
+	],
+	'phone' => [
+		'label' => 'Phone Number',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter phone number',
+			'type' => 'tel', 
+			'required' => false,
+			'validate_msg' => 'Please enter a valid phone number',
+			'validate_regex' => '/^\+?[0-9]{10,20}$/',
+		]
+	],
+	'state' => [
+		'label' => 'State',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'FL, HW, GA',
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'State must be Abbreviated!',
+			'validate_regex' => '/^[a-zA-Z]{2}$/',
+		]
+	],
+	'DOB' => [
+		'label' => 'Member Date of Birth',
+		'sortable' => true,
+		'type' => 'date',
+		'input' => [
+			'placeholder' => '2001-08-12',
+			'type' => 'date',
+			'required' => true,
+			'validate_msg' => 'Please Enter a Valid Date',
+			'validate_regex' => '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',
+		]
+	],
+	'priority' => [
+		'label' => 'Lead Priority',
+		'sortable' => true,
+		'type' => 'select',
+		'input' => [
+			'placeholder' => 'Select...',
+			'type' => 'select',
+			'required' => true,
+			'validate_msg' => 'Must select a priority!',
+			'options' => [
+				'1' => '1 (top)',
+				'2' => '2 (mid)',
+				'3' => '3 (cold)',
+			],
+		],
+	],
+	'created' => [
+		'label' => 'Creation Date',
+		'sortable' => true,
+		'type' => 'datetime',
+		'input' => [
+			'type' => 'datetime-local',
+			'required' => true,
+		]
+	]
+];
 ?>

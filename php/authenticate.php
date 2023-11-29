@@ -40,7 +40,7 @@ if ($account) {
             $stmt->execute([ $date, $account['id'] ]);
             
             $_SESSION['success'] = 'Login successful!';
-            header('Location: ../view/crm/index.php'); // replace this with your actual destination
+            header('Location: ../view/crm/index.php');
             exit();
         }
     } else {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Nov 02, 2023 at 07:10 PM
+-- Generation Time: Nov 29, 2023 at 01:38 AM
 -- Server version: 8.1.0
 -- PHP Version: 8.2.10
 
@@ -39,7 +39,7 @@ CREATE TABLE `AgentCRM` (
   `closure` varchar(100) NOT NULL,
   `closure_date` date NOT NULL,
   `closure_time` time NOT NULL,
-  `closure_stage` varchar(500)DEFAULT NULL,
+  `closure_stage` varchar(500) DEFAULT NULL,
   `closure_pipeline` varchar(255) DEFAULT NULL,
   `team_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -114,7 +114,7 @@ CREATE TABLE `Employee` (
 --
 
 INSERT INTO `Employee` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `activation_code`, `rememberme`, `phone`, `created`, `registered`, `role`, `last_seen`) VALUES
-(1, 'cheesestick', 'Erick', 'Delgado', 'delrick2323@outlook.com', '$2y$10$imHdOR35Lii3u4LhG/gis.0o0M6gn3bCG5sh.1ZMnICTCjejIepUu', '1', '$2y$10$yrlEr8S2QIU8vRC60MvFBO6nccRdy5RlaTYE31Mek11kGeA2opixG', '', '2023-10-30 14:41:24', '2023-10-30 14:41:24', 'admin', '2023-11-02 18:47:22'),
+(1, 'cheesestick', 'Erick', 'Delgado', 'delrick2323@outlook.com', '$2y$10$uQUY8f6/rdfM1XSKd6qRiOYd5k1acsmfXjtf6EI6/J6eGW/ugp.US', '1', '$2y$10$yrlEr8S2QIU8vRC60MvFBO6nccRdy5RlaTYE31Mek11kGeA2opixG', '3059654400', '2023-10-30 14:41:24', '2023-10-30 14:41:24', 'admin', '2023-11-28 18:33:12'),
 (2, 'superchad', 'Chad', 'Johnson', 'chaddio@yahoo.com', '$2y$10$aXrdk5jlyKVEZn7pyzLxwuBLda0i6OLSO.71bIvxoYH87lSgjfWUa', '1', '', '', '2023-11-02 18:48:29', '2023-11-02 18:48:29', 'guest', '2023-11-02 18:50:26');
 
 -- --------------------------------------------------------
@@ -129,7 +129,10 @@ CREATE TABLE `Leads` (
   `last_name` varchar(50) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone` varchar(30) NOT NULL,
-  `state` varchar(50) NOT NULL
+  `state` varchar(50) NOT NULL,
+  `DOB` date NOT NULL,
+  `priority` int NOT NULL DEFAULT '1',
+  `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
@@ -180,7 +183,7 @@ ALTER TABLE `Employee`
 -- AUTO_INCREMENT for table `Leads`
 --
 ALTER TABLE `Leads`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

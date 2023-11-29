@@ -354,26 +354,26 @@ session_start();
       <h2 class="text-uppercase ftco-uppercase">Free Quote</h2>
         <div class="row">
           <div class="col-md pr-md-5 mb-5">
-            <form action="new-lead.php" method="post">
+            <form action="../php/new-lead.php" method="post">
               <div class="form-row">
                 <div class="form-group form-group-inline">
-                    <label for="first_name" class="sr-only">Name</label>
-                    <input type="text" class="form-control" id="first_name" placeholder="First Name" autocomplete="given-name" required>
+                    <label for="first_name" class="sr-only">First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" autocomplete="given-name" required>
                 </div>
                 <div class="form-group form-group-inline">
-                  <label for="last_name" class="sr-only">Name</label>
-                  <input type="text" class="form-control" id="last_name" placeholder="Last name" autocomplete="family-name" required>
+                  <label for="last_name" class="sr-only">Last Name</label>
+                  <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name" autocomplete="family-name" required>
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="form-group form-group-inline">
                   <label for="email" class="sr-only">Email</label>
-                  <input type="email" class="form-control" id="email" placeholder="Your email" autocomplete="email" required>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Your email" autocomplete="email" required>
                 </div>
                 <div class="form-group form-group-inline">
                   <label for="phone" class="sr-only">Phone Number</label>
-                  <input type="text" class="form-control" id="phone" placeholder="Phone (7869654412)" autocomplete="phone" required>
+                  <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone (7869654412)" autocomplete="phone" required>
                 </div>
               </div>
 
@@ -436,15 +436,9 @@ session_start();
                 </div>
 
                 <div class="form-group form-group-inline">
-                  <label for="Date-of-Birth" class="sr-only">Date of Birth</label>
-                  <input type="date" class="form-control" placeholder="Date Of Birth" id="Date-of-Birth" autocomplete="bday" required>
+                  <label for="DOB" class="sr-only">Date of Birth</label>
+                  <input type="date" class="form-control" placeholder="Date Of Birth" id="DOB" name="DOB" autocomplete="bday" required>
                 </div>
-              </div>
-
-              
-              <div class="form-group">
-                <label for="message" class="sr-only">Message</label>
-                <textarea name="message" id="message" cols="30" rows="10" class="form-control" placeholder="Write an optional message"></textarea>
               </div>
               <p class="disclaimer">
                 An agent will contact you after sending your info
@@ -455,6 +449,21 @@ session_start();
                 <input type="submit" class="btn btn-primary" value="REQUEST A FREE QUOTE">
               </div>
             </form>
+            <? 
+            // Display error messages
+            if (isset($_SESSION['errors']) && count($_SESSION['errors']) > 0) {
+                foreach ($_SESSION['errors'] as $error) {
+                    echo $error . '<br>';
+                }
+                unset($_SESSION['errors']);
+            }
+
+            // Display success message
+            if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
+                unset($_SESSION['message']);
+            }
+            ?>
           </div>
         </div>
       </div>
