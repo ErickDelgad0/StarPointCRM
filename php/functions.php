@@ -171,7 +171,7 @@ function CRM_header($title) {
             <li class="nav-item">
                 <a class="nav-link" href="ambetter-report.php">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Ambetter Reports</span></a>
+                    <span>Agent Report</span></a>
             </li>
             
 
