@@ -195,8 +195,8 @@ if (isset($_POST['submit'])) {
                                         <hr>
                                         <div class="row">
                                             <div class="col-sm-12">
-                                                <a class="btn btn-info" target="__blank" href="profile.php?action=edit">Edit</a>
-                                                <a class="btn btn-info" target="__blank" href="profile.php?action=change_password">Change Password</a>
+                                                <a class="btn btn-info" href="profile.php?action=edit">Edit</a>
+                                                <a class="btn btn-info" href="profile.php?action=change_password">Change Password</a>
                                                 <?php if ($contact['role'] == 'admin'): ?>
                                                     <a class="btn btn-info" target="_blank" href="admin.php">Admin Panel</a>
                                                 <?php endif; ?>
@@ -262,78 +262,78 @@ if (isset($_POST['submit'])) {
                                 <button type="submit" name="submit" class="btn">Save Record</button>
                             </form>
                         </div>
-                        <?php elseif ($_GET['action'] == 'change_password'): ?>
-                        <!-- Change password content -->
-                        <?php
+                    <?php elseif ($_GET['action'] == 'change_password'): ?>
+                    <!-- Change password content -->
+                    <?php
 
-                        $passwordIncorrect = false;
-                        $passwordsDoNotMatch = false;
+                    $passwordIncorrect = false;
+                    $passwordsDoNotMatch = false;
 
-                        // Check if the current password is already verified
-                        $currentPasswordVerified = $_SESSION['current_password_verified'] ?? false;
+                    // Check if the current password is already verified
+                    $currentPasswordVerified = $_SESSION['current_password_verified'] ?? false;
 
-                        if (!$currentPasswordVerified && isset($_POST['current_password'])) {
-                            $pdo = pdo_connect_mysql();
-                            $stmt = $pdo->prepare('SELECT * FROM Employee WHERE id = ?');
-                            $stmt->execute([ $_SESSION['id'] ]);
-                            $account = $stmt->fetch(PDO::FETCH_ASSOC);
+                    if (!$currentPasswordVerified && isset($_POST['current_password'])) {
+                        $pdo = pdo_connect_mysql();
+                        $stmt = $pdo->prepare('SELECT * FROM Employee WHERE id = ?');
+                        $stmt->execute([ $_SESSION['id'] ]);
+                        $account = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                            if ($account && password_verify($_POST['current_password'], $account['password'])) {
-                                $_SESSION['current_password_verified'] = true; // Set session variable
-                                $currentPasswordVerified = true;
-                            } else {
-                                $passwordIncorrect = true;
-                            }
+                        if ($account && password_verify($_POST['current_password'], $account['password'])) {
+                            $_SESSION['current_password_verified'] = true; // Set session variable
+                            $currentPasswordVerified = true;
+                        } else {
+                            $passwordIncorrect = true;
                         }
+                    }
 
-                        if ($currentPasswordVerified && isset($_POST['new_password'], $_POST['confirm_new_password'])) {
-                            if ($_POST['new_password'] === $_POST['confirm_new_password']) {
-                                if (!empty($_POST['new_password'])) {
-                                    // Hash the new password
-                                    $newPasswordHash = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
+                    if ($currentPasswordVerified && isset($_POST['new_password'], $_POST['confirm_new_password'])) {
+                        if ($_POST['new_password'] === $_POST['confirm_new_password']) {
+                            if (!empty($_POST['new_password'])) {
+                                // Hash the new password
+                                $newPasswordHash = password_hash($_POST['new_password'], PASSWORD_DEFAULT);
 
-                                    // Update the password in the database
-                                    $updateStmt = $pdo->prepare('UPDATE Employee SET password = ? WHERE id = ?');
-                                    $updateSuccess = $updateStmt->execute([$newPasswordHash, $_SESSION['id']]);
+                                // Update the password in the database
+                                $updateStmt = $pdo->prepare('UPDATE Employee SET password = ? WHERE id = ?');
+                                $updateSuccess = $updateStmt->execute([$newPasswordHash, $_SESSION['id']]);
 
-                                    if ($updateSuccess) {
-                                        echo "<p>Password successfully changed. Redirecting...</p>";
-                                        unset($_SESSION['current_password_verified']);
-                                        echo '<meta http-equiv="refresh" content="2;url=profile.php">';
-                                    } else {
-                                        echo "<p>Error updating password. Please try again.</p>";
-                                    }
+                                if ($updateSuccess) {
+                                    echo "<p>Password successfully changed. Redirecting...</p>";
+                                    unset($_SESSION['current_password_verified']);
+                                    echo '<meta http-equiv="refresh" content="2;url=profile.php">';
                                 } else {
-                                    echo "<p>New password cannot be empty.</p>";
+                                    echo "<p>Error updating password. Please try again.</p>";
                                 }
                             } else {
-                                $passwordsDoNotMatch = true;
+                                echo "<p>New password cannot be empty.</p>";
                             }
+                        } else {
+                            $passwordsDoNotMatch = true;
                         }
+                    }
 
-                        if (!$currentPasswordVerified) {
-                            if ($passwordIncorrect) {
-                                echo "<p>Incorrect current password. Please try again.</p>";
-                            }
-                            ?>
-                            <form action="profile.php?action=change_password" method="post">
-                                Current Password: <input type="password" name="current_password" required>
-                                <button type="submit">Submit</button>
-                            </form>
-                            <?php
-                        } elseif ($currentPasswordVerified) {
-                            if ($passwordsDoNotMatch) {
-                                echo "<p>New passwords do not match. Please try again.</p>";
-                            }
-                            ?>
-                            <form action="profile.php?action=change_password" method="post">
-                                New Password: <input type="password" name="new_password" required>
-                                Confirm New Password: <input type="password" name="confirm_new_password" required>
-                                <button type="submit">Change Password</button>
-                            </form>
-                            <?php
+                    if (!$currentPasswordVerified) {
+                        if ($passwordIncorrect) {
+                            echo "<p>Incorrect current password. Please try again.</p>";
                         }
                         ?>
+                        <form action="profile.php?action=change_password" method="post">
+                            Current Password: <input type="password" name="current_password" required>
+                            <button type="submit">Submit</button>
+                        </form>
+                        <?php
+                    } elseif ($currentPasswordVerified) {
+                        if ($passwordsDoNotMatch) {
+                            echo "<p>New passwords do not match. Please try again.</p>";
+                        }
+                        ?>
+                        <form action="profile.php?action=change_password" method="post">
+                            New Password: <input type="password" name="new_password" required>
+                            Confirm New Password: <input type="password" name="confirm_new_password" required>
+                            <button type="submit">Change Password</button>
+                        </form>
+                        <?php
+                    }
+                    ?>
                     <?php endif; ?>
 
 

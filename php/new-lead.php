@@ -81,6 +81,6 @@ if (count($errors) == 0) {
 } else {
     $_SESSION['errors'] = $errors;
 }
-header('Location: ../view/index.php');
+header('Location: ../view/index.php#section-contact');
 exit();
 ?>

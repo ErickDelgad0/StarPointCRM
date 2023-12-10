@@ -1,6 +1,6 @@
 <?php
 // Default records per page
-$default_records_per_page = 20;
+$default_records_per_page = 10;
 
 // Global Ambetter Settings
 $default_ambetter_column = 'id';
