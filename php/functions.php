@@ -21,9 +21,6 @@ function pdo_connect_mysql() {
     // define('MAIL_USERNAME', $dbconfig["MAIL_USERNAME"]);
     // define('MAIL_PASSWORD', $dbconfig["MAIL_PASSWORD"]);
 
-    // Global variables
-    define('WEBSITE_NAME', 'StarPoint');
-
     try {
         $pdo = new PDO('mysql:host=' . $DATABASE_HOST . ';dbname=' . $DATABASE_NAME . ';charset=utf8', $DATABASE_USER, $DATABASE_PASS);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // It's good to set error mode to exception for better error handling
@@ -157,6 +154,28 @@ function CRM_header($title) {
                 <a class="nav-link" href="leads.php">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Leads</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Processing
+            </div>
+
+            <!-- Nav Item - Leads Process -->
+            <li class="nav-item">
+                <a class="nav-link" href="lead_process.php">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Leads Process</span></a>
+            </li>
+
+            <!-- Nav Item - Calendar -->
+            <li class="nav-item">
+                <a class="nav-link" href="calendar.php">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Calendar</span></a>
             </li>
 
             <!-- Divider -->

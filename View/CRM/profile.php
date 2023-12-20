@@ -265,7 +265,7 @@ if (isset($_POST['submit'])) {
                     <?php elseif ($_GET['action'] == 'change_password'): ?>
                     <!-- Change password content -->
                     <?php
-
+                    
                     $passwordIncorrect = false;
                     $passwordsDoNotMatch = false;
 

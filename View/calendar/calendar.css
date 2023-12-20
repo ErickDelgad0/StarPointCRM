@@ -1,0 +1,619 @@
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css);
+.calendar-date-modal, .calendar-event-modal, .calendar-add-event-modal, .calendar-delete-event-modal {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  width: 100%;
+  max-width: 300px;
+}
+.calendar-date-modal .calendar-event-modal-header, .calendar-event-modal .calendar-event-modal-header, .calendar-add-event-modal .calendar-event-modal-header, .calendar-delete-event-modal .calendar-event-modal-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 1px solid #f4f5f5;
+}
+.calendar-date-modal .calendar-event-modal-header h5, .calendar-event-modal .calendar-event-modal-header h5, .calendar-add-event-modal .calendar-event-modal-header h5, .calendar-delete-event-modal .calendar-event-modal-header h5 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #56585a;
+}
+.calendar-date-modal .calendar-event-modal-header a, .calendar-event-modal .calendar-event-modal-header a, .calendar-add-event-modal .calendar-event-modal-header a, .calendar-delete-event-modal .calendar-event-modal-header a {
+  text-decoration: none;
+  color: #e9ebec;
+}
+.calendar-date-modal .calendar-event-modal-header a:hover, .calendar-event-modal .calendar-event-modal-header a:hover, .calendar-add-event-modal .calendar-event-modal-header a:hover, .calendar-delete-event-modal .calendar-event-modal-header a:hover {
+  color: #ced2d4;
+}
+.calendar-date-modal .calendar-event-modal-content, .calendar-event-modal .calendar-event-modal-content, .calendar-add-event-modal .calendar-event-modal-content, .calendar-delete-event-modal .calendar-event-modal-content {
+  padding: 15px;
+}
+.calendar-date-modal .calendar-event-modal-content.date-select, .calendar-event-modal .calendar-event-modal-content.date-select, .calendar-add-event-modal .calendar-event-modal-content.date-select, .calendar-delete-event-modal .calendar-event-modal-content.date-select {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.calendar-date-modal .calendar-event-modal-content.date-select h5, .calendar-event-modal .calendar-event-modal-content.date-select h5, .calendar-add-event-modal .calendar-event-modal-content.date-select h5, .calendar-delete-event-modal .calendar-event-modal-content.date-select h5 {
+  margin: 0;
+  padding: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #56585a;
+  width: 49%;
+}
+.calendar-date-modal .calendar-event-modal-content.date-select .years, .calendar-date-modal .calendar-event-modal-content.date-select .months, .calendar-event-modal .calendar-event-modal-content.date-select .years, .calendar-event-modal .calendar-event-modal-content.date-select .months, .calendar-add-event-modal .calendar-event-modal-content.date-select .years, .calendar-add-event-modal .calendar-event-modal-content.date-select .months, .calendar-delete-event-modal .calendar-event-modal-content.date-select .years, .calendar-delete-event-modal .calendar-event-modal-content.date-select .months {
+  overflow: auto;
+  height: 200px;
+  width: 49%;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(175, 180, 189) transparent;
+}
+.calendar-date-modal .calendar-event-modal-content.date-select .years::-webkit-scrollbar, .calendar-date-modal .calendar-event-modal-content.date-select .months::-webkit-scrollbar, .calendar-event-modal .calendar-event-modal-content.date-select .years::-webkit-scrollbar, .calendar-event-modal .calendar-event-modal-content.date-select .months::-webkit-scrollbar, .calendar-add-event-modal .calendar-event-modal-content.date-select .years::-webkit-scrollbar, .calendar-add-event-modal .calendar-event-modal-content.date-select .months::-webkit-scrollbar, .calendar-delete-event-modal .calendar-event-modal-content.date-select .years::-webkit-scrollbar, .calendar-delete-event-modal .calendar-event-modal-content.date-select .months::-webkit-scrollbar {
+  width: 6px;
+}
+.calendar-date-modal .calendar-event-modal-content.date-select .years::-webkit-scrollbar-track, .calendar-date-modal .calendar-event-modal-content.date-select .months::-webkit-scrollbar-track, .calendar-event-modal .calendar-event-modal-content.date-select .years::-webkit-scrollbar-track, .calendar-event-modal .calendar-event-modal-content.date-select .months::-webkit-scrollbar-track, .calendar-add-event-modal .calendar-event-modal-content.date-select .years::-webkit-scrollbar-track, .calendar-add-event-modal .calendar-event-modal-content.date-select .months::-webkit-scrollbar-track, .calendar-delete-event-modal .calendar-event-modal-content.date-select .years::-webkit-scrollbar-track, .calendar-delete-event-modal .calendar-event-modal-content.date-select .months::-webkit-scrollbar-track {
+  background: transparent;
+}
+.calendar-date-modal .calendar-event-modal-content.date-select .years::-webkit-scrollbar-thumb, .calendar-date-modal .calendar-event-modal-content.date-select .months::-webkit-scrollbar-thumb, .calendar-event-modal .calendar-event-modal-content.date-select .years::-webkit-scrollbar-thumb, .calendar-event-modal .calendar-event-modal-content.date-select .months::-webkit-scrollbar-thumb, .calendar-add-event-modal .calendar-event-modal-content.date-select .years::-webkit-scrollbar-thumb, .calendar-add-event-modal .calendar-event-modal-content.date-select .months::-webkit-scrollbar-thumb, .calendar-delete-event-modal .calendar-event-modal-content.date-select .years::-webkit-scrollbar-thumb, .calendar-delete-event-modal .calendar-event-modal-content.date-select .months::-webkit-scrollbar-thumb {
+  background-color: rgb(230, 233, 238);
+  border-radius: 20px;
+  border: 3px solid transparent;
+}
+.calendar-date-modal .calendar-event-modal-content.date-select .years .year, .calendar-date-modal .calendar-event-modal-content.date-select .years .month, .calendar-date-modal .calendar-event-modal-content.date-select .months .year, .calendar-date-modal .calendar-event-modal-content.date-select .months .month, .calendar-event-modal .calendar-event-modal-content.date-select .years .year, .calendar-event-modal .calendar-event-modal-content.date-select .years .month, .calendar-event-modal .calendar-event-modal-content.date-select .months .year, .calendar-event-modal .calendar-event-modal-content.date-select .months .month, .calendar-add-event-modal .calendar-event-modal-content.date-select .years .year, .calendar-add-event-modal .calendar-event-modal-content.date-select .years .month, .calendar-add-event-modal .calendar-event-modal-content.date-select .months .year, .calendar-add-event-modal .calendar-event-modal-content.date-select .months .month, .calendar-delete-event-modal .calendar-event-modal-content.date-select .years .year, .calendar-delete-event-modal .calendar-event-modal-content.date-select .years .month, .calendar-delete-event-modal .calendar-event-modal-content.date-select .months .year, .calendar-delete-event-modal .calendar-event-modal-content.date-select .months .month {
+  cursor: pointer;
+  padding: 2px;
+  font-size: 14px;
+  color: #616468;
+}
+.calendar-date-modal .calendar-event-modal-content.date-select .years .year.active, .calendar-date-modal .calendar-event-modal-content.date-select .years .month.active, .calendar-date-modal .calendar-event-modal-content.date-select .months .year.active, .calendar-date-modal .calendar-event-modal-content.date-select .months .month.active, .calendar-event-modal .calendar-event-modal-content.date-select .years .year.active, .calendar-event-modal .calendar-event-modal-content.date-select .years .month.active, .calendar-event-modal .calendar-event-modal-content.date-select .months .year.active, .calendar-event-modal .calendar-event-modal-content.date-select .months .month.active, .calendar-add-event-modal .calendar-event-modal-content.date-select .years .year.active, .calendar-add-event-modal .calendar-event-modal-content.date-select .years .month.active, .calendar-add-event-modal .calendar-event-modal-content.date-select .months .year.active, .calendar-add-event-modal .calendar-event-modal-content.date-select .months .month.active, .calendar-delete-event-modal .calendar-event-modal-content.date-select .years .year.active, .calendar-delete-event-modal .calendar-event-modal-content.date-select .years .month.active, .calendar-delete-event-modal .calendar-event-modal-content.date-select .months .year.active, .calendar-delete-event-modal .calendar-event-modal-content.date-select .months .month.active {
+  background-color: #4784ca;
+  color: #fff;
+}
+.calendar-date-modal .calendar-event-modal-footer, .calendar-event-modal .calendar-event-modal-footer, .calendar-add-event-modal .calendar-event-modal-footer, .calendar-delete-event-modal .calendar-event-modal-footer {
+  display: flex;
+  border-top: 1px solid #f4f5f5;
+  padding: 15px;
+}
+.calendar-date-modal .calendar-event-modal-footer .save, .calendar-date-modal .calendar-event-modal-footer .add_event, .calendar-date-modal .calendar-event-modal-footer .delete_event, .calendar-date-modal .calendar-event-modal-footer .close, .calendar-event-modal .calendar-event-modal-footer .save, .calendar-event-modal .calendar-event-modal-footer .add_event, .calendar-event-modal .calendar-event-modal-footer .delete_event, .calendar-event-modal .calendar-event-modal-footer .close, .calendar-add-event-modal .calendar-event-modal-footer .save, .calendar-add-event-modal .calendar-event-modal-footer .add_event, .calendar-add-event-modal .calendar-event-modal-footer .delete_event, .calendar-add-event-modal .calendar-event-modal-footer .close, .calendar-delete-event-modal .calendar-event-modal-footer .save, .calendar-delete-event-modal .calendar-event-modal-footer .add_event, .calendar-delete-event-modal .calendar-event-modal-footer .delete_event, .calendar-delete-event-modal .calendar-event-modal-footer .close {
+  text-decoration: none;
+  display: flex;
+  padding: 0 10px;
+  margin-right: 8px;
+  height: 30px;
+  background-color: #e6e9ee;
+  color: #56585a;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 14px;
+  align-self: flex-end;
+  border-radius: 4px;
+}
+.calendar-date-modal .calendar-event-modal-footer .save:hover, .calendar-date-modal .calendar-event-modal-footer .add_event:hover, .calendar-date-modal .calendar-event-modal-footer .delete_event:hover, .calendar-date-modal .calendar-event-modal-footer .close:hover, .calendar-event-modal .calendar-event-modal-footer .save:hover, .calendar-event-modal .calendar-event-modal-footer .add_event:hover, .calendar-event-modal .calendar-event-modal-footer .delete_event:hover, .calendar-event-modal .calendar-event-modal-footer .close:hover, .calendar-add-event-modal .calendar-event-modal-footer .save:hover, .calendar-add-event-modal .calendar-event-modal-footer .add_event:hover, .calendar-add-event-modal .calendar-event-modal-footer .delete_event:hover, .calendar-add-event-modal .calendar-event-modal-footer .close:hover, .calendar-delete-event-modal .calendar-event-modal-footer .save:hover, .calendar-delete-event-modal .calendar-event-modal-footer .add_event:hover, .calendar-delete-event-modal .calendar-event-modal-footer .delete_event:hover, .calendar-delete-event-modal .calendar-event-modal-footer .close:hover {
+  background-color: #e0e4ea;
+}
+.calendar-date-modal .calendar-event-modal-footer .close, .calendar-event-modal .calendar-event-modal-footer .close, .calendar-add-event-modal .calendar-event-modal-footer .close, .calendar-delete-event-modal .calendar-event-modal-footer .close {
+  background-color: #ca6969;
+  color: #fff;
+}
+.calendar-date-modal .calendar-event-modal-footer .close:hover, .calendar-event-modal .calendar-event-modal-footer .close:hover, .calendar-add-event-modal .calendar-event-modal-footer .close:hover, .calendar-delete-event-modal .calendar-event-modal-footer .close:hover {
+  background-color: #c76161;
+}
+
+.calendar-event-modal {
+  max-width: 400px;
+}
+.calendar-event-modal .events {
+  width: 100%;
+  min-height: 200px;
+  max-height: 230px;
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(175, 180, 189) transparent;
+}
+.calendar-event-modal .events::-webkit-scrollbar {
+  width: 6px;
+}
+.calendar-event-modal .events::-webkit-scrollbar-track {
+  background: transparent;
+}
+.calendar-event-modal .events::-webkit-scrollbar-thumb {
+  background-color: rgb(230, 233, 238);
+  border-radius: 20px;
+  border: 3px solid transparent;
+}
+.calendar-event-modal .events .event .details {
+  display: flex;
+  padding: 20px 0 0 0;
+  font-size: 14px;
+  align-items: center;
+}
+.calendar-event-modal .events .event .details .date {
+  display: inline-flex;
+  align-items: center;
+  min-width: 70px;
+  width: 70px;
+  color: #a2a5a7;
+  font-size: 12px;
+  padding-left: 5px;
+  margin-right: 5px;
+  height: 30px;
+}
+.calendar-event-modal .events .event .details .title {
+  font-weight: 500;
+  color: #56585a;
+  font-size: 14px;
+  padding-left: 10px;
+  word-wrap: break-word;
+}
+.calendar-event-modal .events .event .details .fas {
+  cursor: pointer;
+  color: #d7d8d8;
+}
+.calendar-event-modal .events .event .details .fas.edit {
+  margin-left: auto;
+  padding: 0 8px;
+}
+.calendar-event-modal .events .event .details .fas.delete {
+  padding-right: 10px;
+}
+.calendar-event-modal .events .event .details .fas:hover {
+  color: #bdbebf;
+}
+.calendar-event-modal .events .event p {
+  margin: 0;
+  padding: 10px 5px 0 5px;
+  font-size: 14px;
+  color: #56585a;
+  word-wrap: break-word;
+}
+.calendar-event-modal .events .event:first-child .details {
+  padding-top: 5px;
+}
+
+.calendar-add-event-modal {
+  max-width: 350px;
+}
+.calendar-add-event-modal form {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+}
+.calendar-add-event-modal form label {
+  display: flex;
+  font-size: 14px;
+  padding: 5px 0;
+  font-weight: 600;
+  color: #56585a;
+}
+.calendar-add-event-modal form label .required {
+  color: #df4b4b;
+  margin-right: 5px;
+}
+.calendar-add-event-modal form input[type=text], .calendar-add-event-modal form input[type=datetime-local], .calendar-add-event-modal form input[type=file], .calendar-add-event-modal form textarea, .calendar-add-event-modal form select {
+  width: 100%;
+  border: 1px solid #d6d8db;
+  padding: 5px 7px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  border-radius: 4px;
+}
+.calendar-add-event-modal form input[type=text]::placeholder, .calendar-add-event-modal form input[type=datetime-local]::placeholder, .calendar-add-event-modal form input[type=file]::placeholder, .calendar-add-event-modal form textarea::placeholder, .calendar-add-event-modal form select::placeholder {
+  color: #a0a4ab;
+}
+.calendar-add-event-modal form textarea {
+  resize: none;
+  height: 65px;
+}
+.calendar-add-event-modal form input[type=color] {
+  border: 1px solid #d6d8db;
+  width: 100%;
+  height: 34px;
+  border-radius: 4px;
+  background-color: #fff;
+  margin-bottom: 5px;
+}
+.calendar-add-event-modal form .wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.calendar-add-event-modal form .wrapper .column {
+  width: 48%;
+}
+.calendar-add-event-modal form #msg {
+  font-size: 14px;
+  color: #c04040;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+.calendar-delete-event-modal {
+  max-width: 350px;
+}
+
+.calendar-loader {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+}
+.calendar-loader .lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  opacity: 0.5;
+}
+.calendar-loader .lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 4px solid #98999c;
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #98999c transparent transparent transparent;
+}
+.calendar-loader .lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.calendar-loader .lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.calendar-loader .lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.calendar {
+  display: flex;
+  flex-flow: column;
+}
+.calendar .header .month-year {
+  display: flex;
+  align-items: center;
+}
+.calendar .header .month-year a {
+  text-decoration: none;
+  font-weight: 500;
+  color: #636e73;
+  padding: 20px 0;
+}
+.calendar .header .month-year a:hover {
+  color: #4c5357;
+}
+.calendar .header .month-year a.prev, .calendar .header .month-year a.next, .calendar .header .month-year a.refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: #f1f2f3;
+  color: #a5adb1;
+  margin-left: 5px;
+}
+.calendar .header .month-year a.prev:hover, .calendar .header .month-year a.next:hover, .calendar .header .month-year a.refresh:hover {
+  color: #97a0a5;
+  background-color: #ecedee;
+}
+.calendar .header .month-year a.refresh {
+  margin-left: auto;
+}
+.calendar .header .month-year a.today {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background-color: #f1f2f3;
+  color: #a5adb1;
+}
+.calendar .header .month-year a.today:hover {
+  color: #97a0a5;
+  background-color: #ecedee;
+}
+.calendar .header .month-year a.current {
+  font-size: 20px;
+  margin-right: 15px;
+}
+.calendar .days {
+  display: flex;
+  flex-flow: wrap;
+  background-color: #fff;
+  overflow: hidden;
+}
+.calendar .days .day_name {
+  width: 14.2857142857%;
+  border-right: 1px solid #e8eaee;
+  border-top: 1px solid #e8eaee;
+  border-bottom: 1px solid #e8eaee;
+  padding: 20px;
+  background-color: #fafafb;
+}
+.calendar .days .day_name span {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  color: #82878d;
+}
+.calendar .days .day_name:first-child {
+  border-left: 1px solid #e8eaee;
+}
+.calendar .days .day_num {
+  display: flex;
+  flex-flow: column;
+  width: 14.2857142857%;
+  border-right: 1px solid #e6e9ea;
+  border-bottom: 1px solid #e6e9ea;
+  padding: 0;
+  font-weight: 500;
+  color: #6f7b81;
+  cursor: pointer;
+  min-height: 100px;
+  padding-bottom: 15px;
+  font-size: 16px;
+}
+.calendar .days .day_num span {
+  display: inline-flex;
+  width: 100%;
+  font-size: 14px;
+  padding: 15px 15px 5px 15px;
+  order: -1;
+}
+.calendar .days .day_num .event {
+  margin: 6px 10px 0 10px;
+  padding: 2px 6px 0 6px;
+  border-radius: 4px;
+  height: 22px;
+  color: #fff;
+  align-items: center;
+}
+.calendar .days .day_num .event p {
+  margin: 0;
+  padding: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap: break-word;
+  color: #fff;
+  font-weight: 500;
+  font-size: 12px;
+}
+.calendar .days .day_num .event.event-start {
+  margin-right: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  width: 100%;
+}
+.calendar .days .day_num .event.event-ongoing {
+  margin: 6px 0 0 0;
+  border-radius: 0;
+  width: calc(100% + 2px);
+}
+.calendar .days .day_num .event.event-ongoing p {
+  color: rgba(255, 255, 255, 0.7);
+}
+.calendar .days .day_num .event.event-end {
+  margin-left: 0;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.calendar .days .day_num .event.event-end p {
+  color: rgba(255, 255, 255, 0.7);
+}
+.calendar .days .day_num:nth-child(7n+1) {
+  border-left: 1px solid #e6e9ea;
+}
+.calendar .days .day_num:hover {
+  background-color: #fcfcfd;
+}
+.calendar .days .day_num.ignore {
+  background-color: #fcfcfd;
+  color: #ced2d4;
+  cursor: inherit;
+  padding: 15px;
+  font-size: 14px;
+}
+.calendar .days .day_num.selected {
+  background-color: #f7f7f8;
+  cursor: pointer;
+}
+.calendar.normal .size-mini, .calendar.auto .size-mini {
+  display: none;
+}
+.calendar.mini {
+  max-width: 300px;
+}
+.calendar.mini .size-normal {
+  display: none;
+}
+.calendar.mini .month-year a.current {
+  font-size: 16px;
+}
+.calendar.mini .days .day_name {
+  padding: 15px;
+}
+.calendar.mini .days .day_num {
+  min-height: 10px;
+  padding-bottom: 12px;
+}
+.calendar.mini .days .day_num span, .calendar.mini .days .day_num.ignore {
+  justify-content: center;
+  align-items: center;
+  padding: 12px 12px 0 12px;
+}
+.calendar.mini .days .day_num.ignore {
+  padding-bottom: 12px;
+}
+.calendar.mini .days .day_num .event {
+  height: 6px;
+  margin-top: 5px;
+}
+
+.calendar-expanded-view {
+  padding-bottom: 40px;
+}
+.calendar-expanded-view .heading {
+  padding: 40px 0;
+  margin: 0;
+  font-weight: 500;
+  font-size: 18px;
+  color: #636e73;
+}
+.calendar-expanded-view .event {
+  display: flex;
+  padding-bottom: 25px;
+}
+.calendar-expanded-view .event .date {
+  padding: 0;
+  width: 70px;
+  min-width: 70px;
+}
+.calendar-expanded-view .event .date .day {
+  font-weight: bold;
+  font-size: 26px;
+  color: #ced2d4;
+}
+.calendar-expanded-view .event .date .month {
+  font-weight: bold;
+  font-size: 14px;
+  color: #ced2d4;
+  padding-bottom: 5px;
+}
+.calendar-expanded-view .event .photo {
+  max-width: 200px;
+  width: 100%;
+  height: 120px;
+  border-radius: 4px;
+  margin-left: 40px;
+}
+.calendar-expanded-view .event .photo img {
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+.calendar-expanded-view .event .photo + .con {
+  padding-left: 20px;
+}
+.calendar-expanded-view .event .con {
+  padding-left: 40px;
+}
+.calendar-expanded-view .event .con .title {
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  color: #636e73;
+}
+.calendar-expanded-view .event .con .description {
+  margin: 0;
+  padding: 10px 0 15px 0;
+  color: #636e73;
+}
+.calendar-expanded-view .event .con .time {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  font-size: 12px;
+  padding: 4px 12px 4px 10px;
+  border-radius: 20px;
+  background-color: #f1f2f3;
+  color: #a5adb1;
+}
+.calendar-expanded-view .event .con .time i {
+  margin-right: 7px;
+}
+.calendar-expanded-view .event .con .title + .time {
+  margin-top: 15px;
+}
+.calendar-expanded-view.mini .heading {
+  padding: 30px 0;
+  font-size: 16px;
+}
+.calendar-expanded-view.mini .event .title {
+  font-size: 16px;
+}
+.calendar-expanded-view.mini .event .date {
+  width: 50px;
+  min-width: 50px;
+}
+.calendar-expanded-view.mini .event .date .day {
+  font-size: 20px;
+}
+.calendar-expanded-view.mini .event .date .month {
+  font-size: 12px;
+}
+.calendar-expanded-view.mini .event .photo {
+  display: none;
+}
+.calendar-expanded-view.mini .event .con {
+  padding-left: 20px;
+}
+
+@media screen and (max-width: 500px) {
+  .calendar.auto {
+    max-width: 300px;
+  }
+  .calendar.auto .size-normal {
+    display: none;
+  }
+  .calendar.auto .size-mini {
+    display: block;
+  }
+  .calendar.auto .month-year a.current {
+    font-size: 16px;
+  }
+  .calendar.auto .days .day_name {
+    padding: 15px;
+  }
+  .calendar.auto .days .day_num {
+    min-height: 10px;
+    padding-bottom: 12px;
+  }
+  .calendar.auto .days .day_num span, .calendar.auto .days .day_num.ignore {
+    justify-content: center;
+    align-items: center;
+    padding: 12px 12px 0 12px;
+  }
+  .calendar.auto .days .day_num.ignore {
+    padding-bottom: 12px;
+  }
+  .calendar.auto .days .day_num .event {
+    height: 6px;
+    margin-top: 5px;
+  }
+  .calendar-expanded-view.auto .heading {
+    padding: 30px 0;
+    font-size: 16px;
+  }
+  .calendar-expanded-view.auto .event .title {
+    font-size: 16px;
+  }
+  .calendar-expanded-view.auto .event .date {
+    width: 50px;
+    min-width: 50px;
+  }
+  .calendar-expanded-view.auto .event .date .day {
+    font-size: 20px;
+  }
+  .calendar-expanded-view.auto .event .date .month {
+    font-size: 12px;
+  }
+  .calendar-expanded-view.auto .event .photo {
+    display: none;
+  }
+  .calendar-expanded-view.auto .event .con {
+    padding-left: 20px;
+  }
+}
