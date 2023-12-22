@@ -128,8 +128,6 @@ $num_results = $stmt->fetchColumn();
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Leads</h1>
-                            <a href="leads-import.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                    class="fas fa-download fa-sm text-white-50"></i> New Import</a>
                     </div>
 
                     <div class="style-content read">
@@ -191,8 +189,18 @@ $num_results = $stmt->fetchColumn();
                                     <tr>
                                         <td class="checkbox"><input type="checkbox" value="<?=$result['id']?>" name="record[]"></td>
                                         <?php foreach ($Leads_Columns as $column_key => $column): ?>
-                                        <?php if ($column['type'] == 'datetime'): ?>
-                                        <td class="<?=$column_key?>"><?=date('Y-m-d H:i', strtotime($result[$column_key]))?></td>
+                                            <?php if ($column['type'] == 'datetime'): ?>
+                                                <td class="<?=$column_key?>">
+                                                    <?php 
+                                                    if (!empty($result[$column_key])) {
+                                                        // If the date is not null or empty, format it
+                                                        echo date('Y-m-d H:i', strtotime($result[$column_key]));
+                                                    } else {
+                                                        // If the date is null or empty, display a default message or leave blank
+                                                        echo 'Not set';
+                                                    }
+                                                    ?>
+                                                </td>
                                         <?php elseif ($column['type'] == 'date'): ?>
                                         <td class="<?=$column_key?>"><?=date('Y-m-d', strtotime($result[$column_key]))?></td>
                                         <?php elseif ($column['type'] == 'integer'): ?>

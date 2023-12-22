@@ -3,13 +3,20 @@
 $default_records_per_page = 10;
 
 // Global Ambetter Settings
-$default_ambetter_column = 'id';
+$default_ambetter_column = 'policy_number';
 $Ambetter = 'Ambetter';
 $Ambetter_Columns = [
-	'id' => [
-		'label' => '#',
+	'policy_number' => [
+		'label' => 'Policy Number',
 		'sortable' => true,
-		'type' => 'integer'
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'N12345678',
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'Policy Number must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z0-9]{1,50}$/',
+		]
 	],
     'broker_name' => [
 		'label' => 'Broker Name',
@@ -33,18 +40,6 @@ $Ambetter_Columns = [
 			'required' => false,
 			'validate_msg' => 'Must be between 1 and 50 characters!',
 			'validate_regex' => '/^[0-9]{1,50}$/',
-		]
-	],
-    'policy_number' => [
-		'label' => 'Policy Number',
-		'sortable' => true,
-		'type' => 'string',
-		'input' => [
-			'placeholder' => 'N12345678',
-			'type' => 'text',
-			'required' => true,
-			'validate_msg' => 'Policy Number must be between 1 and 50 characters!',
-			'validate_regex' => '/^[a-zA-Z0-9]{1,50}$/',
 		]
 	],
     'first_name' => [
@@ -842,19 +837,18 @@ $Leads_Columns = [
 			'validate_regex' => '/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/',
 		]
 	],
-	'priority' => [
-		'label' => 'Lead Priority',
+	'serviced' => [
+		'label' => 'Serviced',
 		'sortable' => true,
 		'type' => 'select',
 		'input' => [
 			'placeholder' => 'Select...',
 			'type' => 'select',
 			'required' => true,
-			'validate_msg' => 'Must select a priority!',
+			'validate_msg' => 'Has this lead been serviced!',
 			'options' => [
-				'1' => '1 (top)',
-				'2' => '2 (mid)',
-				'3' => '3 (cold)',
+				'0' => 'False',
+				'1' => 'True',
 			],
 		],
 	],
@@ -865,6 +859,25 @@ $Leads_Columns = [
 		'input' => [
 			'type' => 'datetime-local',
 			'required' => true,
+		]
+	],
+	'recontact_date' => [
+		'label' => 'Recontact Datetime',
+		'sortable' => true,
+		'type' => 'datetime',
+		'input' => [
+			'type' => 'datetime-local',
+			'required' => false,
+		]
+	],
+	'notes' => [
+		'label' => 'Notes',
+		'sortable' => true,
+		'type' => 'text',
+		'input' => [
+			'type' => 'textarea',
+			'required' => false,
+			'maxlength' => 500
 		]
 	]
 ];

@@ -1,29 +1,29 @@
 # using 'docker-compose up' restarts the docker service
 # using 'docker-compose down' stopping everything that was happeing
-
 # docker-php-ext-install pdo pdo_mysql mysqli
 
-version: '3' # Docker Version
+# Docker Version
+version: '3' 
 services:
   www:
     build: 
         context: .
         dockerfile: Dockerfile.php
-    image: php:apache # pulls apache image for php
+    image: php:apache
     volumes:
-      - "./:/var/www/html" # sync project dir with container web dir
+      - "./:/var/www/html"
     ports:
       - 8080:80
-      - 8443:443 # for future ssl traffic
+      - 8443:443
   db:
-    image: mysql:latest # pulls the latest image of mysql from docker
+    image: mysql:latest
     environment:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
-      - "./db:/docker-entrypoint-initdb.d" #sync persistent sql files with container
+      - "./db:/docker-entrypoint-initdb.d"
   phpmyadmin:
     image: phpmyadmin
     ports:
