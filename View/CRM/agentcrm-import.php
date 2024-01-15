@@ -1,5 +1,5 @@
 <?php
-include '../../php/functions.php'; // Ensure the path to your functions is correct
+include '../../php/functions.php';
 session_start();
 
 $pdo = pdo_connect_mysql();

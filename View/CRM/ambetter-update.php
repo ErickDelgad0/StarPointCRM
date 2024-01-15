@@ -13,17 +13,17 @@ check_loggedin($pdo, '../index.php');
 $error_msg = '';
 // Success message
 $success_msg = '';
-// Ensure contact "ID" param exists
-if (!isset($_GET['id'])) {
-    exit('No ID specified!');
+// Ensure contact "policy_number" param exists
+if (!isset($_GET['policy_number'])) {
+    exit('No policy_number specified!');
 }
 // Get the contact from the contacts table
-$stmt = $pdo->prepare('SELECT * FROM ' . $Ambetter . ' WHERE id = ?');
-$stmt->execute([ $_GET['id'] ]);
+$stmt = $pdo->prepare('SELECT * FROM ' . $Ambetter . ' WHERE policy_number = ?');
+$stmt->execute([ $_GET['policy_number'] ]);
 $contact = $stmt->fetch(PDO::FETCH_ASSOC);
-// Contact doesn't exist with the specified ID, so output error message and stop the script
+// Contact doesn't exist with the specified policy_number, so output error message and stop the script
 if (!$contact) {
-    exit('Contact doesn\'t exist with that ID!');
+    exit('Contact doesn\'t exist with that policy_number!');
 }
 // Check if POST data exists (user submitted the form)
 if (isset($_POST['submit'])) {
@@ -48,18 +48,18 @@ if (isset($_POST['submit'])) {
         // Update the record
         $stmt = $pdo->prepare('UPDATE ' . $Ambetter . ' SET ' . implode(', ', array_map(function ($column) {
             return $column . ' = :' . $column;
-        }, array_keys($data))) . ' WHERE id = :id');
+        }, array_keys($data))) . ' WHERE policy_number = :policy_number');
         // bind over the data to the placeholders in the prepared statement
         foreach ($data as $column => $value) {
             $stmt->bindValue(':' . $column, $value);
         }
         // Bind ID
-        $stmt->bindValue(':id', $_GET['id']);
+        $stmt->bindValue(':policy_number', $_GET['policy_number']);
         // Execute the SQL statement
         $stmt->execute();
         // Get the updated contact from the contacts table
-        $stmt = $pdo->prepare('SELECT * FROM  ' . $Ambetter . ' WHERE id = ?');
-        $stmt->execute([ $_GET['id'] ]);
+        $stmt = $pdo->prepare('SELECT * FROM  ' . $Ambetter . ' WHERE policy_number = ?');
+        $stmt->execute([ $_GET['policy_number'] ]);
         $contact = $stmt->fetch(PDO::FETCH_ASSOC);
         // Output message
         $success_msg = 'Updated Successfully!';
@@ -76,11 +76,11 @@ if (isset($_POST['submit'])) {
 
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <div class="wrap">
-                    <h1 class="h3 mb-0 text-gray-800">Update Ambetter Contact #<?=$contact['id']?></h1>
+                    <h1 class="h3 mb-0 text-gray-800">Update Ambetter Contact #<?=$contact['policy_number']?></h1>
                 </div>
             </div>
 
-            <form action="?id=<?=$contact['id']?>" method="post" class="crud-form">
+            <form action="?policy_number=<?=$contact['policy_number']?>" method="post" class="crud-form">
 
                 <div class="cols">
                     <?php foreach ($Ambetter_Columns as $column => $array): ?>

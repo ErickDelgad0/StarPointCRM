@@ -10,21 +10,22 @@ check_loggedin($pdo, '../index.php');
 
 // Bulk action handler
 if (isset($_GET['bulk_action'])) {
-	// Get the IDs of the selected records
-	$ids = isset($_GET['record']) && is_array($_GET['record']) ? array_filter($_GET['record'], 'is_numeric') : null;
-	// Make sure we have IDs
-	if ($ids) {
+	// Get the policy_numbers of the selected records
+    $policy_numbers = isset($_GET['record']) && is_array($_GET['record']) ? $_GET['record'] : null;
+
+	// Make sure we have policy_numbers
+	if ($policy_numbers) {
 		// Delete records
 		if ($_GET['bulk_action'] == 'delete') {
 			// Delete from the database
-			$stmt = $pdo->prepare('DELETE FROM ' . $Ambetter . ' WHERE id IN (' . implode(',', array_fill(0, count($ids), '?')) . ')');
-			$stmt->execute($ids);
+			$stmt = $pdo->prepare('DELETE FROM ' . $Ambetter . ' WHERE policy_number IN (' . implode(',', array_fill(0, count($policy_numbers), '?')) . ')');
+			$stmt->execute($policy_numbers);
 		}
 		// Export records to CSV file
 		if ($_GET['bulk_action'] == 'export') {
 			// Prepare the SQL statement, we basically want to select all the records where the ID is in the POST values
-			$stmt = $pdo->prepare('SELECT * FROM ' . $Ambetter . ' WHERE id IN (' . implode(',', array_fill(0, count($ids), '?')) . ')');
-			$stmt->execute($ids);
+			$stmt = $pdo->prepare('SELECT * FROM ' . $Ambetter . ' WHERE policy_number IN (' . implode(',', array_fill(0, count($policy_numbers), '?')) . ')');
+			$stmt->execute($policy_numbers);
 			$records = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			// Download the CSV file - we force this by sending a HTTP header with header()
 			header('Content-Type: text/csv; charset=utf-8');
@@ -39,8 +40,8 @@ if (isset($_GET['bulk_action'])) {
 		}
 		// Edit records
 		if ($_GET['bulk_action'] == 'edit') {
-			// Redirect to the bulk-update.php page, with all the IDs specified in the URL parameters
-			header('Location: ambetter-bulk-update.php?ids=' . implode(',', $ids));
+			// Redirect to the bulk-update.php page, with all the policy_numbers specified in the URL parameters
+			header('Location: ambetter-bulk-update.php?policy_numbers=' . implode(',', $policy_numbers));
 			exit;
 		}
 	}
@@ -187,7 +188,7 @@ $num_results = $stmt->fetchColumn();
                                     <?php endif; ?>
                                     <?php foreach ($results as $result): ?>
                                     <tr>
-                                        <td class="checkbox"><input type="checkbox" value="<?=$result['id']?>" name="record[]"></td>
+                                        <td class="checkbox"><input type="checkbox" value="<?=$result['policy_number']?>" name="record[]"></td>
                                         <?php foreach ($Ambetter_Columns as $column_key => $column): ?>
                                         <?php if ($column['type'] == 'datetime'): ?>
                                         <td class="<?=$column_key?>"><?=date('Y-m-d H:i', strtotime($result[$column_key]))?></td>
@@ -200,8 +201,8 @@ $num_results = $stmt->fetchColumn();
                                         <?php endif; ?>
                                         <?php endforeach; ?>
                                         <td class="actions">
-                                            <a href="ambetter-update.php?id=<?=$result['id']?>" class="edit"><i class="fa-solid fa-pen fa-xs"></i></a>
-                                            <a href="ambetter-delete.php?id=<?=$result['id']?>" class="trash"><i class="fa-solid fa-xmark fa-xs"></i></a>
+                                            <a href="ambetter-update.php?policy_number=<?=$result['policy_number']?>" class="edit"><i class="fa-solid fa-pen fa-xs"></i></a>
+                                            <a href="ambetter-delete.php?policy_number=<?=$result['policy_number']?>" class="trash"><i class="fa-solid fa-xmark fa-xs"></i></a>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>

@@ -133,7 +133,7 @@ if (isset($_POST['submit'])) {
                                             <img src="../../img/undraw_profile.svg" alt="Photo" class="rounded-circle" width="150">
                                             <div class="mt-3">
                                                 <h4><?=$contact['first_name']?> <?=$contact['last_name']?></h4>
-                                                <!-- Additional info can be uncommented or added here -->
+                                                <!-- Additional info can be added here -->
                                             </div>
                                         </div>
                                     </div>
