@@ -194,8 +194,26 @@ class Calendar {
         // Update the event in the database
         $stmt = $this->pdo->prepare('UPDATE events SET title = ?, description = ?, color = ?, datestart = ?, dateend = ?, recurring = ?, photo_url = ? WHERE id = ?');
         $stmt->execute([ $title, $description, $color, $datestart, $dateend, $recurring, $photo_url, $id ]);
-        return true;    
+        return true;
     }
+
+    public function update_lead_on_event_change($eventId) {
+        // First, retrieve the lead_id associated with this event
+        $stmt = $this->pdo->prepare('SELECT lead_id, description, datestart FROM events WHERE id = ?');
+        $stmt->execute([$eventId]);
+        $event = $stmt->fetch();
+    
+        if ($event && $event['lead_id']) {
+            // If a corresponding lead exists, update the Leads table
+            $stmtLeads = $this->pdo->prepare('UPDATE Leads SET notes = ?, recontact_date = ? WHERE id = ?');
+            $stmtLeads->execute([$event['description'], $event['datestart'], $event['lead_id']]);
+            return true;
+        }
+    
+        // If no corresponding lead, or lead_id is not set, return false
+        return false;
+    }
+    
 
     // Delete event function
     public function delete_event($id) {

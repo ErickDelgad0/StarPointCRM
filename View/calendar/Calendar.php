@@ -35,6 +35,7 @@ if (!disable_event_management) {
         } else {
             // Update existing event
             $calendar->update_event($_POST['eventid'], $_POST['title'], $_POST['description'], $_POST['startdate'], $_POST['enddate'], $color, $_POST['recurring'], isset($_FILES['photo']) ? $_FILES['photo'] : null);
+            $calendar->update_lead_on_event_change($_POST['eventid']);
         }
         exit('success');
     }

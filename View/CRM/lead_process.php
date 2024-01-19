@@ -97,7 +97,9 @@ $stmt->execute();
                 // Lead information
                 echo "<p>Name: " . htmlspecialchars($row["first_name"]) . " " . htmlspecialchars($row["last_name"]) . "</p>";
                 echo "<p>Email: " . htmlspecialchars($row["email"]) . "</p>";
-                // Add additional fields here as needed
+                echo "<p>Phone: " . htmlspecialchars($row["phone"]) . "</p>";
+                echo "<p>State: " . htmlspecialchars($row["state"]) . "</p>";
+                echo "<p>DOB: " . htmlspecialchars($row["DOB"]) . "</p>";
 
                 // Edit button
                 echo "<button onclick='toggleForm(" . $row["id"] . ")' class='edit-btn'>Edit</button>";
