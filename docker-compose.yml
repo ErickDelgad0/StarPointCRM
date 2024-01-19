@@ -17,6 +17,7 @@ services:
       - 8443:443
   db:
     image: mysql:latest
+    command: --log-bin-trust-function-creators=1
     environment:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}

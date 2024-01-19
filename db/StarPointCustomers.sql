@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Jan 14, 2024 at 07:17 PM
+-- Generation Time: Jan 19, 2024 at 01:57 AM
 -- Server version: 8.1.0
 -- PHP Version: 8.2.10
 
@@ -44,6 +44,13 @@ CREATE TABLE `AgentCRM` (
   `team_name` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `AgentCRM`
+--
+
+INSERT INTO `AgentCRM` (`contact_id`, `policy_number`, `first_name`, `last_name`, `phone`, `email`, `state`, `DOB`, `closure`, `closure_date`, `closure_time`, `closure_stage`, `closure_pipeline`, `team_name`) VALUES
+('1234', 'N1234', 'Tom', 'Delgado', '3059654400', 'delrick2323@outlook.com', 'FL', '2024-01-18', 'Tommy', '2024-01-18', '12:30:00', 'SOLD AOR OP/RC/Ambetter', 'MYACA NEW LEAD PROCESSOR DISTRIBUTION', 'UF TEAM');
+
 -- --------------------------------------------------------
 
 --
@@ -82,10 +89,7 @@ CREATE TABLE `Ambetter` (
 --
 
 INSERT INTO `Ambetter` (`policy_number`, `broker_name`, `broker_npn`, `first_name`, `last_name`, `broker_effective_date`, `broker_term_date`, `policy_effective_date`, `policy_term_date`, `paid_through_date`, `county`, `state`, `on_off_exchange`, `exchange_subscriber_id`, `member_phone_number`, `member_email`, `member_responsibility`, `member_DOB`, `autopay`, `eligible_for_commission`, `number_of_members`, `payable_agent`, `ar_policy_type`, `created`) VALUES
-('U91453701', 'Joel Mendez', '8829697', 'Pedro', 'Perez Caseres', '2021-09-01', '1999-12-31', '2021-09-01', '2021-12-31', '2021-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0010721359\'', '7865876954', '', '0', '2061-07-16', 'Yes', 'No', 2, 'Health Family Insurance', '', '2024-01-14 19:13:26'),
-('U92112585', 'Joel Mendez', '8829697', 'Yosmany', 'Garcia Lopez', '2020-01-01', '1999-12-31', '2021-09-01', '2022-04-30', '2022-04-30', 'MIAMI-DADE', 'FL', 'On', '\'0010405807\'', '7863198111', 'yosgl@gmail.com', '0', '1989-04-11', 'No', 'No', 1, 'Health Family Insurance', '', '2024-01-14 19:13:26'),
-('U93656005', 'Joel Mendez', '8829697', 'Ernesto', 'Hernandez', '2020-02-01', '1999-12-31', '2023-02-01', '2023-02-28', '2023-02-28', 'MIAMI-DADE', 'FL', 'On', '\'0014229882\'', '7863172723', 'ehernandez69@gmail.com', '0', '2068-11-23', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-01-14 19:13:26'),
-('U94707016', 'Joel Mendez', '8829697', 'Leobel', 'Garrido', '2021-09-01', '1999-12-31', '2021-09-01', '2022-04-30', '2022-04-30', 'MIAMI-DADE', 'FL', 'On', '\'0012446728\'', '7863555314', '', '0', '2062-07-15', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-01-14 19:13:26');
+('N1234', 'Erick Delgado', '123456', 'Tommy', 'John', '2024-01-14', '2024-01-14', '2024-01-14', '2024-01-14', '2024-01-14', 'MIAMI-DADE', 'FL', 'On', '1234', '3059654400', 'delrick2323@outlook.com', '0', '2024-01-14', 'Yes', 'Yes', 2, 'Health Family Insurance', '', '2024-01-14 19:26:00');
 
 -- --------------------------------------------------------
 
@@ -114,7 +118,7 @@ CREATE TABLE `Employee` (
 --
 
 INSERT INTO `Employee` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `activation_code`, `rememberme`, `phone`, `created`, `registered`, `role`, `last_seen`) VALUES
-(1, 'cheesestick', 'Erick', 'Delgado', 'delrick2323@outlook.com', '$2y$10$D63WB3uQswOI.AOaIjGZk.dSY5rMM3UJwnSGTKY/s8Uzb./PlD0nu', '1', '$2y$10$yrlEr8S2QIU8vRC60MvFBO6nccRdy5RlaTYE31Mek11kGeA2opixG', '3059654400', '2023-10-30 14:41:24', '2023-10-30 14:41:24', 'admin', '2024-01-14 18:36:55'),
+(1, 'cheesestick', 'Erick', 'Delgado', 'delrick2323@outlook.com', '$2y$10$iuwGhY3xf/ScOPiGo5Ks6OULAoa6XPXXTo9YBxt3BuNauVluBQXQ2', '1', '$2y$10$yrlEr8S2QIU8vRC60MvFBO6nccRdy5RlaTYE31Mek11kGeA2opixG', '3059654400', '2023-10-30 14:41:24', '2023-10-30 14:41:24', 'admin', '2024-01-18 20:40:43'),
 (2, 'superchad', 'Chad', 'Johnson', 'chaddio@yahoo.com', '$2y$10$aXrdk5jlyKVEZn7pyzLxwuBLda0i6OLSO.71bIvxoYH87lSgjfWUa', '1', '', '', '2023-11-02 18:48:29', '2023-11-02 18:48:29', 'guest', '2023-11-02 18:50:26');
 
 -- --------------------------------------------------------
@@ -170,8 +174,7 @@ CREATE TABLE `Leads` (
 --
 
 INSERT INTO `Leads` (`id`, `first_name`, `last_name`, `email`, `phone`, `state`, `DOB`, `serviced`, `created`, `recontact_date`, `notes`) VALUES
-(1, 'Christopher', 'Robin', 'delrick2323@outlook.com', '3059654400', 'FL', '2001-08-12', 1, '2023-12-01 21:17:23', '2023-12-23 12:10:00', 'Test'),
-(2, 'Erick', 'Delgado', 'delrick2323@outlook.com', '3059654400', 'FL', '2001-08-12', 0, '2023-12-01 21:18:21', NULL, NULL);
+(1, 'Christopher', 'Robin', 'delrick2323@outlook.com', '3059654400', 'FL', '2024-01-19', 0, '2023-12-01 21:17:00', '2024-01-18 12:00:00', '                                                                                 This is a simple test                                                                                         ');
 
 --
 -- Indexes for dumped tables
@@ -222,13 +225,13 @@ ALTER TABLE `Employee`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `Leads`
 --
 ALTER TABLE `Leads`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

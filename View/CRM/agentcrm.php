@@ -202,6 +202,8 @@ $num_results = $stmt->fetchColumn();
                                         <td class="<?=$column_key?>"><?=date('Y-m-d', strtotime((string) $result[$column_key]))?></td>
                                         <?php elseif ($column['type'] == 'integer'): ?>
                                         <td class="<?=$column_key?>"><?=number_format($result[$column_key])?></td>
+                                        <?php elseif ($column['type'] == 'time'): ?>
+                                        <td class="<?= $column_key ?>"><?= date('H:i', strtotime($result[$column_key])) ?></td>
                                         <?php else: ?>
                                         <td class="<?=$column_key?>"><?=htmlspecialchars((string) $result[$column_key], ENT_QUOTES)?></td>
                                         <?php endif; ?>
