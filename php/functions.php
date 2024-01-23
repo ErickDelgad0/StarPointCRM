@@ -72,6 +72,15 @@ function check_loggedin($pdo, $redirect_file = 'index.php') {
     }
 }
 
+function generateRandomPassword($length = 12) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()';
+    $charactersLength = strlen($characters);
+    $randomPassword = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomPassword .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomPassword;
+}
 
 function CRM_header($title) {
     echo <<<EOT

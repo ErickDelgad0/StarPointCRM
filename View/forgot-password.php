@@ -1,6 +1,94 @@
 <?php
 include '../php/functions.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require '../PHPMailer/src/Exception.php';
+require '../PHPMailer/src/PHPMailer.php';
+require '../PHPMailer/src/SMTP.php';
+
+$envPath = __DIR__ . '/../.env';
+$config = parse_ini_file($envPath);
+
 session_start();
+
+if (isset($_SESSION['error'])) {
+    echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
+    unset($_SESSION['error']);
+}
+
+if (isset($_SESSION['success'])) {
+    echo '<div class="alert alert-success">' . $_SESSION['success'] . 
+         ' <a href="login.php">Click Here to Login</a></div>';
+    unset($_SESSION['success']);
+}
+
+// Connect to MySQL database
+$pdo = pdo_connect_mysql();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if the email field is set and not empty
+    if (isset($_POST['InputEmail']) && !empty($_POST['InputEmail'])) {
+        $email = $_POST['InputEmail'];
+
+        $pdo->beginTransaction();
+        try {
+            // Fetch user data from the database using email
+            $stmt = $pdo->prepare('SELECT id, email FROM Employee WHERE email = ?');
+            $stmt->execute([$email]);
+            $employee = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($employee) {
+                // Generate a new random password
+                $newPassword = generateRandomPassword();
+
+                // Hash the new password
+                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+                // Update the password in the database
+                $stmt = $pdo->prepare('UPDATE Employee SET password = ? WHERE id = ?');
+                $stmt->execute([$hashedPassword, $employee['id']]);
+
+                // Commit the transaction
+                $pdo->commit();
+                
+                // Send email with new password
+                $mail = new PHPMailer(true);
+                // server config
+                $mail = new PHPMailer(true);
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = $config['GMAIL_USER'];
+                $mail->Password = $config['GMAIL_PASSWORD'];
+                $mail->SMTPSecure = 'ssl';
+                $mail->Port = 465;
+
+                // Recipients
+                $mail->setFrom('StarPoint.Insurance@gmail.com', 'StarPoint');
+                $mail->addAddress($employee['email'], ($employee['email']));
+
+                // Content
+                $mail->isHTML(true); // Set email format to HTML
+                $mail->Subject = 'Password Reset';
+                $mail->Body = 'Your new password is: ' . $newPassword . "\r\n\r\n" . 
+                    'For your security, please ensure to change this password as soon as you log in. ' . 
+                    'Remember, your password is confidential and should not be shared with anyone.';
+
+                $mail->send();
+                $_SESSION['success'] = 'Password Reset Sent!';
+            } else {
+                $_SESSION['error'] = 'Error Resetting Password';
+            }
+        } catch (PDOException $e) {
+            $pdo->rollBack();
+            // Handle errors
+            $_SESSION['error'] =  'Error resetting password: ' . $e->getMessage();
+        }
+    } else {
+        $_SESSION['error'] = 'Enter an email to reset password';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,15 +134,11 @@ session_start();
                                         <p class="mb-4">We get it, stuff happens. Just enter your email address below
                                             and we'll send you a link to reset your password!</p>
                                     </div>
-                                    <form class="user">
+                                    <form action="" method="POST" class="user">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                            <input type="email" name="InputEmail" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                                         </div>
-                                        <a href="login.php" class="btn btn-primary btn-user btn-block">
-                                            Reset Password
-                                        </a>
+                                        <button type="submit" class="btn btn-primary btn-user btn-block">Reset Password</button>
                                     </form>
                                     <hr>
                                     <!-- <div class="text-center">

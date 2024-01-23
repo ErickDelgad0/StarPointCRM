@@ -691,6 +691,107 @@ $Employee_Profile_Columns = [
 	]
 ];
 
+// Global Employee Settings for Admin changes
+$Employee = 'Employee';
+$Employee_Admin_Columns = [
+	'id' => [
+		'label' => '#',
+		'sortable' => true,
+		'type' => 'integer'
+	],
+    'username' => [
+		'label' => 'username',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Username',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'Must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\s]{1,50}$/',
+		]
+	],
+    'first_name' => [
+		'label' => 'First Name',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Erick',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'Last name must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\'-]{1,50}$/',
+		]
+	],
+	'last_name' => [
+		'label' => 'Last Name',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Delgado',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'Last name must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\'-]{1,50}$/',
+		]
+	],
+	'email' => [
+		'label' => 'Email',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Email Address',
+			'type' => 'email',
+			'required' => false,
+			'validate_msg' => 'Please enter a valid email address!',
+			'validate_regex' => '/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/',
+		]
+	],
+	'phone' => [
+		'label' => 'Phone Number',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter phone number',
+			'type' => 'tel', 
+			'required' => false,
+			'validate_msg' => 'Please enter a valid phone number',
+			'validate_regex' => '/^\+?[0-9]{10,20}$/',
+		]
+	],
+	'activation_code' => [
+		'label' => 'Activation',
+		'sortable' => true,
+		'type' => 'select',
+		'input' => [
+			'placeholder' => 'Select...',
+			'type' => 'select',
+			'required' => true,
+			'validate_msg' => 'Required: Is this Employee Active?',
+			'options' => [
+				0 => 0,
+				1 => 1,
+			],
+		],
+	],
+	'role' => [
+		'label' => 'Employee Role',
+		'sortable' => true,
+		'type' => 'select',
+		'input' => [
+			'placeholder' => 'Select...',
+			'type' => 'select',
+			'required' => true,
+			'validate_msg' => 'Required: What Is the Employee Role',
+			'options' => [
+				'admin' => 'admin',
+				'agent' => 'agent',
+				'guest' => 'guest'
+			],
+		],
+	]
+];
+
 // Global Settings for Leads
 $default_leads_column = 'id';
 $Leads = 'Leads';

@@ -72,7 +72,7 @@ if (count($errors) == 0) {
         $mail->Body = 'Hello ' . $_POST['first_name'] . ',<br><br>Thank you for reaching out to StarPoint Insurance. 
         Your inquiry is important to us. We are currently reviewing your request and will ensure a response is provided 
         within 2-3 business days. Should you have any immediate concerns or additional queries, please feel free to contact 
-        our support team at [Support Contact Information].<br><br>Best Regards,<br>The StarPoint Insurance Team';
+        our support team at StarPoint.Insurance@gmail.com.<br><br>Best Regards,<br>The StarPoint Insurance Team';
         $mail->send();
 
     } else {
