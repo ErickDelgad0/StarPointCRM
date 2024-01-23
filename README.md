@@ -10,12 +10,12 @@ Built using MySQL, PHP, and Apache; containerized using Docker. This ensures a c
     MYSQL_USER=YourMySQLUsername
     MYSQL_PASSWORD=YourMySQLUserPassword
     MYSQL_ROOT_PASSWORD=YourMySQLRootPassword
-
+   
     GMAIL_USER = YourGmailUsername
     GMAIL_PASSWORD = YourGmailPassword (must be given by gmail)
 
 
-5. Replace YourDatabaseName, YourMySQLUsername, YourMySQLUserPassword, and YourMySQLRootPassword with your desired values. (Save and Close)
+6. Replace YourDatabaseName, YourMySQLUsername, YourMySQLUserPassword, and YourMySQLRootPassword with your desired values. (Save and Close)
     ⚠️ Notice: The .env file contains sensitive data. Ensure it's added to your .gitignore file
-6. Now that you've set up the .env file, you can proceed to start your Docker container using 'docker-compose up'
+7. Now that you've set up the .env file, you can proceed to start your Docker container using 'docker-compose up'
 
