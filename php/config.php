@@ -153,17 +153,17 @@ $Ambetter_Columns = [
 	'on_off_exchange' => [
 		'label' => 'On/Off Exchange',
 		'sortable' => true,
-		'type' => 'select', // Type is 'select' indicating a dropdown.
+		'type' => 'select',
 		'input' => [
-			'placeholder' => 'Select...', // This might not be needed for a select type input
-			'type' => 'select', // Redundant definition inside 'input', but it's okay if your form builder requires it
+			'placeholder' => 'Select...',
+			'type' => 'select',
 			'required' => false,
-			'options' => [ // Options for the dropdown
-				'' => '', // Empty option allowing users not to choose
+			'options' => [
+				'' => '',
 				'on' => 'On',
 				'off' => 'Off'
 			],
-			'validate_msg' => 'Please select an On/Off Exchange option', // Message for validation
+			'validate_msg' => 'Please select an On/Off Exchange option',
 		],
 	],
 
@@ -182,7 +182,7 @@ $Ambetter_Columns = [
     'member_phone_number' => [
 		'label' => 'Member Phone Number',
 		'sortable' => false,
-		'type' => 'string',
+		'type' => 'tel',
 		'input' => [
 			'placeholder' => 'Phone Number',
 			'type' => 'tel',
@@ -211,8 +211,8 @@ $Ambetter_Columns = [
 			'placeholder' => '',
 			'type' => 'text',
 			'required' => false,
-			'validate_msg' => 'On/ Off Exchange must be between 1 and 50 characters!',
-			'validate_regex' => '/^[a-zA-Z0-9._%+-]$/',
+			'validate_msg' => 'Member Responsibility must be between 1 and 50 characters!',
+			'/^[a-zA-Z0-9._%+\- ]+$/',
 		]
 	],
     'member_DOB' => [
@@ -313,7 +313,7 @@ $Ambetter_Columns = [
 
 $default_agentcrm_column = 'contact_id';
 $AgentCRM = 'AgentCRM';
-$AgentCRM_Columns = [
+$AgentCRM_all_Columns = [
 	'contact_id' => [
 		'label' => 'Contact Id',
 		'sortable' => true,
@@ -365,7 +365,162 @@ $AgentCRM_Columns = [
 	'phone' => [
 		'label' => 'Phone',
 		'sortable' => true,
+		'type' => 'tel',
+		'input' => [
+			'placeholder' => 'Enter Phone Number',
+			'type' => 'tel',
+			'required' => false,
+			'validate_msg' => 'Phone number must be between 1 and 15 characters!',
+			'validate_regex' => '/^[\d\s()+-]{1,15}$/',
+		]
+	],
+	'email' => [
+		'label' => 'Email',
+		'sortable' => true,
 		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter Email Address',
+			'type' => 'email',
+			'required' => false,
+			'validate_msg' => 'Must be a valid email address!',
+		]
+	],
+	'state' => [
+		'label' => 'State',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter State',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'State must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\s]{1,50}$/',
+		]
+	],
+	'DOB' => [
+		'label' => 'Date of Birth',
+		'sortable' => true,
+		'type' => 'date',
+		'input' => [
+			'placeholder' => 'Enter Date of Birth',
+			'type' => 'date',
+			'required' => false,
+			'validate_msg' => 'Must be a valid date!',
+		]
+	],
+	'closure' => [
+		'label' => 'Closure',
+		'sortable' => true,
+		'type' => 'text',
+		'input' => [
+			'placeholder' => 'John Sins',
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'Please enter a closure!'
+		]
+	],
+	'closure_date' => [
+		'label' => 'Closure Date',
+		'sortable' => true,
+		'type' => 'date',
+		'input' => [
+			'placeholder' => 'Enter Closure Date',
+			'type' => 'date',
+			'required' => true,
+			'validate_msg' => 'Must be a valid date!',
+			// No need for regex here since 'date' type input inherently validates the format.
+		]
+	],
+	'closure_time' => [
+		'label' => 'Closure Time',
+		'sortable' => true,
+		'type' => 'time',
+		'input' => [
+			'placeholder' => 'Enter Closure Time',
+			'type' => 'time',
+			'required' => true,
+			'validate_msg' => 'Must be a valid time!',
+			// No need for regex here since 'time' type input inherently validates the format.
+		]
+	],
+	'closure_stage' => [
+		'label' => 'Closure Stage',
+		'sortable' => true,
+		'type' => 'text',
+		'input' => [
+			'placeholder' => 'OP/RC Completed',
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'Please enter a closure stage!',
+		],
+	],
+	'closure_pipeline' => [
+		'label' => 'Closure Pipeline',
+		'sortable' => true,
+		'type' => 'text',
+		'input' => [
+			'placeholder' => 'NEW LEAD',
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'Please enter a valid pipeline!',
+		],
+	],	
+	'team_name' => [
+		'label' => 'Team Name',
+		'sortable' => true,
+		'type' => 'text',
+		'input' => [
+			'placeholder' => 'Enter Team Name',
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'Please enter a team name!',
+		],
+	]	
+];
+
+$default_agentcrm_column = 'contact_id';
+$AgentCRM = 'AgentCRM';
+$AgentCRM_Columns = [
+	'policy_number' => [
+		'label' => 'Policy Number',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter Policy Number',
+			'type' => 'text',
+			'required' => true,
+			'validate_msg' => 'Policy number must be between 1 and 255 characters!',
+			'validate_regex' => '/^[a-zA-Z0-9\s]{1,255}$/',
+		]
+	],
+	'first_name' => [
+		'label' => 'First Name',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter First Name',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'First name must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\s]{1,50}$/',
+		]
+	],
+	'last_name' => [
+		'label' => 'Last Name',
+		'sortable' => true,
+		'type' => 'string',
+		'input' => [
+			'placeholder' => 'Enter Last Name',
+			'type' => 'text',
+			'required' => false,
+			'validate_msg' => 'Last name must be between 1 and 50 characters!',
+			'validate_regex' => '/^[a-zA-Z\s\-\'\.]{1,50}$/',
+		]
+	],
+	'phone' => [
+		'label' => 'Phone',
+		'sortable' => true,
+		'type' => 'tel',
 		'input' => [
 			'placeholder' => 'Enter Phone Number',
 			'type' => 'tel',
@@ -572,7 +727,7 @@ $Employee_Columns = [
 	'phone' => [
 		'label' => 'Phone Number',
 		'sortable' => true,
-		'type' => 'string',
+		'type' => 'tel',
 		'input' => [
 			'placeholder' => 'Enter phone number',
 			'type' => 'tel', 
@@ -680,7 +835,7 @@ $Employee_Profile_Columns = [
 	'phone' => [
 		'label' => 'Phone Number',
 		'sortable' => true,
-		'type' => 'string',
+		'type' => 'tel',
 		'input' => [
 			'placeholder' => 'Enter phone number',
 			'type' => 'tel', 
@@ -750,7 +905,7 @@ $Employee_Admin_Columns = [
 	'phone' => [
 		'label' => 'Phone Number',
 		'sortable' => true,
-		'type' => 'string',
+		'type' => 'tel',
 		'input' => [
 			'placeholder' => 'Enter phone number',
 			'type' => 'tel', 
@@ -784,9 +939,9 @@ $Employee_Admin_Columns = [
 			'required' => true,
 			'validate_msg' => 'Required: What Is the Employee Role',
 			'options' => [
-				'admin' => 'admin',
+				'guest' => 'guest',
 				'agent' => 'agent',
-				'guest' => 'guest'
+				'admin' => 'admin'
 			],
 		],
 	]
@@ -840,7 +995,7 @@ $Leads_Columns = [
 	'phone' => [
 		'label' => 'Phone Number',
 		'sortable' => true,
-		'type' => 'string',
+		'type' => 'tel',
 		'input' => [
 			'placeholder' => 'Enter phone number',
 			'type' => 'tel', 
@@ -917,4 +1072,3 @@ $Leads_Columns = [
 		]
 	]
 ];
-?>

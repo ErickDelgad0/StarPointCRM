@@ -201,15 +201,17 @@ $num_results = $stmt->fetchColumn();
                                                     }
                                                     ?>
                                                 </td>
-                                        <?php elseif ($column['type'] == 'date'): ?>
-                                        <td class="<?=$column_key?>"><?=date('Y-m-d', strtotime($result[$column_key]))?></td>
-                                        <?php elseif ($column['type'] == 'integer'): ?>
-                                        <td class="<?=$column_key?>"><?=number_format($result[$column_key])?></td>
-                                        <?php elseif ($column['type'] == 'time'): ?>
-                                        <td class="<?= $column_key ?>"><?= date('H:i', strtotime($result[$column_key])) ?></td>
-                                        <?php else: ?>
-                                        <td class="<?=$column_key?>"><?=htmlspecialchars((string) $result[$column_key], ENT_QUOTES)?></td>
-                                        <?php endif; ?>
+                                            <?php elseif ($column['type'] == 'date'): ?>
+                                            <td class="<?=$column_key?>"><?=date('m-d-y', strtotime($result[$column_key]))?></td>
+                                            <?php elseif ($column['type'] == 'integer'): ?>
+                                            <td class="<?=$column_key?>"><?=number_format($result[$column_key])?></td>
+                                            <?php elseif ($column['type'] == 'time'): ?>
+                                            <td class="<?= $column_key ?>"><?= date('H:i', strtotime($result[$column_key])) ?></td>
+                                            <?php elseif ($column['type'] == 'tel'): ?>
+                                            <td class="<?= $column_key ?>"><?= formatPhoneNumber($result[$column_key]) ?></td>
+                                            <?php else: ?>
+                                            <td class="<?=$column_key?>"><?=htmlspecialchars((string) $result[$column_key], ENT_QUOTES)?></td>
+                                            <?php endif; ?>
                                         <?php endforeach; ?>
                                         <td class="actions">
                                             <a href="leads-update.php?id=<?=$result['id']?>" class="edit"><i class="fa-solid fa-pen fa-xs"></i></a>

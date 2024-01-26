@@ -169,7 +169,7 @@ if (isset($_POST['submit'])) {
                                                     if (empty($contact['phone'])) {
                                                         echo "Unknown";
                                                     } else {
-                                                        echo $contact['phone'];
+                                                        echo htmlspecialchars(formatPhoneNumber($contact['phone']));
                                                     }
                                                 ?>
                                             </div>

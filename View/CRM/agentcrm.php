@@ -197,9 +197,9 @@ $num_results = $stmt->fetchColumn();
                                         <td class="checkbox"><input type="checkbox" value="<?=$result['contact_id']?>" name="record[]"></td>
                                         <?php foreach ($AgentCRM_Columns as $column_key => $column): ?>
                                         <?php if ($column['type'] == 'datetime'): ?>
-                                        <td class="<?=$column_key?>"><?=date('Y-m-d H:i', strtotime($result[$column_key]))?></td>
+                                        <td class="<?=$column_key?>"><?=date('m-d-y H:i', strtotime($result[$column_key]))?></td>
                                         <?php elseif ($column['type'] == 'date'): ?>
-                                        <td class="<?=$column_key?>"><?=date('Y-m-d', strtotime((string) $result[$column_key]))?></td>
+                                        <td class="<?=$column_key?>"><?=date('m-d-y', strtotime((string) $result[$column_key]))?></td>
                                         <?php elseif ($column['type'] == 'integer'): ?>
                                         <td class="<?=$column_key?>"><?=number_format($result[$column_key])?></td>
                                         <?php elseif ($column['type'] == 'time'): ?>

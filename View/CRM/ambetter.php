@@ -191,13 +191,15 @@ $num_results = $stmt->fetchColumn();
                                         <td class="checkbox"><input type="checkbox" value="<?=$result['policy_number']?>" name="record[]"></td>
                                         <?php foreach ($Ambetter_Columns as $column_key => $column): ?>
                                         <?php if ($column['type'] == 'datetime'): ?>
-                                        <td class="<?=$column_key?>"><?=date('Y-m-d H:i', strtotime($result[$column_key]))?></td>
+                                        <td class="<?=$column_key?>"><?=date('m-d-Y H:i', strtotime($result[$column_key]))?></td>
                                         <?php elseif ($column['type'] == 'date'): ?>
-                                        <td class="<?=$column_key?>"><?=date('Y-m-d', strtotime($result[$column_key]))?></td>
+                                        <td class="<?=$column_key?>"><?=date('m-d-Y', strtotime($result[$column_key]))?></td>
                                         <?php elseif ($column['type'] == 'time'): ?>
                                         <td class="<?= $column_key ?>"><?= date('H:i', strtotime($result[$column_key])) ?></td>
                                         <?php elseif ($column['type'] == 'integer'): ?>
                                         <td class="<?=$column_key?>"><?=number_format($result[$column_key])?></td>
+                                        <?php elseif ($column['type'] == 'tel'): ?>
+                                        <td class="<?= $column_key ?>"><?= formatPhoneNumber($result[$column_key]) ?></td>
                                         <?php else: ?>
                                         <td class="<?=$column_key?>"><?=htmlspecialchars((string) $result[$column_key], ENT_QUOTES)?></td>
                                         <?php endif; ?>

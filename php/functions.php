@@ -41,6 +41,21 @@ function check_role($roles, $redirectFile = 'index.php') {
     }
 }
 
+function formatPhoneNumber($phoneNumber) {
+    $cleaned = preg_replace('/[^0-9]/', '', $phoneNumber);
+
+    if(strlen($cleaned) == 10) {
+        // Format without country code
+        return preg_replace('/(\d{3})(\d{3})(\d{4})/', '$1-$2-$3', $cleaned);
+    } elseif (strlen($cleaned) == 11) {
+        // Format with country code
+        return '+' . substr($cleaned, 0, 1) . ' ' . preg_replace('/(\d{3})(\d{3})(\d{4})/', '$1-$2-$3', substr($cleaned, 1));
+    } else {
+        // Unknown format
+        return $phoneNumber;
+    }
+}
+
 function check_loggedin($pdo, $redirect_file = 'index.php') {
 	// Check for remember me cookie variable and loggedin session variable
     if (isset($_COOKIE['rememberme']) && !empty($_COOKIE['rememberme']) && !isset($_SESSION['loggedin'])) {
@@ -336,4 +351,3 @@ function logout_modal(){
     </div>
     EOT;
 }
-?>

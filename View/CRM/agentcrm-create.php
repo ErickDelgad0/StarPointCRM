@@ -16,7 +16,7 @@ $success_msg = '';
 if (isset($_POST['submit'])) {
     // Iterate through the fields and extract the data from the form
     $data = [];
-    foreach ($AgentCRM_Columns as $column => $array) {
+    foreach ($AgentCRM_all_Columns as $column => $array) {
         if (isset($_POST[$column])) {
             $data[$column] = $_POST[$column];
             // Validate
@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
                 <form action="" method="post" class="crud-form">
 
                     <div class="cols">
-                        <?php foreach ($AgentCRM_Columns as $column => $array): ?>
+                        <?php foreach ($AgentCRM_all_Columns as $column => $array): ?>
                         <?php if (isset($array['input'])): ?>
                         <?php $input = $array['input']; ?>
                         <div class="style-form-control">

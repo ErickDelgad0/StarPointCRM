@@ -29,7 +29,7 @@ if (!$contact) {
 if (isset($_POST['submit'])) {
     // Iterate through the fields and extract the data from the form
     $data = [];
-    foreach ($AgentCRM_Columns as $column => $array) {
+    foreach ($AgentCRM_all_Columns as $column => $array) {
         if (isset($_POST[$column])) {
             $data[$column] = $_POST[$column];
             // Validate
@@ -76,14 +76,14 @@ if (isset($_POST['submit'])) {
 
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <div class="wrap">
-                    <h1 class="h3 mb-0 text-gray-800">Update AgentCRM Contact #<?=$contact['contact_id']?></h1>
+                    <h1 class="h3 mb-0 text-gray-800"> Update Policy Number: <?=$contact['policy_number']?></h1>
                 </div>
             </div>
 
             <form action="?contact_id=<?=$contact['contact_id']?>" method="post" class="crud-form">
 
                 <div class="cols">
-                    <?php foreach ($AgentCRM_Columns as $column => $array): ?>
+                    <?php foreach ($AgentCRM_all_Columns as $column => $array): ?>
                     <?php if (isset($array['input'])): ?>
                     <?php $input = $array['input']; ?>
                     <div class="style-form-control">
@@ -94,6 +94,19 @@ if (isset($_POST['submit'])) {
                         <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>"<?=$input['required'] ? ' required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?> value="<?=date('Y-m-d')?>">
                         <?php elseif ($input['type'] == 'datetime-local'): ?>
                         <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>" value="<?=date('Y-m-d\TH:i', strtotime($contact[$column]))?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
+
+
+                        <?php elseif ($input['type'] == 'time'): ?>
+                            <?php
+                            // Check if the value in $contact[$column] is set and is a valid time string
+                            $timeValue = isset($contact[$column]) && !empty($contact[$column]) ? date('H:i', strtotime($contact[$column])) : '';
+                            ?>
+                            <input id="<?= htmlspecialchars($column) ?>" 
+                                type="time" 
+                                name="<?= htmlspecialchars($column) ?>" 
+                                value="<?= $timeValue ?>" 
+                                <?= !empty($input['required']) ? 'required' : '' ?> 
+                                <?= isset($input['custom']) ? htmlspecialchars($input['custom']) : '' ?>>
                         <?php elseif ($input['type'] == 'textarea'): ?>
                         <textarea id="<?=$column?>" name="<?=$column?>" placeholder="<?=$input['placeholder']?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>><?=htmlspecialchars($contact[$column], ENT_QUOTES)?></textarea>
                         <?php elseif ($input['type'] == 'select'): ?>

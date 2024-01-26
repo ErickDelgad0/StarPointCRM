@@ -96,7 +96,7 @@ if (isset($_POST['submit'])) {
                         <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>" value="<?=date('Y-m-d\TH:i', strtotime($contact[$column]))?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
                         <?php elseif ($input['type'] == 'textarea'): ?>
                         <textarea id="<?=$column?>" name="<?=$column?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
-                            <?=htmlspecialchars($contact[$column])?>
+                            <?=htmlspecialchars((string)$contact[$column])?>
                         </textarea>
                         <?php elseif ($input['type'] == 'select'): ?>
                         <select id="<?=$column?>" name="<?=$column?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>

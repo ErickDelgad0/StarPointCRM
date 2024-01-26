@@ -29,7 +29,10 @@ if (isset($_SESSION['file_data'])) {
             <div id="message"></div>
               <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Select CSV File</h3>
+                  <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                      <h1 class="h3 mb-0 text-gray-800">Ambetter Import: Select a CSV File</h1>
+                    </div>
                 </div>
                 <div class="panel-body">
                   <div class="row" id="upload_area">

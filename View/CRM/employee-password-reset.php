@@ -18,6 +18,7 @@ $pdo = pdo_connect_mysql();
 
 // Check if we are logged in
 check_loggedin($pdo, '../index.php');
+check_role(['admin'], 'index.php');
 
 // Output message
 $msg = '';

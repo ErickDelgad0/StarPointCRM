@@ -38,12 +38,6 @@ if (isset($_GET['bulk_action'])) {
 			fclose($output);
 			exit;
 		}
-		// Edit records
-		if ($_GET['bulk_action'] == 'edit') {
-			// Redirect to the bulk-update.php page, with all the IDs specified in the URL parameters
-			header('Location: employee-bulk-update.php?ids=' . implode(',', $ids));
-			exit;
-		}
 	}
 }
 // Get the page via GET request (URL param: page), if non exists default the page to 1
@@ -188,8 +182,18 @@ $num_results = $stmt->fetchColumn();
                                     <tr>
                                         <td class="checkbox"><input type="checkbox" value="<?=$result['id']?>" name="record[]"></td>
                                         <?php foreach ($Employee_Columns as $column_key => $column): ?>
-                                        <?php if ($column['type'] == 'datetime'): ?>
-                                        <td class="<?=$column_key?>"><?=date('Y-m-d H:i', strtotime($result[$column_key]))?></td>
+                                            <?php if ($column['type'] == 'datetime'): ?>
+                                                <td class="<?=$column_key?>">
+                                                    <?php 
+                                                        if (!empty($result[$column_key]) && strtotime($result[$column_key]) !== false) {
+                                                            echo date('Y-m-d H:i', strtotime($result[$column_key]));
+                                                        } else {
+                                                            // Handle the case when the datetime is null or invalid
+                                                            // You can display a default message, leave it empty, etc.
+                                                            echo 'N/A'; // Or any other placeholder you prefer
+                                                        }
+                                                    ?>
+                                                </td>
                                         <?php elseif ($column['type'] == 'date'): ?>
                                         <td class="<?=$column_key?>"><?=date('Y-m-d', strtotime($result[$column_key]))?></td>
                                         <?php elseif ($column['type'] == 'integer'): ?>
@@ -213,7 +217,6 @@ $num_results = $stmt->fetchColumn();
                                 <select name="bulk_action" class="bulk-action">
                                     <option value="" disabled selected>Bulk Actions</option>
                                     <option value="delete">Delete</option>
-                                    <option value="edit">Edit</option>
                                     <option value="export">Export</option>
                                 </select>
                                 <a href="admin.php?page=1&records_per_page=5&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">5</a>
