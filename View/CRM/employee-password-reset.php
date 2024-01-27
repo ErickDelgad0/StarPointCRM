@@ -83,7 +83,7 @@ if (isset($_GET['id'])) {
 
 
                     $mail->send();
-                    echo 'Message has been sent';
+                    $msg =  'Message has been sent';
                 } catch (Exception $e) {
                     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
                 }

@@ -13,7 +13,7 @@ var leadsChart = new Chart(all_ctx, {
         labels: [],
         datasets: [{
             label: all_label,
-            data: [], // To be filled dynamically
+            data: [],
             backgroundColor: 'rgba(0, 123, 255, 0.5)',
             borderColor: 'rgba(0, 123, 255, 1)',
             borderWidth: 1
@@ -27,16 +27,25 @@ var leadsChart = new Chart(all_ctx, {
                 ticks: {
                     autoSkip: true,
                     maxRotation: 0,
-                    minRotation: 0
+                    minRotation: 0,
+                    stepSize: 1
+                },
+                title: {
+                    display: true,
+                    text: 'Leads Completed'
                 }
             },
             y: {
                 beginAtZero: true,
                 ticks: {
                     autoSkip: true
+                },
+                title: {
+                    display: true,
+                    text: 'All Agents'
                 }
             }
-        },        
+        },
         plugins: {
             title: {
                 display: false
@@ -49,6 +58,7 @@ var leadsChart = new Chart(all_ctx, {
         maintainAspectRatio: false
     }
 });
+
 
 // Functions to set labels and data
 function setChartLabels(labels) {
@@ -89,13 +99,22 @@ var bottomLeadsChart = new Chart(bottom_ctx, {
                 ticks: {
                     autoSkip: true,
                     maxRotation: 0,
-                    minRotation: 0
+                    minRotation: 0,
+                    stepSize: 1
+                },
+                title: {
+                    display: true,
+                    text: 'Leads Completed'
                 }
             },
             y: {
                 beginAtZero: true,
                 ticks: {
                     autoSkip: true
+                },
+                title: {
+                    display: true,
+                    text: 'Bottom 5 Agents'
                 }
             }
         },        
@@ -111,6 +130,7 @@ var bottomLeadsChart = new Chart(bottom_ctx, {
         maintainAspectRatio: false
     }
 });
+
 
 // Functions to set labels and data for the top leads chart
 function setBottomLeadsChartLabels(labels) {
@@ -149,13 +169,22 @@ var topLeadsChart = new Chart(top_ctx, {
                 ticks: {
                     autoSkip: true,
                     maxRotation: 0,
-                    minRotation: 0
+                    minRotation: 0,
+                    stepSize: 1
+                },
+                title: {
+                    display: true,
+                    text: 'Leads Completed'
                 }
             },
             y: {
                 beginAtZero: true,
                 ticks: {
                     autoSkip: true
+                },
+                title: {
+                    display: true,
+                    text: 'Top 5 Agents'
                 }
             }
         },        
@@ -171,6 +200,7 @@ var topLeadsChart = new Chart(top_ctx, {
         maintainAspectRatio: false
     }
 });
+
 
 // Functions to set labels and data for the top leads chart
 function setTopLeadsChartLabels(labels) {

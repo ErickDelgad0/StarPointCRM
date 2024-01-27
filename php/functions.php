@@ -311,9 +311,6 @@ echo <<<EOT
     <script src="../../vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="../../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="../../js/demo/datatables-demo.js"></script>
-
     <!-- Tables Script -->
     <script src="../../js/script.js"></script>
 
@@ -321,8 +318,8 @@ echo <<<EOT
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!--Reports Scripts -->
-    <script src="../../js/demo/completed-lead.js"></script>
-    <script src="../../js/demo/completed-team-lead-pie.js"></script>
+    <script src="../../js/agent-report/completed-lead.js"></script>
+    <script src="../../js/agent-report/completed-team-lead-pie.js"></script>
 
 EOT;
 }

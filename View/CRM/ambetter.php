@@ -8,6 +8,92 @@ $pdo = pdo_connect_mysql();
 // check if we are logged in
 check_loggedin($pdo, '../index.php');
 
+// Check if 'report' parameter is set to 'commission'
+if (isset($_GET['report']) && $_GET['report'] == 'commission') {
+    echo "<script> window.onload = function() { openModal(); }; </script>";
+}
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['commissionDate'])) {
+    // Processing the date input
+    $commissionDate = DateTime::createFromFormat('m/d/y', $_POST['commissionDate']);
+    
+    // Check if the date is valid
+    if ($commissionDate !== false) {
+        $formattedDate = $commissionDate->format('Y-m-d');
+
+        // Prepare SQL Query
+        $sql = "SELECT * FROM Ambetter WHERE 
+                broker_effective_date <= :commissionDate AND 
+                broker_term_date > :commissionDate AND 
+                policy_effective_date <= :commissionDate AND 
+                policy_term_date >= :commissionDate AND 
+                paid_through_date >= :commissionDate";
+
+        // Execute the query
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['commissionDate' => $formattedDate]);
+
+        // Fetch results
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Writing results to a CSV file
+        $filename = "commission_data_" . date('Ymd') . ".csv";
+        $file = fopen($filename, 'w');
+
+        // Write the headers of the CSV file
+        if (!empty($rows)) {
+            fputcsv($file, array_keys($rows[0]));
+        }
+
+        foreach ($rows as $row) {
+            fputcsv($file, $row);
+        }
+
+        fclose($file);
+
+        // Code to download the file
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="' . $filename . '"');
+        readfile($filename);
+        exit;
+    } else {
+        echo "Invalid date format. Please use MM/DD/YY.";
+    }
+} else {
+    // Modal HTML
+    echo '
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form method="post">
+                Commission Statement Date: <input type="text" name="commissionDate">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>';
+}
+
+// JavaScript for modal interaction
+echo '
+<script>
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function() {
+        modal.style.display = "block";
+    }
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+';
+
+
 // Bulk action handler
 if (isset($_GET['bulk_action'])) {
 	// Get the policy_numbers of the selected records
@@ -111,6 +197,44 @@ $num_results = $stmt->fetchColumn();
 
 
 <?=CRM_header("Ambetter Contacts")?>
+    <style>
+        /* Modal Styling */
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -127,10 +251,20 @@ $num_results = $stmt->fetchColumn();
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Ambetter Contacts</h1>
-                            <a href="ambetter-import.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                    class="fas fa-download fa-sm text-white-50"></i> New Import</a>
-                    </div>
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-download fa-sm text-white-50"></i> Import & Reports
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuButton">
+                                    <div class="dropdown-header">Select Report:</div>
+                                    <a class="dropdown-item" href="ambetter.php?report=commission" id="commission">Expected Commission</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="ambetter-import.php"> New Import</a>
 
+                                </div>
+                            </div>
+                            
+                    </div>
                     <div class="style-content read">
                     <form action="" method="get" class="crud-form">
 
@@ -284,6 +418,25 @@ $num_results = $stmt->fetchColumn();
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    <script>
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+
+        function openModal() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
     <?=logout_modal()?>
     <?=js_torun()?>

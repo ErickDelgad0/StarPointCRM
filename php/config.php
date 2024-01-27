@@ -67,7 +67,7 @@ $Ambetter_Columns = [
 		]
 	],
     'broker_effective_date' => [
-		'label' => 'Broker Effective Date',
+		'label' => 'Broker_Effective_Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -79,7 +79,7 @@ $Ambetter_Columns = [
 		]
 	],
     'broker_term_date' => [
-		'label' => 'Broker Term Date',
+		'label' => 'Broker_Term_Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -91,7 +91,7 @@ $Ambetter_Columns = [
 		]
 	],
     'policy_effective_date' => [
-		'label' => 'Policy Effective Date',
+		'label' => 'Policy_Effective_Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -103,7 +103,7 @@ $Ambetter_Columns = [
 		]
 	],
     'policy_term_date' => [
-		'label' => 'Policy Term Date',
+		'label' => 'Policy_Term_Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -115,7 +115,7 @@ $Ambetter_Columns = [
 		]
 	],
     'paid_through_date' => [
-		'label' => 'Paid Through Date',
+		'label' => 'Paid_Through_Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -180,7 +180,7 @@ $Ambetter_Columns = [
 		]
 	],
     'member_phone_number' => [
-		'label' => 'Member Phone Number',
+		'label' => 'Member_Phone_Number',
 		'sortable' => false,
 		'type' => 'tel',
 		'input' => [
@@ -216,7 +216,7 @@ $Ambetter_Columns = [
 		]
 	],
     'member_DOB' => [
-		'label' => 'Member Date of Birth',
+		'label' => 'Member_Date_of_Birth',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -398,7 +398,7 @@ $AgentCRM_all_Columns = [
 		]
 	],
 	'DOB' => [
-		'label' => 'Date of Birth',
+		'label' => 'Date_of_Birth',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -420,7 +420,7 @@ $AgentCRM_all_Columns = [
 		]
 	],
 	'closure_date' => [
-		'label' => 'Closure Date',
+		'label' => 'Closure_Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -432,7 +432,7 @@ $AgentCRM_all_Columns = [
 		]
 	],
 	'closure_time' => [
-		'label' => 'Closure Time',
+		'label' => 'Closure_Time',
 		'sortable' => true,
 		'type' => 'time',
 		'input' => [
@@ -444,7 +444,7 @@ $AgentCRM_all_Columns = [
 		]
 	],
 	'closure_stage' => [
-		'label' => 'Closure Stage',
+		'label' => 'Closure_Stage',
 		'sortable' => true,
 		'type' => 'text',
 		'input' => [
@@ -455,7 +455,7 @@ $AgentCRM_all_Columns = [
 		],
 	],
 	'closure_pipeline' => [
-		'label' => 'Closure Pipeline',
+		'label' => 'Closure_Pipeline',
 		'sortable' => true,
 		'type' => 'text',
 		'input' => [
@@ -553,7 +553,7 @@ $AgentCRM_Columns = [
 		]
 	],
 	'DOB' => [
-		'label' => 'Date of Birth',
+		'label' => 'Date_of_Birth',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -575,7 +575,7 @@ $AgentCRM_Columns = [
 		]
 	],
 	'closure_date' => [
-		'label' => 'Closure Date',
+		'label' => 'Closure_Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -583,11 +583,10 @@ $AgentCRM_Columns = [
 			'type' => 'date',
 			'required' => true,
 			'validate_msg' => 'Must be a valid date!',
-			// No need for regex here since 'date' type input inherently validates the format.
 		]
 	],
 	'closure_time' => [
-		'label' => 'Closure Time',
+		'label' => 'Closure_Time',
 		'sortable' => true,
 		'type' => 'time',
 		'input' => [
@@ -595,11 +594,10 @@ $AgentCRM_Columns = [
 			'type' => 'time',
 			'required' => true,
 			'validate_msg' => 'Must be a valid time!',
-			// No need for regex here since 'time' type input inherently validates the format.
 		]
 	],
 	'closure_stage' => [
-		'label' => 'Closure Stage',
+		'label' => 'Closure_Stage',
 		'sortable' => true,
 		'type' => 'text',
 		'input' => [
@@ -610,7 +608,7 @@ $AgentCRM_Columns = [
 		],
 	],
 	'closure_pipeline' => [
-		'label' => 'Closure Pipeline',
+		'label' => 'Closure_Pipeline',
 		'sortable' => true,
 		'type' => 'text',
 		'input' => [
@@ -725,7 +723,7 @@ $Employee_Columns = [
 		]
 	],
 	'phone' => [
-		'label' => 'Phone Number',
+		'label' => 'Phone_Number',
 		'sortable' => true,
 		'type' => 'tel',
 		'input' => [
@@ -737,7 +735,7 @@ $Employee_Columns = [
 		]
 	],
 	'created' => [
-		'label' => 'Creation Date',
+		'label' => 'Creation_Date',
 		'sortable' => true,
 		'type' => 'datetime',
 		'input' => [
@@ -746,7 +744,7 @@ $Employee_Columns = [
 		]
 	],
 	'registered' => [
-		'label' => 'Registration Date',
+		'label' => 'Registration_Date',
 		'sortable' => true,
 		'type' => 'datetime',
 		'input' => [
@@ -766,7 +764,7 @@ $Employee_Columns = [
 		]
 	],
 	'last_seen' => [
-		'label' => 'Last Seen',
+		'label' => 'Last_Seen',
 		'sortable' => true,
 		'type' => 'datetime',
 		'input' => [
@@ -993,7 +991,7 @@ $Leads_Columns = [
 		]
 	],
 	'phone' => [
-		'label' => 'Phone Number',
+		'label' => 'Phone_Number',
 		'sortable' => true,
 		'type' => 'tel',
 		'input' => [
@@ -1017,7 +1015,7 @@ $Leads_Columns = [
 		]
 	],
 	'DOB' => [
-		'label' => 'Member Date of Birth',
+		'label' => 'Member_Date_of_Birth',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -1044,7 +1042,7 @@ $Leads_Columns = [
 		],
 	],
 	'created' => [
-		'label' => 'Creation Date',
+		'label' => 'Creation_Date',
 		'sortable' => true,
 		'type' => 'datetime',
 		'input' => [
@@ -1053,7 +1051,7 @@ $Leads_Columns = [
 		]
 	],
 	'recontact_date' => [
-		'label' => 'Recontact Datetime',
+		'label' => 'Recontact_Datetime',
 		'sortable' => true,
 		'type' => 'datetime',
 		'input' => [

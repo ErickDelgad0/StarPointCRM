@@ -78,6 +78,47 @@ try {
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
+
+// Check if the 'report' query parameter is set and equals 'allLeads'
+if(isset($_GET['report']) && $_GET['report'] == 'allLeads') {
+
+    // Prepare the SQL statement
+    $sql = "SELECT closure, team_name, COUNT(*) as total_leads, closure_date, closure_time FROM AgentCRM GROUP BY closure, team_name, closure_date, closure_time";
+    $stmt = $pdo->prepare($sql);
+
+    // Execute the statement and fetch the results
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Set headers to force download
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename="AgentsCompletedLeads.csv"');
+
+    // Open the output stream
+    $output = fopen('php://output', 'w');
+
+    // Add column headers to the CSV
+    fputcsv($output, ['Closure', 'Team Name', 'Total Leads', 'Closure Date', 'Closure Time']);
+
+    // Add rows to the CSV
+    foreach($results as $row) {
+        // Ensure that the 'team_name' key exists in the $row array
+        $teamName = array_key_exists('team_name', $row) ? $row['team_name'] : 'No Team';
+
+        // Output the data to the CSV
+        fputcsv($output, [
+            $row['closure'],
+            $teamName,
+            $row['total_leads'],
+            $row['closure_date'],
+            $row['closure_time']
+        ]);
+    }
+
+    // Close the output stream
+    fclose($output);
+    exit();
+}
 ?>
 
 
@@ -95,7 +136,17 @@ try {
             <div class="container-fluid">
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-800">Ambetter Report</h1>
+                    <h1 class="h3 mb-0 text-gray-800">Reports</h1>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-download fa-sm text-white-50"></i> Reports
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuButton">
+                            <div class="dropdown-header">Select Report:</div>
+                            <a class="dropdown-item" href="ambetter-report.php?report=allLeads" id="allLeads">Agent Leads Worked Report</a>
+
+                        </div>
+                    </div>
                 </div>
 
                 <div class="style-content read">
@@ -124,13 +175,14 @@ try {
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold text-primary">
-                                    <?php
+                                <?php
+                                    $dateText = '';
                                     if (!empty($from_date) && !empty($to_date)) {
-                                        echo "Leads Completed from " . date('Y-m-d', strtotime($from_date)) . " to " . date('Y-m-d', strtotime($to_date));
-                                    } else {
-                                        echo "All Leads Completed";
+                                        $dateText = " from " . date('m-d-Y', strtotime($from_date)) . " to " . date('m-d-Y', strtotime($to_date));
                                     }
-                                    ?>
+                                    echo "<span id='chartTitle'>All Team Leads Completed</span><span id='dateRange'>$dateText</span>";
+                                ?>
+
                                 </h6>
                                 <div class="dropdown no-arrow">
                                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -140,10 +192,10 @@ try {
                                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                         aria-labelledby="dropdownMenuLink">
                                         <div class="dropdown-header">Dropdown Header:</div>
-                                        <a class="dropdown-item" href="#" id="top5">Top 5</a>
-                                        <a class="dropdown-item" href="#" id="bottom5">Bottom 5</a>
+                                        <a class="dropdown-item" href="#" id="top5">Top 5 Agents</a>
+                                        <a class="dropdown-item" href="#" id="bottom5">Bottom 5 Agents</a>
                                         <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#" id="allLeads">All Leads</a>
+                                        <a class="dropdown-item" href="#" id="allLeads">All Agents</a>
                                     </div>
                                 </div>
                             </div>
@@ -167,9 +219,8 @@ try {
                                     <?php
                                     if (!empty($from_date) && !empty($to_date)) {
                                         // If both from and to dates are set, show them in the title
-                                        echo "Team Leads Completed from " . date('Y-m-d', strtotime($from_date)) . " to " . date('Y-m-d', strtotime($to_date));
+                                        echo "Team Leads Completed from " . date('m-d-Y', strtotime($from_date)) . " to " . date('m-d-Y', strtotime($to_date));
                                     } else {
-                                        // If no dates are set, show the default title
                                         echo "All Team Leads Completed";
                                     }
                                     ?>
@@ -203,7 +254,7 @@ try {
     <?=logout_modal()?>
 
     <script>
-        function showChart(chartId) {
+    function showChart(chartId) {
         // Hide all charts
         document.getElementById('leadsChart').style.display = 'none';
         document.getElementById('topLeadsChart').style.display = 'none';
@@ -211,6 +262,27 @@ try {
 
         // Show the selected chart
         document.getElementById(chartId).style.display = 'block';
+
+        // Update the title based on the selected chart
+        updateTitle(chartId);
+    }
+
+    function updateTitle(chartId) {
+        var title = '';
+        switch (chartId) {
+            case 'topLeadsChart':
+                title = 'Top 5 Team Leads Completed';
+                break;
+            case 'bottomLeadsChart':
+                title = 'Bottom 5 Team Leads Completed';
+                break;
+            case 'leadsChart':
+            default:
+                title = 'All Team Leads Completed';
+                break;
+        }
+
+        document.getElementById('chartTitle').innerText = title;
     }
 
     // Event listeners for dropdown items
@@ -249,7 +321,7 @@ try {
         <?php 
         // Bar Chart Dynamic Label Updating
         if (!empty($from_date) && !empty($to_date)) {
-            echo "setChartLabel('Leads Completed between " . date('Y-m-d', strtotime($from_date)) . " and " . date('Y-m-d', strtotime($to_date)) . "');";
+            echo "setChartLabel('Leads Completed between " . date('m-d-Y', strtotime($from_date)) . " and " . date('m-d-Y', strtotime($to_date)) . "');";
         }
 
         $labels = array_map(function($result) { return $result['closure']; }, $results);
