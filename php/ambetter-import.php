@@ -74,14 +74,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Handle any necessary transformations such as date format conversions here.
                     // Ensure dates are in the correct format for MySQL.
                     // If the field is a date field, convert it to MySQL date format:
-                    if ($key === 'broker_effective_date' || $key === 'broker_term_date' || $key === 'policy_effective_date' || $key === 'policy_term_date' || $key === 'paid_through_date' || $key === 'member_DOB' || $key === 'created') {
-                        $date = DateTime::createFromFormat('M jS, Y', $value);
-                        if (!$date) {
-                            $date = DateTime::createFromFormat('m/d/y', $value);
+                    if (in_array($key, ['broker_effective_date', 'broker_term_date', 'policy_effective_date', 'policy_term_date', 'paid_through_date', 'member_DOB', 'created'])) {
+                        $originalValue = $value; // Store the original value for debugging
+
+                        // Determine if the year is in a two-digit or four-digit format
+                        $dateParts = explode('/', $value);
+                        if (count($dateParts) === 3) {
+                            $year = $dateParts[2];
+
+                            // Special handling for 'broker_term_date' with two-digit year
+                            if ($key === 'broker_term_date' && strlen($year) === 2 && $year == '99') {
+                                $year = '9999';
+                                $dateParts[2] = $year;
+                                $value = implode('/', $dateParts);
+                                $date = DateTime::createFromFormat('m/d/Y', $value);
+                            } 
+                            // Standard processing for other fields and formats
+                            else {
+                                if (strlen($year) === 4) {
+                                    $date = DateTime::createFromFormat('m/d/Y', $value);
+                                } else {
+                                    $date = DateTime::createFromFormat('m/d/y', $value);
+                                }
+                            }
+                        } else {
+                            // Try the 'M jS, Y' format
+                            $date = DateTime::createFromFormat('M jS, Y', $value);
                         }
+
                         if (!$date) {
-                            // If the date format is not correct, set the value to NULL or use a default date.
-                            $value = null; // Or a default date like '1970-01-01'.
+                            // Log the original value for debugging purposes
+                            error_log("Failed to parse date: " . $originalValue);
+                            $value = null; // Or handle this case as appropriate
                         } else {
                             $value = $date->format('Y-m-d'); // Format the date for MySQL.
                         }
@@ -90,6 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Bind the value to the statement.
                     $statement->bindValue(":$key", $value);
                 }
+
 
                 try {    
                     // Attempt to execute the statement.
@@ -140,4 +165,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Output an error message if the server request method isn't POST.
     echo "Invalid request.";
 }
-?>

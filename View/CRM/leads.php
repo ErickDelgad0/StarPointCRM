@@ -106,6 +106,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 	$stmt->bindValue(':search_query', '%' . $_GET['search'] . '%');
 }
 
+$stmt->execute();
 // Total number of results
 $num_results = $stmt->fetchColumn();
 ?>

@@ -5,23 +5,19 @@ session_start();
 // Connect to MySQL database
 $pdo = pdo_connect_mysql();
 
-// check if we are logged in
+// Check if we are logged in
 check_loggedin($pdo, '../index.php');
 
-// Check if 'report' parameter is set to 'commission'
-if (isset($_GET['report']) && $_GET['report'] == 'commission') {
-    echo "<script> window.onload = function() { openModal(); }; </script>";
-}
-
 // Check if the form is submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['commissionDate'])) {
-    // Processing the date input
-    $commissionDate = DateTime::createFromFormat('m/d/y', $_POST['commissionDate']);
-    
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['month'], $_POST['day'], $_POST['year'])) {
+    // Construct and process the date input
+    $commissionDateInput = $_POST['month'] . '/' . $_POST['day'] . '/' . $_POST['year'];
+    $commissionDate = DateTime::createFromFormat('m/d/y', $commissionDateInput);
+
     // Check if the date is valid
     if ($commissionDate !== false) {
         $formattedDate = $commissionDate->format('Y-m-d');
-
+    
         // Prepare SQL Query
         $sql = "SELECT * FROM Ambetter WHERE 
                 broker_effective_date <= :commissionDate AND 
@@ -29,69 +25,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['commissionDate'])) {
                 policy_effective_date <= :commissionDate AND 
                 policy_term_date >= :commissionDate AND 
                 paid_through_date >= :commissionDate";
-
+    
         // Execute the query
         $stmt = $pdo->prepare($sql);
         $stmt->execute(['commissionDate' => $formattedDate]);
-
+    
         // Fetch results
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Writing results to a CSV file
-        $filename = "commission_data_" . date('Ymd') . ".csv";
-        $file = fopen($filename, 'w');
-
-        // Write the headers of the CSV file
+    
+        // If rows are fetched, write them to the CSV
         if (!empty($rows)) {
-            fputcsv($file, array_keys($rows[0]));
+            // Set headers for the CSV download
+            header('Content-Type: text/csv; charset=utf-8');
+            header('Content-Disposition: attachment; filename="commission_data_' . date('Ymd') . '.csv"');
+    
+            // Open output stream
+            $output = fopen('php://output', 'w');
+    
+            // Write the headers of the CSV file
+            fputcsv($output, array_keys($rows[0]));
+    
+            // Write data to the CSV file
+            foreach ($rows as $row) {
+                fputcsv($output, $row);
+            }
+    
+            fclose($output);
+            exit;
+        } else {
+            // Use a flag to indicate no data for CSV
+            $noCsvData = true;
         }
-
-        foreach ($rows as $row) {
-            fputcsv($file, $row);
-        }
-
-        fclose($file);
-
-        // Code to download the file
-        header('Content-Type: text/csv');
-        header('Content-Disposition: attachment; filename="' . $filename . '"');
-        readfile($filename);
-        exit;
     } else {
-        echo "Invalid date format. Please use MM/DD/YY.";
+        $error = "Invalid date format. Please use MM/DD/YY.";
+        exit;
     }
-} else {
-    // Modal HTML
-    echo '
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <form method="post">
-                Commission Statement Date: <input type="text" name="commissionDate">
-                <input type="submit" value="Submit">
-            </form>
-        </div>
-    </div>';
 }
 
-// JavaScript for modal interaction
-echo '
-<script>
-    var modal = document.getElementById("myModal");
-    var span = document.getElementsByClassName("close")[0];
-    btn.onclick = function() {
-        modal.style.display = "block";
-    }
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
-';
+// Check if 'report' parameter is set to 'commission'
+$shouldOpenModal = isset($_GET['report']) && $_GET['report'] == 'commission';
+
+// Modal HTML and JavaScript for modal interaction
+if ($shouldOpenModal) {
+    echo "<script> window.onload = function() { openModal(); }; </script>";
+}
 
 
 // Bulk action handler
@@ -132,6 +109,7 @@ if (isset($_GET['bulk_action'])) {
 		}
 	}
 }
+
 // Get the page via GET request (URL param: page), if non exists default the page to 1
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
 // Number of records to show on each page
@@ -190,7 +168,7 @@ $stmt = $pdo->prepare('SELECT COUNT(*) FROM ' . $Ambetter . $where_sql);
 if (isset($_GET['search']) && !empty($_GET['search'])) {	
 	$stmt->bindValue(':search_query', '%' . $_GET['search'] . '%');
 }
-
+$stmt->execute();
 // Total number of results
 $num_results = $stmt->fetchColumn();
 ?>
@@ -262,10 +240,18 @@ $num_results = $stmt->fetchColumn();
                                     <a class="dropdown-item" href="ambetter-import.php"> New Import</a>
 
                                 </div>
-                            </div>
-                            
+                            </div>        
                     </div>
                     <div class="style-content read">
+                    <?php 
+                        // In case there was no data for CSV
+                        if (isset($noCsvData) && $noCsvData) {
+                            echo 'No data to write to CSV.';
+                        }
+                        if (isset($error)) {
+                            echo $error;
+                        }
+                    ?>
                     <form action="" method="get" class="crud-form">
 
                         <div class="top">
@@ -408,6 +394,19 @@ $num_results = $stmt->fetchColumn();
 
             <?=CRM_footer()?>
 
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <form method="post">
+                        Commission Statement Date:
+                        <input type="text" name="month" placeholder="MM" size="2" maxlength="2"> /
+                        <input type="text" name="day" placeholder="DD" size="2" maxlength="2"> /
+                        <input type="text" name="year" placeholder="YY" size="2" maxlength="2">
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+
         </div>
         <!-- End of Content Wrapper -->
 
@@ -431,6 +430,20 @@ $num_results = $stmt->fetchColumn();
             modal.style.display = "none";
         }
 
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+        var btn = document.getElementById("yourButtonId"); // Make sure this matches the ID of your button
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";

@@ -224,9 +224,9 @@ if (isset($_POST['submit'])) {
                                                 <?php if ($input['type'] == 'text' || $input['type'] == 'hidden' || $input['type'] == 'email' || $input['type'] == 'number' || $input['type'] == 'tel'): ?>
                                                     <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>" placeholder="<?=$input['placeholder']?>" value="<?=htmlspecialchars((string)$contact[$column], ENT_QUOTES)?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
                                                 <?php elseif ($input['type'] == 'date'): ?>
-                                                    <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>" <?=$input['required'] ? ' required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?> value="<?=date('Y-m-d')?>">
+                                                    <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>" <?=$input['required'] ? ' required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?> value="<?=date('m-d-Y')?>">
                                                 <?php elseif ($input['type'] == 'datetime-local'): ?>
-                                                    <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>" value="<?=date('Y-m-d\TH:i', strtotime($contact[$column]))?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
+                                                    <input id="<?=$column?>" type="<?=$input['type']?>" name="<?=$column?>" value="<?=date('m-d-Y\TH:i', strtotime($contact[$column]))?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>>
                                                 <?php elseif ($input['type'] == 'textarea'): ?>
                                                     <textarea id="<?=$column?>" name="<?=$column?>" placeholder="<?=$input['placeholder']?>" <?=$input['required'] ? 'required' : ''?> <?=isset($input['custom']) ? $input['custom'] : ''?>><?=htmlspecialchars($contact[$column], ENT_QUOTES)?></textarea>
                                                 <?php elseif ($input['type'] == 'select'): ?>

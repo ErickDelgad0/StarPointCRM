@@ -67,7 +67,7 @@ $Ambetter_Columns = [
 		]
 	],
     'broker_effective_date' => [
-		'label' => 'Broker_Effective_Date',
+		'label' => 'Broker Effective Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -79,7 +79,7 @@ $Ambetter_Columns = [
 		]
 	],
     'broker_term_date' => [
-		'label' => 'Broker_Term_Date',
+		'label' => 'Broker Term Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -91,7 +91,7 @@ $Ambetter_Columns = [
 		]
 	],
     'policy_effective_date' => [
-		'label' => 'Policy_Effective_Date',
+		'label' => 'Policy Effective Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -103,7 +103,7 @@ $Ambetter_Columns = [
 		]
 	],
     'policy_term_date' => [
-		'label' => 'Policy_Term_Date',
+		'label' => 'Policy Term Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -115,7 +115,7 @@ $Ambetter_Columns = [
 		]
 	],
     'paid_through_date' => [
-		'label' => 'Paid_Through_Date',
+		'label' => 'Paid Through Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -180,7 +180,7 @@ $Ambetter_Columns = [
 		]
 	],
     'member_phone_number' => [
-		'label' => 'Member_Phone_Number',
+		'label' => 'Member Phone Number',
 		'sortable' => false,
 		'type' => 'tel',
 		'input' => [
@@ -192,7 +192,7 @@ $Ambetter_Columns = [
 		]
 	],
 	'member_email' => [
-		'label' => 'Email',
+		'label' => 'Member Email',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [
@@ -216,7 +216,7 @@ $Ambetter_Columns = [
 		]
 	],
     'member_DOB' => [
-		'label' => 'Member_Date_of_Birth',
+		'label' => 'Member Date of Birth',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [

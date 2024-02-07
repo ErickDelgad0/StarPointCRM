@@ -143,7 +143,7 @@ if(isset($_GET['report']) && $_GET['report'] == 'allLeads') {
                         </button>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuButton">
                             <div class="dropdown-header">Select Report:</div>
-                            <a class="dropdown-item" href="ambetter-report.php?report=allLeads" id="allLeads">Agent Leads Worked Report</a>
+                            <a class="dropdown-item" href="ambetter-report.php?report=allLeads" id="allLeads">Agent Worked Leads Report</a>
 
                         </div>
                     </div>
