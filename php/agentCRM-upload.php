@@ -21,7 +21,7 @@ if ($_FILES['file']['name'] != '') {
                 <option value="">Do Not Import</option>'; // Include this option to ignore the column
         
             // Loop through each column configuration to create the options
-            foreach ($AgentCRM_Columns as $key => $value) {
+            foreach ($AgentCRM_all_Columns as $key => $value) {
                 $selected = (strtolower($header) === strtolower($value['label'])) ? ' selected="selected"' : '';
                 $html .= '<option value="'.$key.'"'.$selected.'>'.$value['label'].'</option>';
             }

@@ -37,24 +37,18 @@ if (isset($_GET['id'])) {
             $pdo->beginTransaction();
 
             try {
-                // Fetch the email address from the database
-                $stmt = $pdo->prepare('SELECT email FROM Employee WHERE id = ?');
-                $stmt->execute([ $_GET['id'] ]);
-                $employee = $stmt->fetch(PDO::FETCH_ASSOC);
+                // Generate a unique token
+                $token = bin2hex(random_bytes(16));
 
-                // Generate a new random password
-                $newPassword = generateRandomPassword(); // You can specify the length as a parameter$newPassword = '618sadn'; // In a real application, you'd want to generate this randomly
+                // Get the current timestamp
+                $currentTimestamp = date("Y-m-d H:i:s");
 
-                // Hash the new password
-                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-
-                // Update the password in the database
-                $stmt = $pdo->prepare('UPDATE Employee SET password = ? WHERE id = ?');
-                $stmt->execute([$hashedPassword, $_GET['id']]);
+                // Store the token and the current timestamp in the database
+                $stmt = $pdo->prepare('UPDATE Employee SET forgot_password_token = ?, last_seen = ? WHERE id = ?');
+                $stmt->execute([$token, $currentTimestamp, $_GET['id']]);
 
                 // Commit the transaction
                 $pdo->commit();
-                $msg = 'The password has been reset!';
 
                 // Send email with new password
                 // (Ensure you have PHPMailer set up correctly)
@@ -72,15 +66,12 @@ if (isset($_GET['id'])) {
 
                     // Recipients
                     $mail->setFrom('StarPoint.Insurance@gmail.com', 'StarPoint');
-                    $mail->addAddress($employee['email'], ($employee['email']));
+                    $mail->addAddress($contact['email'], ($contact['email']));
 
                     // Content
                     $mail->isHTML(true); // Set email format to HTML
                     $mail->Subject = 'Password Reset';
-                    $mail->Body = 'Your new password is: ' . $newPassword . "\r\n\r\n" . 
-                        'For your security, please ensure to change this password as soon as you log in. ' . 
-                        'Remember, your password is confidential and should not be shared with anyone.';
-
+                    $mail->Body = 'Please click the link to reset your password: http://localhost:8080/view/process-forgot-password.php?token=' . $token;
 
                     $mail->send();
                     $msg =  'Message has been sent';

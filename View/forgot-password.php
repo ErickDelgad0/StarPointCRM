@@ -18,11 +18,11 @@ if (isset($_SESSION['error'])) {
     unset($_SESSION['error']);
 }
 
-if (isset($_SESSION['success'])) {
-    echo '<div class="alert alert-success">' . $_SESSION['success'] . 
-         ' <a href="login.php">Click Here to Login</a></div>';
-    unset($_SESSION['success']);
-}
+// if (isset($_SESSION['success'])) {
+//     echo '<div class="alert alert-success">' . $_SESSION['success'] . 
+//          ' <a href="login.php">Click Here to Login</a></div>';
+//     unset($_SESSION['success']);
+// }
 
 // Connect to MySQL database
 $pdo = pdo_connect_mysql();
@@ -39,15 +39,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $employee = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($employee) {
-                // Generate a new random password
-                $newPassword = generateRandomPassword();
+                // Generate a unique token
+                $token = bin2hex(random_bytes(16));
 
-                // Hash the new password
-                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                // Get the current timestamp
+                $currentTimestamp = date("Y-m-d H:i:s");
 
-                // Update the password in the database
-                $stmt = $pdo->prepare('UPDATE Employee SET password = ? WHERE id = ?');
-                $stmt->execute([$hashedPassword, $employee['id']]);
+                // Store the token and the current timestamp in the database
+                $stmt = $pdo->prepare('UPDATE Employee SET forgot_password_token = ?, last_seen = ? WHERE id = ?');
+                $stmt->execute([$token, $currentTimestamp, $employee['id']]);
 
                 // Commit the transaction
                 $pdo->commit();
@@ -71,12 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Content
                 $mail->isHTML(true); // Set email format to HTML
                 $mail->Subject = 'Password Reset';
-                $mail->Body = 'Your new password is: ' . $newPassword . "\r\n\r\n" . 
-                    'For your security, please ensure to change this password as soon as you log in. ' . 
-                    'Remember, your password is confidential and should not be shared with anyone.';
+                
+                $mail->Body = 'Please click the link below to reset your password http://localhost:8080/view/process-forgot-password.php?token=' . $token;
 
                 $mail->send();
-                $_SESSION['success'] = 'Password Reset Sent!';
+                $_SESSION['success'] = 'Password Reset Link Sent!';
             } else {
                 $_SESSION['error'] = 'Error Resetting Password';
             }

@@ -202,6 +202,8 @@ $num_results = $stmt->fetchColumn();
                                         <td class="<?=$column_key?>"><?=date('m-d-y', strtotime((string) $result[$column_key]))?></td>
                                         <?php elseif ($column['type'] == 'integer'): ?>
                                         <td class="<?=$column_key?>"><?=number_format($result[$column_key])?></td>
+                                        <?php elseif ($column['type'] == 'tel'): ?>
+                                        <td class="<?= $column_key ?>"><?= formatPhoneNumber($result[$column_key]) ?></td>
                                         <?php elseif ($column['type'] == 'time'): ?>
                                         <td class="<?= $column_key ?>"><?= date('H:i', strtotime($result[$column_key])) ?></td>
                                         <?php else: ?>
@@ -231,7 +233,7 @@ $num_results = $stmt->fetchColumn();
                                 <a href="agentcrm.php?page=1&records_per_page=20&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">20</a>
                                 <a href="agentcrm.php?page=1&records_per_page=50&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">50</a>
                                 <a href="agentcrm.php?page=1&records_per_page=100&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">100</a>
-                                <a href="agentcrm.php?page=1&records_per_page=all&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">all</a>
+                                <!-- <a href="agentcrm.php?page=1&records_per_page=all&order_by=<?=$order_by?>&order_sort=<?=$order_sort?>&from_date=<?=$from_date?>&to_date=<?=$to_date?><?=isset($_GET['search']) ? '&search=' . htmlentities($_GET['search'], ENT_QUOTES) : ''?>">all</a> -->
                             </div>
                             <div class="pagination">
                                 <?php if ($records_per_page != 'all'): ?>

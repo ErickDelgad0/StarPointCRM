@@ -1,7 +1,3 @@
-# using 'docker-compose up' restarts the docker service
-# using 'docker-compose down' stopping everything that was happeing
-# docker-php-ext-install pdo pdo_mysql mysqli
-
 # Docker Version
 version: '3' 
 services:
@@ -31,3 +27,8 @@ services:
       - 8001:80
     environment:
       - PMA_HOST=db
+
+
+# using 'docker-compose up' restarts the docker service
+# using 'docker-compose down' stopping everything that was happeing
+# docker-php-ext-install pdo pdo_mysql mysqli

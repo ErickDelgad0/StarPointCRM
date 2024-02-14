@@ -45,8 +45,9 @@ $dob = DateTime::createFromFormat('Y-m-d', $_POST['DOB']);
 $now = new DateTime();
 if (!$dob || $dob > $now) {
     $errors[] = 'Invalid date of birth provided.';
+} else {
+    $date_of_birth = $dob->format('Y-m-d');
 }
-$date_of_birth = $dob->format('Y-m-d');
 
 // Check if there are any errors
 if (count($errors) == 0) {

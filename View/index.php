@@ -358,22 +358,22 @@ session_start();
               <div class="form-row">
                 <div class="form-group form-group-inline">
                     <label for="first_name" class="sr-only">First Name</label>
-                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" autocomplete="given-name" required>
+                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" autocomplete="given-name" required maxlength="50" pattern="[A-Za-z\s]+">
                 </div>
                 <div class="form-group form-group-inline">
                   <label for="last_name" class="sr-only">Last Name</label>
-                  <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name" autocomplete="family-name" required>
+                  <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last name" autocomplete="family-name" required maxlength="50" pattern="[A-Za-z\s]+">
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="form-group form-group-inline">
                   <label for="email" class="sr-only">Email</label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="Your email" autocomplete="email" required>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Your email" autocomplete="email" required maxlength="100" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
                 </div>
                 <div class="form-group form-group-inline">
                   <label for="phone" class="sr-only">Phone Number</label>
-                  <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone (7869654412)" autocomplete="phone" required>
+                  <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone (786 965 4412)" autocomplete="phone" required maxlength="15" pattern="\d{10,15}">
                 </div>
               </div>
 
@@ -440,6 +440,21 @@ session_start();
                   <input type="date" class="form-control" placeholder="Date Of Birth" id="DOB" name="DOB" autocomplete="bday" required>
                 </div>
               </div>
+              <? 
+              // Display error messages
+              if (isset($_SESSION['errors']) && count($_SESSION['errors']) > 0) {
+                  foreach ($_SESSION['errors'] as $error) {
+                      echo $error . '<br>';
+                  }
+                  unset($_SESSION['errors']);
+              }
+
+              // Display success message
+              if (isset($_SESSION['message'])) {
+                  echo $_SESSION['message'];
+                  unset($_SESSION['message']);
+              }
+              ?>
               <p class="disclaimer">
                 An agent will contact you after sending your info
                 <br>
@@ -449,21 +464,7 @@ session_start();
                 <input type="submit" class="btn btn-primary" value="REQUEST A FREE QUOTE">
               </div>
             </form>
-            <? 
-            // Display error messages
-            if (isset($_SESSION['errors']) && count($_SESSION['errors']) > 0) {
-                foreach ($_SESSION['errors'] as $error) {
-                    echo $error . '<br>';
-                }
-                unset($_SESSION['errors']);
-            }
-
-            // Display success message
-            if (isset($_SESSION['message'])) {
-                echo $_SESSION['message'];
-                unset($_SESSION['message']);
-            }
-            ?>
+            
           </div>
         </div>
       </div>
@@ -540,4 +541,12 @@ session_start();
     <script src="../css/index/js/main.js"></script>
 
   </body>
+
+  <script>
+  document.getElementById('leadForm').addEventListener('submit', function() {
+    setTimeout(() => {
+      this.reset();
+    },  100);
+  });
+</script>
 </html>

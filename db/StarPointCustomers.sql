@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Feb 07, 2024 at 12:14 AM
+-- Generation Time: Feb 13, 2024 at 08:04 PM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.15
 
@@ -113,30 +113,30 @@ CREATE TABLE `Ambetter` (
 --
 
 INSERT INTO `Ambetter` (`policy_number`, `broker_name`, `broker_npn`, `first_name`, `last_name`, `broker_effective_date`, `broker_term_date`, `policy_effective_date`, `policy_term_date`, `paid_through_date`, `county`, `state`, `on_off_exchange`, `exchange_subscriber_id`, `member_phone_number`, `member_email`, `member_responsibility`, `member_DOB`, `autopay`, `eligible_for_commission`, `number_of_members`, `payable_agent`, `ar_policy_type`, `created`) VALUES
-('U70035082', 'Tommy John', '7792962', 'Julian', 'Ortiz', '2021-09-01', '9999-12-31', '2021-09-01', '2021-12-31', '2021-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0010721359\'', '7865876954', '', '0', '2061-07-16', 'Yes', 'No', 2, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U70060841', 'Tommy John', '7792962', 'Narmy', 'Valdes', '2020-02-01', '9999-12-31', '2023-02-01', '2023-02-28', '2023-02-28', 'MIAMI-DADE', 'FL', 'On', '\'0014229882\'', '7863172723', 'ehernandez69@gmail.com', '0', '2068-11-23', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U90511598', 'Tommy John', '7792962', 'Felipe', 'Rios', '2020-01-01', '9999-12-31', '2021-05-01', '2021-12-31', '2021-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0013179845\'', '3059103142', 'oramas_a@yahoo.com', '230.34', '2062-07-02', 'No', 'No', 3, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U91453701', 'Tommy John', '7792962', 'Ian', 'Mcknight', '2023-09-01', '9999-12-31', '2022-07-01', '2024-12-31', '2024-12-31', 'Charleston', 'SC', 'On', '\'0002928447\'', '8435346087', 'chefion86@gmail.com', '0', '1986-12-09', '', 'Yes', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U91623673', 'Tommy John', '7792962', 'Sheepy', 'Mcstevens', '2024-01-01', '9999-12-31', '2023-07-01', '1999-12-31', '2024-12-31', 'DUVAL', 'FL', 'On', '\'0004571095\'', '9045089191', 'cathysanders81@gmail.com', '0', '1977-06-27', 'No', 'Yes', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U91806031', 'Tommy John', '7792962', 'Cathy', 'Sanders', '2021-05-01', '9999-12-31', '2021-05-01', '2022-03-31', '2022-03-31', 'MIAMI-DADE', 'FL', 'On', '\'0013730400\'', '3057219243', 'camiloboza@aca100.com', '25.96', '2061-10-20', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U91950007', 'Tommy John', '7792962', 'Camilo', 'Perez Caseres', '2022-01-01', '9999-12-31', '2021-06-01', '2021-10-31', '2021-10-31', 'GLADES', 'FL', 'On', '\'0012867500\'', '3053452807', '', '52.95', '2069-02-05', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U92052870', 'Tommy John', '7792962', 'Idalmis', 'Pita Hernandez', '2021-09-01', '9999-12-31', '2021-09-01', '2022-04-30', '2022-04-30', 'MIAMI-DADE', 'FL', 'On', '\'0012446728\'', '7863555314', '', '0', '2062-07-15', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U92112585', 'Tommy John', '7792962', 'Leobel', 'Martin', '2021-09-01', '9999-12-31', '2021-06-01', '2021-06-16', '2021-06-16', 'POLK', 'FL', 'On', '\'0012994592\'', '7864789190', 'dianaroldo10@gmail.com', '28.3', '2061-06-25', 'No', 'No', 2, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U92821355', 'Tommy John', '7792962', 'Alberto', 'Oramas', '2022-01-01', '9999-12-31', '2021-01-01', '2022-07-31', '2022-07-31', 'BROWARD', 'FL', 'On', '\'0013303602\'', '9549185827', '', '23.05', '1983-07-10', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U93302298', 'Tommy John', '7792962', 'Vivian', 'Maxwell', '2022-01-01', '9999-12-31', '2018-01-01', '2021-12-31', '2021-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0014021340\'', '3052312483', 'kayrie.mamry@yahoo.com', '34.53', '1989-12-17', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U93338386', 'Tommy John', '7792962', 'Yosmany', 'Perez', '2021-06-01', '9999-12-31', '2023-01-01', '2023-06-30', '2023-06-30', 'MIAMI-DADE', 'FL', 'On', '\'0013713471\'', '7863061316', '', '87.48', '2066-06-07', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U93387092', 'Tommy John', '7792962', 'Shirley', 'Siblesz', '2019-11-27', '9999-12-31', '2023-01-01', '2023-01-31', '2023-01-31', 'MIAMI-DADE', 'FL', 'On', '\'0015566952\'', '7863800556', 'reinaldoelrey86@gmal.com', '0', '1974-02-28', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U93455759', 'Tommy John', '7792962', 'Pedro', 'Davila', '2022-01-01', '9999-12-31', '2020-01-01', '2021-12-31', '2021-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0013916508\'', '3057475369', 'idalmis@yahoo.com', '45.93', '1974-10-14', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U93561567', 'Tommy John', '7792962', 'Hector', 'Garrido', '2021-09-01', '9999-12-31', '2021-11-01', '2023-09-30', '2023-09-30', 'MIAMI-DADE', 'FL', 'On', '\'0016385856\'', '3055437690', 'reyesme@gmail.com', '0', '2064-09-24', 'No', 'No', 2, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U93656005', 'Tommy John', '7792962', 'Osvaldo', 'Garcia Lopez', '2021-09-01', '9999-12-31', '2021-09-01', '2023-04-07', '2023-04-07', 'PASCO', 'FL', 'On', '\'0011485791\'', '7272372340', 'sareyes64@gmail.com', '34.03', '2064-02-12', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U93743437', 'Tommy John', '7792962', 'Pedro', 'Gomez', '2020-04-04', '9999-12-31', '2021-04-01', '2022-04-30', '2022-04-30', 'MIAMI-DADE', 'FL', 'On', '\'0012785049\'', '3055607739', '', '0', '2053-10-18', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U94034275', 'Tommy John', '7792962', 'Beatriz', 'Fernandez', '2019-11-24', '9999-12-31', '2021-02-01', '2023-02-08', '2023-02-08', 'HILLSBOROUGH', 'FL', 'On', '\'0009682689\'', '8136068815', 'vivianmaxwell78@gmail.com', '0', '1996-12-14', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U94583865', 'Tommy John', '7792962', 'Reinaldo', 'Moreno', '2019-12-05', '9999-12-31', '2021-08-01', '2022-04-30', '2022-04-30', 'MIAMI-DADE', 'FL', 'On', '\'0013639273\'', '7863576446', '', '28.72', '2058-06-25', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U94707016', 'Tommy John', '7792962', 'Ernesto', 'Hernandez', '2023-09-01', '9999-12-31', '2023-06-01', '2024-12-31', '2024-12-31', 'Lancaster', 'SC', 'On', '\'0003299520\'', '8032353693', 'riccobell43g@gmail.com', '0', '1975-10-08', '', 'Yes', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U94756024', 'Tommy John', '7792962', 'Ricardo', 'Reyes', '2020-01-01', '9999-12-31', '2021-09-01', '2022-04-30', '2022-04-30', 'MIAMI-DADE', 'FL', 'On', '\'0010405807\'', '7863198111', 'yosgl@gmail.com', '0', '1989-04-11', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U94977387', 'Tommy John', '7792962', 'Angel', 'Navarro', '2020-01-01', '9999-12-31', '2021-06-01', '2021-12-31', '2021-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0009377371\'', '3059106264', 'ssilblesz64@gmail.com', '224.66', '2064-08-10', 'No', 'No', 2, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U94981951', 'Tommy John', '7792962', 'Sandra', 'Bell', '2021-08-01', '9999-12-31', '2021-08-01', '2022-12-31', '2022-12-31', 'LEE', 'FL', 'On', '\'0012282919\'', '7863086843', 'valdess2323@aol.com', '198.47', '2061-11-16', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00'),
-('U95186074', 'Tommy John', '7792962', 'Mercedes', 'Zapata', '2020-11-01', '9999-12-31', '2021-05-01', '2022-12-31', '2022-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0013527263\'', '7867577961', '', '70.36', '2055-12-07', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-01 20:40:00');
+('U70035082', 'Tommy John', '7792962', 'Julian', 'Ortiz', '2021-09-01', '9999-12-31', '2021-09-01', '2021-12-31', '2021-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0010721359\'', '7865876954', '', '0', '2061-07-16', 'Yes', 'No', 2, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U70060841', 'Tommy John', '7792962', 'Narmy', 'Valdes', '2020-02-01', '9999-12-31', '2023-02-01', '2023-02-28', '2023-02-28', 'MIAMI-DADE', 'FL', 'On', '\'0014229882\'', '7863172723', 'ehernandez69@gmail.com', '0', '2068-11-23', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U90511598', 'Tommy John', '7792962', 'Felipe', 'Rios', '2020-01-01', '9999-12-31', '2021-05-01', '2021-12-31', '2021-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0013179845\'', '3059103142', 'oramas_a@yahoo.com', '230.34', '2062-07-02', 'No', 'No', 3, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U91453701', 'Tommy John', '7792962', 'Ian', 'Mcknight', '2023-09-01', '9999-12-31', '2022-07-01', '2024-12-31', '2024-12-31', 'Charleston', 'SC', 'On', '\'0002928447\'', '8435346087', 'chefion86@gmail.com', '0', '1986-12-09', '', 'Yes', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U91623673', 'Tommy John', '7792962', 'Sheepy', 'Mcstevens', '2024-01-01', '9999-12-31', '2023-07-01', '1999-12-31', '2024-12-31', 'DUVAL', 'FL', 'On', '\'0004571095\'', '9045089191', 'cathysanders81@gmail.com', '0', '1977-06-27', 'No', 'Yes', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U91806031', 'Tommy John', '7792962', 'Cathy', 'Sanders', '2021-05-01', '9999-12-31', '2021-05-01', '2022-03-31', '2022-03-31', 'MIAMI-DADE', 'FL', 'On', '\'0013730400\'', '3057219243', 'camiloboza@aca100.com', '25.96', '2061-10-20', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U91950007', 'Tommy John', '7792962', 'Camilo', 'Perez Caseres', '2022-01-01', '9999-12-31', '2021-06-01', '2021-10-31', '2021-10-31', 'GLADES', 'FL', 'On', '\'0012867500\'', '3053452807', '', '52.95', '2069-02-05', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U92052870', 'Tommy John', '7792962', 'Idalmis', 'Pita Hernandez', '2021-09-01', '9999-12-31', '2021-09-01', '2022-04-30', '2022-04-30', 'MIAMI-DADE', 'FL', 'On', '\'0012446728\'', '7863555314', '', '0', '2062-07-15', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U92112585', 'Tommy John', '7792962', 'Leobel', 'Martin', '2021-09-01', '9999-12-31', '2021-06-01', '2021-06-16', '2021-06-16', 'POLK', 'FL', 'On', '\'0012994592\'', '7864789190', 'dianaroldo10@gmail.com', '28.3', '2061-06-25', 'No', 'No', 2, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U92821355', 'Tommy John', '7792962', 'Alberto', 'Oramas', '2022-01-01', '9999-12-31', '2021-01-01', '2022-07-31', '2022-07-31', 'BROWARD', 'FL', 'On', '\'0013303602\'', '9549185827', '', '23.05', '1983-07-10', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U93302298', 'Tommy John', '7792962', 'Vivian', 'Maxwell', '2022-01-01', '9999-12-31', '2018-01-01', '2021-12-31', '2021-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0014021340\'', '3052312483', 'kayrie.mamry@yahoo.com', '34.53', '1989-12-17', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U93338386', 'Tommy John', '7792962', 'Yosmany', 'Perez', '2021-06-01', '9999-12-31', '2023-01-01', '2023-06-30', '2023-06-30', 'MIAMI-DADE', 'FL', 'On', '\'0013713471\'', '7863061316', '', '87.48', '2066-06-07', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U93387092', 'Tommy John', '7792962', 'Shirley', 'Siblesz', '2019-11-27', '9999-12-31', '2023-01-01', '2023-01-31', '2023-01-31', 'MIAMI-DADE', 'FL', 'On', '\'0015566952\'', '7863800556', 'reinaldoelrey86@gmal.com', '0', '1974-02-28', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U93455759', 'Tommy John', '7792962', 'Pedro', 'Davila', '2022-01-01', '9999-12-31', '2020-01-01', '2021-12-31', '2021-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0013916508\'', '3057475369', 'idalmis@yahoo.com', '45.93', '1974-10-14', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U93561567', 'Tommy John', '7792962', 'Hector', 'Garrido', '2021-09-01', '9999-12-31', '2021-11-01', '2023-09-30', '2023-09-30', 'MIAMI-DADE', 'FL', 'On', '\'0016385856\'', '3055437690', 'reyesme@gmail.com', '0', '2064-09-24', 'No', 'No', 2, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U93656005', 'Tommy John', '7792962', 'Osvaldo', 'Garcia Lopez', '2021-09-01', '9999-12-31', '2021-09-01', '2023-04-07', '2023-04-07', 'PASCO', 'FL', 'On', '\'0011485791\'', '7272372340', 'sareyes64@gmail.com', '34.03', '2064-02-12', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U93743437', 'Tommy John', '7792962', 'Pedro', 'Gomez', '2020-04-04', '9999-12-31', '2021-04-01', '2022-04-30', '2022-04-30', 'MIAMI-DADE', 'FL', 'On', '\'0012785049\'', '3055607739', '', '0', '2053-10-18', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U94034275', 'Tommy John', '7792962', 'Beatriz', 'Fernandez', '2019-11-24', '9999-12-31', '2021-02-01', '2023-02-08', '2023-02-08', 'HILLSBOROUGH', 'FL', 'On', '\'0009682689\'', '8136068815', 'vivianmaxwell78@gmail.com', '0', '1996-12-14', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U94583865', 'Tommy John', '7792962', 'Reinaldo', 'Moreno', '2019-12-05', '9999-12-31', '2021-08-01', '2022-04-30', '2022-04-30', 'MIAMI-DADE', 'FL', 'On', '\'0013639273\'', '7863576446', '', '28.72', '2058-06-25', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U94707016', 'Tommy John', '7792962', 'Ernesto', 'Hernandez', '2023-09-01', '9999-12-31', '2023-06-01', '2024-12-31', '2024-12-31', 'Lancaster', 'SC', 'On', '\'0003299520\'', '8032353693', 'riccobell43g@gmail.com', '0', '1975-10-08', '', 'Yes', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U94756024', 'Tommy John', '7792962', 'Ricardo', 'Reyes', '2020-01-01', '9999-12-31', '2021-09-01', '2022-04-30', '2022-04-30', 'MIAMI-DADE', 'FL', 'On', '\'0010405807\'', '7863198111', 'yosgl@gmail.com', '0', '1989-04-11', 'No', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U94977387', 'Tommy John', '7792962', 'Angel', 'Navarro', '2020-01-01', '9999-12-31', '2021-06-01', '2021-12-31', '2021-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0009377371\'', '3059106264', 'ssilblesz64@gmail.com', '224.66', '2064-08-10', 'No', 'No', 2, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U94981951', 'Tommy John', '7792962', 'Sandra', 'Bell', '2021-08-01', '9999-12-31', '2021-08-01', '2022-12-31', '2022-12-31', 'LEE', 'FL', 'On', '\'0012282919\'', '7863086843', 'valdess2323@aol.com', '198.47', '2061-11-16', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46'),
+('U95186074', 'Tommy John', '7792962', 'Mercedes', 'Zapata', '2020-11-01', '9999-12-31', '2021-05-01', '2022-12-31', '2022-12-31', 'MIAMI-DADE', 'FL', 'On', '\'0013527263\'', '7867577961', '', '70.36', '2055-12-07', 'Yes', 'No', 1, 'Health Family Insurance', '', '2024-02-13 20:00:46');
 
 -- --------------------------------------------------------
 
@@ -157,17 +157,18 @@ CREATE TABLE `Employee` (
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `registered` datetime NOT NULL,
   `role` varchar(25) NOT NULL DEFAULT 'guest',
-  `last_seen` datetime DEFAULT NULL
+  `last_seen` datetime DEFAULT NULL,
+  `forgot_password_token` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `Employee`
 --
 
-INSERT INTO `Employee` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `activation_code`, `rememberme`, `phone`, `created`, `registered`, `role`, `last_seen`) VALUES
-(1, 'cheesestick', 'Erick', 'Delgado', 'delrick2323@outlook.com', '$2y$10$7ncWIyE7hk2YlgTeuImtTuyZ/4Rm.O4EC7l4AitO7dpc48rG0Bw3q', '1', '$2y$10$yrlEr8S2QIU8vRC60MvFBO6nccRdy5RlaTYE31Mek11kGeA2opixG', '3059654400', '2023-10-30 14:41:24', '2023-10-30 14:41:24', 'admin', '2024-02-06 23:37:22'),
-(4, 'SimpleTester', 'Simple', 'Tester', 'yoitserick2323@gmail.com', '$2y$10$IfP2nO6FbK1ds2OI4XPFLu7tjcYprCGyriZ.9zUpGwZj1hIbIZ3Nu', '1', '', '3059654400', '2024-01-24 14:36:05', '2024-01-24 14:36:05', 'agent', NULL),
-(5, 'jjFinder', 'jj', 'Finder', 'wbielski24@gmail.com', '$2y$10$huSvwTKzNSpgSjNzkMRR6OVw9tZ3ZEHVeQ6gRB78Y3jNb8EWZ0/4i', '1', '', '3059654400', '2024-01-24 16:51:21', '2024-01-24 16:51:21', 'agent', NULL);
+INSERT INTO `Employee` (`id`, `username`, `first_name`, `last_name`, `email`, `password`, `activation_code`, `rememberme`, `phone`, `created`, `registered`, `role`, `last_seen`, `forgot_password_token`) VALUES
+(1, 'cheesestick', 'Erick', 'Delgado', 'delrick2323@outlook.com', '$2y$10$jOuAMq8Hj5lPqE81NraOhuyJrfT1STtkx/fVkAomVQsqYTPZ6KxN2', '1', '$2y$10$yrlEr8S2QIU8vRC60MvFBO6nccRdy5RlaTYE31Mek11kGeA2opixG', '3059654400', '2023-10-30 14:41:24', '2023-10-30 14:41:24', 'admin', '2024-02-13 19:29:26', NULL),
+(4, 'SimpleTester', 'Simple', 'Tester', 'yoitserick2323@gmail.com', '$2y$10$IfP2nO6FbK1ds2OI4XPFLu7tjcYprCGyriZ.9zUpGwZj1hIbIZ3Nu', '1', '', '3059654400', '2024-01-24 14:36:05', '2024-01-24 14:36:05', 'agent', NULL, NULL),
+(5, 'jjFinder', 'jj', 'Finder', 'wbielski24@gmail.com', '$2y$10$huSvwTKzNSpgSjNzkMRR6OVw9tZ3ZEHVeQ6gRB78Y3jNb8EWZ0/4i', '1', '', '3059654400', '2024-01-24 16:51:21', '2024-01-24 16:51:21', 'agent', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -194,7 +195,8 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `title`, `description`, `color`, `datestart`, `dateend`, `uid`, `submit_date`, `recurring`, `photo_url`, `lead_id`) VALUES
-(1, 'Aaron Donald', 'Email: adonald123456@tempest.com<br><br>\r\nPhone: 7778884444<br><br>\r\nThis person is smelly', '#5373ae', '2024-02-08 13:00:00', '2024-02-08 13:00:00', 0, '2024-02-06 23:55:52', 'never', '', 1);
+(1, 'Aaron Donald', 'Email: adonald123456@tempest.com<br><br>\r\nPhone: 7778884444<br><br>\r\nThis person is smelly', '#5373ae', '2024-02-08 13:00:00', '2024-02-08 13:00:00', 0, '2024-02-06 23:55:52', 'never', '', 1),
+(2, 'Belgium Barron', 'Email: BBarronBelgium1234567@yacboob.com\nPhone: 7778884444\nnew note', '#5373ae', '2024-02-13 04:40:00', '2024-02-13 23:59:59', 0, '2024-02-12 18:39:46', 'never', '', 2);
 
 -- --------------------------------------------------------
 
@@ -222,7 +224,7 @@ CREATE TABLE `Leads` (
 
 INSERT INTO `Leads` (`id`, `first_name`, `last_name`, `email`, `phone`, `state`, `DOB`, `serviced`, `created`, `recontact_date`, `notes`) VALUES
 (1, 'Aaron', 'Donald', 'adonald123456@tempest.com', '7778884444', 'AL', '2024-02-07', 1, '2024-01-24 14:55:00', '2024-02-08 13:00:00', '                                                                                    Email: adonald123456@tempest.com<br><br>\r\nPhone: 7778884444<br><br>\r\nThis person is smelly                                                                        '),
-(2, 'Belgium', 'Barron', 'BBarronBelgium1234567@yacboob.com', '7778884444', 'AK', '1998-11-11', 0, '2024-01-24 14:56:08', NULL, NULL),
+(2, 'Belgium', 'Barron', 'BBarronBelgium1234567@yacboob.com', '7778884444', 'AK', '1998-11-11', 1, '2024-01-24 14:56:08', '2024-02-13 04:40:00', 'new note'),
 (3, 'Carson', 'Guiterre', 'CGguiti11HelloWorld@yahoo.com', '7778884444', 'AZ', '2001-09-11', 0, '2024-01-24 14:56:42', NULL, NULL),
 (4, 'Dixie', 'Enourmous', 'DixieEnourmous123321@yahoo.com', '1112223333', 'AR', '2000-08-02', 0, '2024-01-24 14:57:34', NULL, NULL);
 
@@ -289,13 +291,13 @@ ALTER TABLE `Employee`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `Leads`
 --
 ALTER TABLE `Leads`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

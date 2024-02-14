@@ -19,7 +19,7 @@ $Ambetter_Columns = [
 		]
 	],
     'broker_name' => [
-		'label' => 'Broker Name',
+		'label' => 'Broker_Name',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [
@@ -31,7 +31,7 @@ $Ambetter_Columns = [
 		]
 	],
 	'broker_npn' => [
-		'label' => 'Broker NPN',
+		'label' => 'Broker_NPN',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [
@@ -43,7 +43,7 @@ $Ambetter_Columns = [
 		]
 	],
     'first_name' => [
-		'label' => 'First Name',
+		'label' => 'First_Name',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [
@@ -55,7 +55,7 @@ $Ambetter_Columns = [
 		]
 	],
 	'last_name' => [
-		'label' => 'Last Name',
+		'label' => 'Last_Name',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [
@@ -67,7 +67,7 @@ $Ambetter_Columns = [
 		]
 	],
     'broker_effective_date' => [
-		'label' => 'Broker Effective Date',
+		'label' => 'Broker_Effective_Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -79,7 +79,7 @@ $Ambetter_Columns = [
 		]
 	],
     'broker_term_date' => [
-		'label' => 'Broker Term Date',
+		'label' => 'Broker_Term_Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -91,7 +91,7 @@ $Ambetter_Columns = [
 		]
 	],
     'policy_effective_date' => [
-		'label' => 'Policy Effective Date',
+		'label' => 'Policy_Effective_Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -103,7 +103,7 @@ $Ambetter_Columns = [
 		]
 	],
     'policy_term_date' => [
-		'label' => 'Policy Term Date',
+		'label' => 'Policy_Term_Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -115,7 +115,7 @@ $Ambetter_Columns = [
 		]
 	],
     'paid_through_date' => [
-		'label' => 'Paid Through Date',
+		'label' => 'Paid_Through_Date',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -151,7 +151,7 @@ $Ambetter_Columns = [
 		]
 	],
 	'on_off_exchange' => [
-		'label' => 'On/Off Exchange',
+		'label' => 'On/Off_Exchange',
 		'sortable' => true,
 		'type' => 'select',
 		'input' => [
@@ -168,7 +168,7 @@ $Ambetter_Columns = [
 	],
 
     'exchange_subscriber_id' => [
-		'label' => 'Exchange Subscriber id',
+		'label' => 'Exchange_Subscriber_id',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [
@@ -180,7 +180,7 @@ $Ambetter_Columns = [
 		]
 	],
     'member_phone_number' => [
-		'label' => 'Member Phone Number',
+		'label' => 'Member_Phone_Number',
 		'sortable' => false,
 		'type' => 'tel',
 		'input' => [
@@ -192,7 +192,7 @@ $Ambetter_Columns = [
 		]
 	],
 	'member_email' => [
-		'label' => 'Member Email',
+		'label' => 'Member_Email',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [
@@ -204,7 +204,7 @@ $Ambetter_Columns = [
 		]
 	],
     'member_responsibility' => [
-		'label' => 'Member Responsibility',
+		'label' => 'Member_Responsibility',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [
@@ -216,7 +216,7 @@ $Ambetter_Columns = [
 		]
 	],
     'member_DOB' => [
-		'label' => 'Member Date of Birth',
+		'label' => 'Member_Date_of_Birth',
 		'sortable' => true,
 		'type' => 'date',
 		'input' => [
@@ -244,7 +244,7 @@ $Ambetter_Columns = [
 		]
 	],
 	'eligible_for_commission' => [
-		'label' => 'Eligible for Commission',
+		'label' => 'Eligible_for_Commission',
 		'sortable' => true,
 		'type' => 'select',
 		'input' => [
@@ -260,7 +260,7 @@ $Ambetter_Columns = [
 		]
 	],
     'number_of_members' => [
-		'label' => 'Number of Members',
+		'label' => 'Number_of_Members',
 		'sortable' => true,
 		'type' => 'integer',
 		'input' => [
@@ -272,7 +272,7 @@ $Ambetter_Columns = [
 		]
 	],
     'payable_agent' => [
-		'label' => 'Payable Agent',
+		'label' => 'Payable_Agent',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [
@@ -285,7 +285,7 @@ $Ambetter_Columns = [
 	],
 
 	'ar_policy_type' => [
-		'label' => 'AR Policy Type',
+		'label' => 'AR_Policy_Type',
 		'sortable' => true,
 		'type' => 'string',
 		'input' => [
@@ -518,7 +518,7 @@ $AgentCRM_Columns = [
 		]
 	],
 	'phone' => [
-		'label' => 'Phone',
+		'label' => 'Member_Phone_Number',
 		'sortable' => true,
 		'type' => 'tel',
 		'input' => [
