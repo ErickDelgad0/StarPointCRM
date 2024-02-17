@@ -18,12 +18,6 @@ if (isset($_SESSION['error'])) {
     unset($_SESSION['error']);
 }
 
-// if (isset($_SESSION['success'])) {
-//     echo '<div class="alert alert-success">' . $_SESSION['success'] . 
-//          ' <a href="login.php">Click Here to Login</a></div>';
-//     unset($_SESSION['success']);
-// }
-
 // Connect to MySQL database
 $pdo = pdo_connect_mysql();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

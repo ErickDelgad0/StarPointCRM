@@ -1,6 +1,13 @@
 <?php
 include 'config.php';
 
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 function pdo_connect_mysql() {
     // Read from .env file
     $envPath = __DIR__ . '/../../.env';
@@ -95,6 +102,48 @@ function generateRandomPassword($length = 12) {
         $randomPassword .= $characters[rand(0, $charactersLength - 1)];
     }
     return $randomPassword;
+}
+
+// Send activation email function
+function send_activation_email($email, $code) {
+    $activation_link = "http://localhost:8080/activate.php";
+    // Load environment configuration
+    $envPath = __DIR__ . '/../.env';
+    $config = parse_ini_file($envPath);
+
+    // Email Subject
+    $subject = 'Account Activation Required';
+    // Activation link
+    $activate_link = $activation_link . '?email=' . $email . '&code=' . $code;
+    // Read the template contents and replace the "%link" placeholder with the above variable
+    $email_template = str_replace('%link%', $activate_link, file_get_contents('activation-email-template.html'));
+
+    try {
+        // Create PHPMailer instance
+        $mail = new PHPMailer(true);
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = $config['GMAIL_USER'];
+        $mail->Password = $config['GMAIL_PASSWORD'];
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
+
+        // Recipients
+        $mail->setFrom($config['GMAIL_USER'], 'Your Company Name');
+        $mail->addAddress($email); // Add a recipient
+
+        // Content
+        $mail->isHTML(true); // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body = $email_template;
+
+        $mail->send();
+        echo 'Activation email has been sent.';
+    } catch (Exception $e) {
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
 }
 
 function CRM_header($title) {
