@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['month'], $_POST['day']
         if (!empty($rows)) {
             // Set headers for the CSV download
             header('Content-Type: text/csv; charset=utf-8');
-            header('Content-Disposition: attachment; filename="commission_data_' . date('Ymd') . '.csv"');
+            header('Content-Disposition: attachment; filename="commission_data_' . $formattedDate . '.csv"');
     
             // Open output stream
             $output = fopen('php://output', 'w');
@@ -174,7 +174,7 @@ $num_results = $stmt->fetchColumn();
 ?>
 
 
-<?=CRM_header("Ambetter Contacts")?>
+<?=CRM_header("Insurance Carrier Contacts")?>
     <style>
         /* Modal Styling */
         .modal {
@@ -228,7 +228,7 @@ $num_results = $stmt->fetchColumn();
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Ambetter Contacts</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Insurance Carrier Contacts Contacts</h1>
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-download fa-sm text-white-50"></i> Import & Reports

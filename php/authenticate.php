@@ -53,4 +53,3 @@ if ($account) {
     header('Location: ../view/login.php');
     exit();
 }
-?>

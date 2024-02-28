@@ -84,4 +84,3 @@ if (count($errors) == 0) {
 }
 header('Location: ../view/index.php#section-contact');
 exit();
-?>
