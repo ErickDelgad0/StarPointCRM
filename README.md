@@ -3,7 +3,7 @@ Built using MySQL, PHP, and Apache; containerized using Docker. This ensures a c
 
 ## Creating the .env file and Running Docker Container
 1. Navigate to the root directory of the project.
-2. Create a new file named .env.
+2. Create a new file named .env
 3. Open the .env file in your preferred text editor.
 4. Add the following variables and set their respective values:
     MYSQL_DATABASE=YourDatabaseName
@@ -17,5 +17,9 @@ Built using MySQL, PHP, and Apache; containerized using Docker. This ensures a c
 
 6. Replace YourDatabaseName, YourMySQLUsername, YourMySQLUserPassword, and YourMySQLRootPassword with your desired values. (Save and Close)
     ⚠️ Notice: The .env file contains sensitive data. Ensure it's added to your .gitignore file
-7. Now that you've set up the .env file, you can proceed to start your Docker container using 'docker-compose up'
+7. Now that you've set up the .env file, you can proceed to start your Docker container using 'docker compose build' followed by 'docker-compose up'
+
+8. Access the index file using a webbrowser at http://localhost:8080/view/
+9. Phpmyadmin can be accessed using http://localhost:8001/
+    ⚠️ Notice: The username and password is set in the .env file
 

@@ -228,7 +228,7 @@ $num_results = $stmt->fetchColumn();
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                            <h1 class="h3 mb-0 text-gray-800">Insurance Carrier Contacts Contacts</h1>
+                            <h1 class="h3 mb-0 text-gray-800">Insurance Carrier Contacts</h1>
                             <div class="dropdown">
                                 <button class="btn btn-sm btn-primary shadow-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-download fa-sm text-white-50"></i> Import & Reports
